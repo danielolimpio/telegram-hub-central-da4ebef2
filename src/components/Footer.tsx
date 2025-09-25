@@ -1,4 +1,4 @@
-import { Send, Heart, Mail, Globe, Users, Shield } from "lucide-react";
+import { Send, Heart, Mail, Globe, Users, Shield, Info, HelpCircle, BookOpen, Zap, Lock, Cookie } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -30,27 +30,26 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links Rápidos */}
+          {/* Navegação */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Links Rápidos</h3>
+            <h3 className="font-semibold text-foreground mb-4">Navegação</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="/" className="text-muted-foreground hover:text-telegram-blue transition-colors">Início</a></li>
-              <li><a href="/all-groups" className="text-muted-foreground hover:text-telegram-blue transition-colors">Todos os Grupos</a></li>
-              <li><a href="/submit-group" className="text-muted-foreground hover:text-telegram-blue transition-colors">Enviar Grupo</a></li>
-              <li><a href="/categories" className="text-muted-foreground hover:text-telegram-blue transition-colors">Categorias</a></li>
-              <li><a href="/blog" className="text-muted-foreground hover:text-telegram-blue transition-colors">Blog</a></li>
+              <li><a href="/" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Info className="w-3 h-3 mr-1" />Início</a></li>
+              <li><a href="/como-funciona" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><HelpCircle className="w-3 h-3 mr-1" />Como funciona</a></li>
+              <li><a href="/regras" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Shield className="w-3 h-3 mr-1" />Regras da comunidade</a></li>
+              <li><a href="/seguranca" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Lock className="w-3 h-3 mr-1" />Dicas de segurança</a></li>
+              <li><a href="/impulsionar" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Zap className="w-3 h-3 mr-1" />Impulsionar Grupos</a></li>
             </ul>
           </div>
 
-          {/* Categorias Populares */}
+          {/* Suporte */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Categorias Populares</h3>
+            <h3 className="font-semibold text-foreground mb-4">Suporte</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="/category/vendas" className="text-muted-foreground hover:text-telegram-blue transition-colors">Vendas</a></li>
-              <li><a href="/category/marketing" className="text-muted-foreground hover:text-telegram-blue transition-colors">Marketing</a></li>
-              <li><a href="/category/tecnologia" className="text-muted-foreground hover:text-telegram-blue transition-colors">Tecnologia</a></li>
-              <li><a href="/category/investimentos" className="text-muted-foreground hover:text-telegram-blue transition-colors">Investimentos</a></li>
-              <li><a href="/category/educacao" className="text-muted-foreground hover:text-telegram-blue transition-colors">Educação</a></li>
+              <li><a href="/ajuda" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><HelpCircle className="w-3 h-3 mr-1" />Central de ajuda</a></li>
+              <li><a href="/reportar" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Shield className="w-3 h-3 mr-1" />Reportar problema</a></li>
+              <li><a href="/faq" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Info className="w-3 h-3 mr-1" />FAQ</a></li>
+              <li><a href="/blog" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><BookOpen className="w-3 h-3 mr-1" />Blog</a></li>
             </ul>
           </div>
 
@@ -77,27 +76,43 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Section */}
+        {/* Legal Links */}
         <div className="border-t border-border mt-8 pt-8">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 mb-4">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <a href="/privacidade" className="hover:text-telegram-blue transition-colors flex items-center space-x-1">
+                <Shield className="w-3 h-3" />
+                <span>Política de Privacidade</span>
+              </a>
+              <a href="/termos" className="hover:text-telegram-blue transition-colors flex items-center space-x-1">
+                <Info className="w-3 h-3" />
+                <span>Termos de Uso</span>
+              </a>
+              <a href="/cookies" className="hover:text-telegram-blue transition-colors flex items-center space-x-1">
+                <Cookie className="w-3 h-3" />
+                <span>Política de Cookies</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Bottom Section */}
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-              <span>© {currentYear} Grupos do Telegram</span>
-              <a href="/privacy" className="hover:text-telegram-blue transition-colors flex items-center space-x-1">
-                <Shield className="w-3 h-3" />
-                <span>Privacidade</span>
-              </a>
-              <a href="/terms" className="hover:text-telegram-blue transition-colors">Termos</a>
-              <a href="/contact" className="hover:text-telegram-blue transition-colors flex items-center space-x-1">
-                <Mail className="w-3 h-3" />
-                <span>Contato</span>
-              </a>
+              <span>© {currentYear} Grupos do Telegram | Todos os direitos reservados</span>
             </div>
             
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <span>Feito com</span>
-              <Heart className="w-4 h-4 text-red-500" />
-              <span>para a comunidade</span>
-              <Globe className="w-4 h-4 text-telegram-blue" />
+              <span>Desenvolvido por</span>
+              <a 
+                href="https://danielolimpio.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-1 hover:text-telegram-blue transition-colors font-medium"
+              >
+                <Heart className="w-4 h-4 text-red-500" />
+                <span>DanielOlimpio</span>
+                <Globe className="w-4 h-4 text-telegram-blue" />
+              </a>
             </div>
           </div>
         </div>

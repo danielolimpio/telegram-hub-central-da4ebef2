@@ -116,8 +116,8 @@ const Index = () => {
             </div>
 
             {/* Groups Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {featuredGroups.map((group, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredGroups.slice(0, 8).map((group, index) => (
                 <GroupCard
                   key={index}
                   title={group.title}
@@ -128,6 +128,70 @@ const Index = () => {
                   isNew={group.isNew}
                 />
               ))}
+            </div>
+
+            {/* Grupos Mais Recentes */}
+            <div className="mt-16">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <Clock className="w-6 h-6 text-telegram-blue" />
+                  <h2 className="text-2xl font-bold text-foreground">Grupos Mais Recentes</h2>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  className="text-telegram-blue hover:text-telegram-light-blue"
+                  onClick={() => navigate('/all-groups')}
+                >
+                  Ver todos
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {featuredGroups.filter(group => group.isNew).slice(0, 4).map((group, index) => (
+                  <GroupCard
+                    key={`recent-${index}`}
+                    title={group.title}
+                    description={group.description}
+                    members={group.members}
+                    avatar={group.avatar}
+                    category={group.category}
+                    isNew={group.isNew}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Todos os Grupos */}
+            <div className="mt-16">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <Users className="w-6 h-6 text-telegram-blue" />
+                  <h2 className="text-2xl font-bold text-foreground">Todos os Grupos</h2>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  className="text-telegram-blue hover:text-telegram-light-blue"
+                  onClick={() => navigate('/all-groups')}
+                >
+                  Ver todos
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {featuredGroups.slice(0, 12).map((group, index) => (
+                  <GroupCard
+                    key={`all-${index}`}
+                    title={group.title}
+                    description={group.description}
+                    members={group.members}
+                    avatar={group.avatar}
+                    category={group.category}
+                    isNew={group.isNew}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 

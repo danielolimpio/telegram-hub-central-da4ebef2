@@ -1,81 +1,132 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { 
-  Users, 
-  DollarSign, 
-  TrendingUp, 
-  Briefcase, 
-  ShoppingBag, 
-  Instagram, 
-  Heart,
-  Gamepad2,
-  GraduationCap,
-  Music,
-  Camera,
-  BookOpen
-} from "lucide-react";
+import { Send, BookOpen, Zap, Star, Crown, Users, TrendingUp } from "lucide-react";
 
 const CategorySidebar = () => {
-  const categories = [
-    { name: "Todos os Grupos", icon: Users, count: null, active: true },
-    { name: "Grupo de Telegram Vendas", icon: DollarSign, count: null },
-    { name: "Grupo de Telegram Renda Extra", icon: TrendingUp, count: null },
-    { name: "Grupo de Telegram Marketing", icon: Briefcase, count: null },
-    { name: "Grupo de Telegram Investimento", icon: TrendingUp, count: null },
-    { name: "Grupo de Telegram Empreendedores", icon: Briefcase, count: null },
-    { name: "Grupo de Telegram Afiliados", icon: Users, count: null },
-    { name: "Grupo de Telegram Compra e Venda", icon: ShoppingBag, count: null },
-    { name: "Grupo de Telegram Instagram", icon: Instagram, count: null },
-    { name: "Grupo de Telegram OLX", icon: ShoppingBag, count: null },
-    { name: "Grupo de Telegram Divulgação", icon: Users, count: null },
-    { name: "Grupo de Telegram Seguidores Insta...", icon: Instagram, count: null },
-    { name: "Grupo de Telegram Namoro", icon: Heart, count: null },
-    { name: "Grupo de Telegram Games", icon: Gamepad2, count: null },
-    { name: "Grupo de Telegram Educação", icon: GraduationCap, count: null },
-    { name: "Grupo de Telegram Música", icon: Music, count: null },
-    { name: "Grupo de Telegram Fotografia", icon: Camera, count: null },
-  ];
-
   return (
-    <Card className="w-full">
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center space-x-2 text-lg">
-          <Users className="w-5 h-5 text-telegram-blue" />
-          <span>Categorias</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        <div className="space-y-1 max-h-96 overflow-y-auto">
-          {categories.map((category, index) => (
-            <Button
-              key={index}
-              variant={category.active ? "telegram" : "ghost"}
-              className={`w-full justify-start px-4 py-2 h-auto text-left ${
-                category.active 
-                  ? "bg-gradient-telegram text-white shadow-telegram/20" 
-                  : "hover:bg-accent hover:text-accent-foreground"
-              }`}
-              size="sm"
+    <aside className="space-y-6">
+      {/* Categories */}
+      <div className="bg-card rounded-lg p-6 border border-border/50">
+        <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+          <Send className="w-5 h-5 mr-2 text-telegram-blue" />
+          Categorias Populares
+        </h3>
+        <div className="space-y-2">
+          {[
+            "Vendas & Marketing",
+            "Renda Extra",
+            "Investimentos",
+            "Tecnologia", 
+            "Educação & Cursos",
+            "Namoro & Relacionamentos",
+            "Games & Entretenimento",
+            "Culinária & Receitas",
+            "Música & Arte",
+            "Esportes",
+            "Estudos & Concursos"
+          ].map((category) => (
+            <a
+              key={category}
+              href={`/category/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'e')}`}
+              className="block py-2 px-3 text-sm text-muted-foreground hover:text-telegram-blue hover:bg-muted/50 rounded transition-colors"
             >
-              <category.icon className="w-4 h-4 mr-3 flex-shrink-0" />
-              <span className="text-sm truncate">{category.name}</span>
-              {category.count && (
-                <span className="ml-auto text-xs bg-muted rounded-full px-2 py-0.5">
-                  {category.count}
-                </span>
-              )}
-            </Button>
+              {category}
+            </a>
           ))}
         </div>
-        
-        <div className="p-4 border-t border-border mt-4">
-          <Button variant="outline" className="w-full text-sm" size="sm">
-            <BookOpen className="w-4 h-4 mr-2" />
-            Ver Todas as Categorias
-          </Button>
+      </div>
+
+      {/* Dicas do Blog */}
+      <div className="bg-card rounded-lg p-6 border border-border/50">
+        <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+          <BookOpen className="w-5 h-5 mr-2 text-telegram-blue" />
+          Dicas do Blog
+        </h3>
+        <div className="space-y-4">
+          {[
+            {
+              title: "Como criar grupos seguros no Telegram",
+              excerpt: "Dicas essenciais para manter seu grupo protegido",
+              readTime: "3 min"
+            },
+            {
+              title: "10 regras fundamentais para comunidades",
+              excerpt: "Estabeleça diretrizes claras para seu grupo",
+              readTime: "5 min"
+            },
+            {
+              title: "Estratégias de crescimento orgânico",
+              excerpt: "Aumente seus membros de forma natural",
+              readTime: "4 min"
+            }
+          ].map((post, index) => (
+            <article key={index} className="border-b border-border/30 pb-3 last:border-0">
+              <h4 className="font-medium text-foreground text-sm mb-1 hover:text-telegram-blue cursor-pointer">
+                {post.title}
+              </h4>
+              <p className="text-xs text-muted-foreground mb-1">{post.excerpt}</p>
+              <span className="text-xs text-telegram-blue">{post.readTime} de leitura</span>
+            </article>
+          ))}
         </div>
-      </CardContent>
-    </Card>
+        <div className="mt-4">
+          <a href="/blog" className="text-sm text-telegram-blue hover:text-telegram-light-blue font-medium">
+            Ver mais dicas →
+          </a>
+        </div>
+      </div>
+
+      {/* Anúncio Premium */}
+      <div className="bg-gradient-to-br from-telegram-blue/10 to-telegram-light-blue/10 rounded-lg p-6 border border-telegram-blue/20 relative overflow-hidden">
+        <div className="absolute top-2 right-2">
+          <Crown className="w-5 h-5 text-yellow-500" />
+        </div>
+        <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center">
+          <Zap className="w-5 h-5 mr-2 text-telegram-blue" />
+          Impulse seu Grupo
+        </h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Destaque seu grupo no topo da lista e alcance milhares de novos membros!
+        </p>
+        <div className="space-y-2 mb-4">
+          <div className="flex items-center text-sm">
+            <Star className="w-4 h-4 text-yellow-500 mr-2" />
+            <span className="text-muted-foreground">Posição prioritária</span>
+          </div>
+          <div className="flex items-center text-sm">
+            <TrendingUp className="w-4 h-4 text-green-500 mr-2" />
+            <span className="text-muted-foreground">+500% mais visualizações</span>
+          </div>
+          <div className="flex items-center text-sm">
+            <Users className="w-4 h-4 text-telegram-blue mr-2" />
+            <span className="text-muted-foreground">Selo Premium</span>
+          </div>
+        </div>
+        <button className="w-full bg-gradient-telegram text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all">
+          Impulsionar Grupo
+        </button>
+        <p className="text-xs text-muted-foreground text-center mt-2">
+          A partir de R$ 29,90/mês
+        </p>
+      </div>
+
+      {/* Stats */}
+      <div className="bg-card rounded-lg p-6 border border-border/50">
+        <h3 className="text-lg font-semibold text-foreground mb-4">Estatísticas</h3>
+        <div className="space-y-3">
+          <div className="flex justify-between">
+            <span className="text-sm text-muted-foreground">Grupos Ativos</span>
+            <span className="text-sm font-medium text-telegram-blue">12.500+</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-sm text-muted-foreground">Membros Total</span>
+            <span className="text-sm font-medium text-telegram-blue">2.8M+</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-sm text-muted-foreground">Novos Hoje</span>
+            <span className="text-sm font-medium text-green-500">+23</span>
+          </div>
+        </div>
+      </div>
+    </aside>
   );
 };
 
