@@ -19,7 +19,7 @@ const Header = () => {
               <Send className="w-5 h-5 text-white" />
             </div>
             <div className="text-xl font-bold">
-              <span className="text-foreground">Grupos de </span>
+              <span className="text-foreground">Grupos do </span>
               <span className="text-telegram-blue">Telegram</span>
             </div>
           </div>
