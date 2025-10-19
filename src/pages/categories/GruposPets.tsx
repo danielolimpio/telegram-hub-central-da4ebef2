@@ -3,9 +3,9 @@ import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
-import { Users, TrendingUp, Star, Clock, Tag } from "lucide-react";
+import { Users, TrendingUp, Star, Clock, PawPrint } from "lucide-react";
 
-const GruposPromocoes = () => {
+const GruposPets = () => {
   const stats = [
     { icon: Users, value: "+12.500", label: "Grupos Ativos", color: "blue" as const },
     { icon: TrendingUp, value: "8.742", label: "Acessos Hoje", color: "green" as const },
@@ -15,18 +15,11 @@ const GruposPromocoes = () => {
 
   const featuredGroups = [
     {
-      title: "Promoções Relâmpago BR",
-      description: "Melhores ofertas em tempo real. Descontos até 90%",
-      members: 67890,
-      avatar: "https://ui-avatars.com/api/?name=Promoções&background=0088cc&color=fff&size=128",
-      category: "Promoções"
-    },
-    {
-      title: "Cupons e Ofertas",
-      description: "Cupons válidos e ofertas imperdíveis",
-      members: 34560,
-      avatar: "https://ui-avatars.com/api/?name=Cupons&background=0088cc&color=fff&size=128",
-      category: "Promoções",
+      title: "Pets Brasil",
+      description: "Comunidade para amantes animais e cuidados pets",
+      members: 37890,
+      avatar: "https://ui-avatars.com/api/?name=Pets&background=0088cc&color=fff&size=128",
+      category: "Pets",
       isNew: true
     }
   ];
@@ -36,7 +29,6 @@ const GruposPromocoes = () => {
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {stats.map((stat, index) => (
             <StatsCard
@@ -50,26 +42,23 @@ const GruposPromocoes = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
-          {/* Main Content */}
           <div className="flex-1">
-            {/* Header Section */}
             <div className="mb-8">
               <div className="flex items-center mb-4">
-                <div className="p-3 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl mr-4">
-                  <Tag className="w-8 h-8 text-white" />
+                <div className="p-3 bg-gradient-to-br from-amber-600 to-yellow-700 rounded-xl mr-4">
+                  <PawPrint className="w-8 h-8 text-white" />
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold text-foreground">
-                    Grupos do Telegram de Promoções
+                    Grupos do Telegram de Pets
                   </h1>
                   <p className="text-muted-foreground mt-1">
-                    Não perca nenhuma promoção! Ofertas, cupons e descontos exclusivos
+                    Compartilhe experiências e cuidados com seus pets
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Groups Grid */}
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
                 <TrendingUp className="w-6 h-6 text-telegram-blue mr-2" />
@@ -91,7 +80,6 @@ const GruposPromocoes = () => {
             </div>
           </div>
 
-          {/* Sidebar */}
           <div className="lg:w-80 w-full">
             <CategorySidebar />
           </div>
@@ -103,4 +91,4 @@ const GruposPromocoes = () => {
   );
 };
 
-export default GruposPromocoes;
+export default GruposPets;

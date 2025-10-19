@@ -29,7 +29,9 @@ const CategorySidebar = () => {
     "Grupos Telegram Games",
     "Grupos Telegram Cinema",
     "Grupos Telegram Pets",
-    "Grupos Telegram Estilo"
+    "Grupos Telegram Estilo",
+    "Grupos Telegram Zoeira",
+    "Grupos Telegram LGTBQIA"
   ];
 
   const displayedCategories = showAllCategories ? allCategories : allCategories.slice(0, 8);
