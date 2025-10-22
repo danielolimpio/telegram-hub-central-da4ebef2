@@ -7,6 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const ReportarProblema = () => {
   const reportTypes = [
@@ -51,7 +53,8 @@ const ReportarProblema = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-subtle">
+      <Header />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -249,6 +252,7 @@ const ReportarProblema = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -76,6 +76,7 @@ const App = () => (
           <Route path="/grupos-telegram-divulgacao" element={<GruposDivulgacao />} />
           <Route path="/grupos-telegram-vendas" element={<GruposVendas />} />
           <Route path="/grupos-telegram-promocoes" element={<GruposPromocoes />} />
+          <Route path="/grupos-telegram-oportunidades" element={<GruposOportunidades />} />
           <Route path="/grupos-telegram-investimentos" element={<GruposInvestimentos />} />
           <Route path="/grupos-telegram-redes-sociais" element={<GruposRedesSociais />} />
           <Route path="/grupos-telegram-livros" element={<GruposLivros />} />

@@ -2,6 +2,8 @@ import { Shield, Eye, Lock, AlertTriangle, CheckCircle, UserX, MessageSquare, Se
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const DicasSeguranca = () => {
   const securityTips = [
@@ -101,7 +103,8 @@ const DicasSeguranca = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-subtle">
+      <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -231,6 +234,7 @@ const DicasSeguranca = () => {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </div>
   );
 };

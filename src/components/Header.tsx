@@ -54,7 +54,12 @@ const Header = () => {
               <User className="w-4 h-4 mr-2" />
               Entrar
             </Button>
-            <Button variant="ghost" size="sm" className="hidden sm:flex">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="hidden sm:flex"
+              onClick={() => navigate('/blog')}
+            >
               <BookOpen className="w-4 h-4 mr-2" />
               Blog
             </Button>

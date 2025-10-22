@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 const BlogSidebar = () => {
   const popularCategories = [
-    { name: "Divulgação", count: 245, path: "/grupos-telegram-divulgacao" },
-    { name: "Promoções", count: 189, path: "/grupos-telegram-promocoes" },
-    { name: "Tecnologia", count: 156, path: "/grupos-telegram-tecnologia" },
-    { name: "Games", count: 142, path: "/grupos-telegram-games" },
-    { name: "Investimentos", count: 128, path: "/grupos-telegram-investimentos" }
+    { name: "Amizades", count: 245, path: "/grupos-telegram-amizades" },
+    { name: "Divulgação", count: 189, path: "/grupos-telegram-divulgacao" },
+    { name: "Games", count: 156, path: "/grupos-telegram-games" },
+    { name: "Investimentos", count: 142, path: "/grupos-telegram-investimentos" },
+    { name: "Promoções", count: 128, path: "/grupos-telegram-promocoes" }
   ];
 
   const blogTips = [
