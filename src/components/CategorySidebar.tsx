@@ -5,33 +5,33 @@ const CategorySidebar = () => {
   const [showAllCategories, setShowAllCategories] = useState(false);
   
   const allCategories = [
-    "Grupos Telegram Divulgação",
-    "Grupos Telegram Vendas", 
-    "Grupos Telegram Promoções",
-    "Grupos Telegram Oportunidades",
-    "Grupos Telegram Investimentos",
-    "Grupos Telegram Redes Sociais",
-    "Grupos Telegram Livros",
-    "Grupos Telegram Estudos",
-    "Grupos Telegram Cursos",
-    "Grupos Telegram Vídeos",
-    "Grupos Telegram Músicas",
-    "Grupos Telegram Amizades",
-    "Grupos Telegram Namoros",
-    "Grupos Telegram Encontros",
-    "Grupos Telegram Liberais",
-    "Grupos Telegram Notícias",
-    "Grupos Telegram Esportes",
-    "Grupos Telegram Figurinhas",
-    "Grupos Telegram Receitas",
-    "Grupos Telegram Viagens",
-    "Grupos Telegram Tecnologia",
-    "Grupos Telegram Games",
-    "Grupos Telegram Cinema",
-    "Grupos Telegram Pets",
-    "Grupos Telegram Estilo",
-    "Grupos Telegram Zoeira",
-    "Grupos Telegram LGTBQIA"
+    { name: "Grupos Telegram Divulgação", path: "/grupos-telegram-divulgacao" },
+    { name: "Grupos Telegram Vendas", path: "/grupos-telegram-vendas" },
+    { name: "Grupos Telegram Promoções", path: "/grupos-telegram-promocoes" },
+    { name: "Grupos Telegram Oportunidades", path: "/grupos-telegram-oportunidades" },
+    { name: "Grupos Telegram Investimentos", path: "/grupos-telegram-investimentos" },
+    { name: "Grupos Telegram Redes Sociais", path: "/grupos-telegram-redes-sociais" },
+    { name: "Grupos Telegram Livros", path: "/grupos-telegram-livros" },
+    { name: "Grupos Telegram Estudos", path: "/grupos-telegram-estudos" },
+    { name: "Grupos Telegram Cursos", path: "/grupos-telegram-cursos" },
+    { name: "Grupos Telegram Vídeos", path: "/grupos-telegram-videos" },
+    { name: "Grupos Telegram Músicas", path: "/grupos-telegram-musicas" },
+    { name: "Grupos Telegram Amizades", path: "/grupos-telegram-amizades" },
+    { name: "Grupos Telegram Namoros", path: "/grupos-telegram-namoros" },
+    { name: "Grupos Telegram Encontros", path: "/grupos-telegram-encontros" },
+    { name: "Grupos Telegram Liberais", path: "/grupos-telegram-liberais" },
+    { name: "Grupos Telegram Notícias", path: "/grupos-telegram-noticias" },
+    { name: "Grupos Telegram Esportes", path: "/grupos-telegram-esportes" },
+    { name: "Grupos Telegram Figurinhas", path: "/grupos-telegram-figurinhas" },
+    { name: "Grupos Telegram Receitas", path: "/grupos-telegram-receitas" },
+    { name: "Grupos Telegram Viagens", path: "/grupos-telegram-viagens" },
+    { name: "Grupos Telegram Tecnologia", path: "/grupos-telegram-tecnologia" },
+    { name: "Grupos Telegram Games", path: "/grupos-telegram-games" },
+    { name: "Grupos Telegram Cinema", path: "/grupos-telegram-cinema" },
+    { name: "Grupos Telegram Pets", path: "/grupos-telegram-pets" },
+    { name: "Grupos Telegram Estilo", path: "/grupos-telegram-estilo" },
+    { name: "Grupos Telegram Zoeira", path: "/grupos-telegram-zoeira" },
+    { name: "Grupos Telegram LGBTQIA", path: "/grupos-telegram-lgbtqia" }
   ];
 
   const displayedCategories = showAllCategories ? allCategories : allCategories.slice(0, 8);
@@ -47,12 +47,12 @@ const CategorySidebar = () => {
         <div className="space-y-1 sm:space-y-2">
           {displayedCategories.map((category) => (
             <a
-              key={category}
-              href={`/category/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'e')}`}
+              key={category.name}
+              href={category.path}
               className="block py-2 px-2 sm:px-3 text-xs sm:text-sm text-muted-foreground hover:text-telegram-blue hover:bg-muted/50 rounded transition-colors truncate"
-              title={category}
+              title={category.name}
             >
-              {category}
+              {category.name}
             </a>
           ))}
           <button
