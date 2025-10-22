@@ -3,6 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import BlogSidebar from "@/components/BlogSidebar";
 
 const Blog = () => {
   const featuredPosts = [
@@ -110,8 +113,10 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gradient-subtle">
+      <Header />
+      
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
@@ -123,8 +128,10 @@ const Blog = () => {
           </p>
         </div>
 
-        {/* Categories */}
-        <div className="flex flex-wrap gap-2 justify-center mb-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex-1">
+            {/* Categories */}
+            <div className="flex flex-wrap gap-2 justify-center mb-12">
           {categories.map((category, index) => (
             <Button
               key={index}
@@ -140,9 +147,9 @@ const Blog = () => {
           ))}
         </div>
 
-        {/* Featured Posts */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Artigos em Destaque</h2>
+            {/* Featured Posts */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-foreground mb-8">Artigos em Destaque</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {featuredPosts.map((post) => (
               <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -200,9 +207,9 @@ const Blog = () => {
           </div>
         </div>
 
-        {/* Recent Posts */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Todos os Artigos</h2>
+            {/* Recent Posts */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-foreground mb-8">Todos os Artigos</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentPosts.map((post) => (
               <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -253,29 +260,38 @@ const Blog = () => {
           </div>
         </div>
 
-        {/* Newsletter */}
-        <Card className="bg-gradient-to-r from-telegram-blue/10 to-purple-500/10">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Assine Nossa Newsletter</CardTitle>
-            <p className="text-muted-foreground">
-              Receba os melhores conteúdos sobre grupos do Telegram diretamente no seu e-mail
-            </p>
-          </CardHeader>
-          <CardContent>
-            <div className="max-w-md mx-auto">
-              <div className="flex space-x-2">
-                <Input placeholder="Seu melhor e-mail" />
-                <Button className="bg-telegram-blue hover:bg-telegram-blue/90">
-                  Assinar
-                </Button>
-              </div>
-              <p className="text-xs text-muted-foreground text-center mt-2">
-                Enviamos apenas conteúdo relevante. Sem spam.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+            {/* Newsletter */}
+            <Card className="bg-gradient-to-r from-telegram-blue/10 to-purple-500/10">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">Assine Nossa Newsletter</CardTitle>
+                <p className="text-muted-foreground">
+                  Receba os melhores conteúdos sobre grupos do Telegram diretamente no seu e-mail
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="max-w-md mx-auto">
+                  <div className="flex space-x-2">
+                    <Input placeholder="Seu melhor e-mail" />
+                    <Button className="bg-telegram-blue hover:bg-telegram-blue/90">
+                      Assinar
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground text-center mt-2">
+                    Enviamos apenas conteúdo relevante. Sem spam.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:w-80">
+            <BlogSidebar />
+          </div>
+        </div>
+      </main>
+      
+      <Footer />
     </div>
   );
 };
