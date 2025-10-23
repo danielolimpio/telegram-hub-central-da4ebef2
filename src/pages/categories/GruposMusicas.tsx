@@ -13,16 +13,7 @@ const GruposMusicas = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Músicas Brasil",
-      description: "Compartilhe e descubra novas músicas diariamente",
-      members: 38920,
-      avatar: "https://ui-avatars.com/api/?name=Musicas&background=0088cc&color=fff&size=128",
-      category: "Músicas",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

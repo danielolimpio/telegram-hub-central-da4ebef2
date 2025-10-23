@@ -13,16 +13,7 @@ const GruposCinema = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Cinema Brasil",
-      description: "Discussões sobre filmes, séries e produções",
-      members: 33470,
-      avatar: "https://ui-avatars.com/api/?name=Cinema&background=0088cc&color=fff&size=128",
-      category: "Cinema",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

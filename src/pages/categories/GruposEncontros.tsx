@@ -13,16 +13,7 @@ const GruposEncontros = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Encontros Brasil",
-      description: "Organize e participe eventos e encontros sociais",
-      members: 19340,
-      avatar: "https://ui-avatars.com/api/?name=Encontros&background=0088cc&color=fff&size=128",
-      category: "Encontros",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

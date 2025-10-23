@@ -13,16 +13,7 @@ const GruposRedesSociais = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Redes Sociais Brasil",
-      description: "Estratégias e networking em redes sociais",
-      members: 18540,
-      avatar: "https://ui-avatars.com/api/?name=Redes+Sociais&background=0088cc&color=fff&size=128",
-      category: "Redes Sociais",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

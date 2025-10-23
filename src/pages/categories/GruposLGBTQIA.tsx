@@ -13,16 +13,7 @@ const GruposLGBTQIA = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "LGBTQIA+ Brasil",
-      description: "Comunidade acolhedora, diversidade e respeito",
-      members: 22340,
-      avatar: "https://ui-avatars.com/api/?name=LGBTQIA&background=0088cc&color=fff&size=128",
-      category: "LGBTQIA",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

@@ -4,18 +4,33 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 interface GroupCardProps {
+  id?: number;
   title: string;
   description: string;
   members: number;
   avatar: string;
   isNew?: boolean;
   category: string;
+  slug?: string;
+  telegramLink?: string;
 }
 
-const GroupCard = ({ title, description, members, avatar, isNew, category }: GroupCardProps) => {
+const GroupCard = ({ id, title, description, members, avatar, isNew, category, slug, telegramLink }: GroupCardProps) => {
   const formatMembers = (count: number) => {
     return count.toLocaleString('pt-BR');
   };
+
+  const generateSlug = (text: string) => {
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  };
+
+  const groupSlug = slug || generateSlug(title);
+  const groupLink = telegramLink || '#';
 
   return (
     <Card className="group hover:shadow-telegram transition-all duration-300 border-border/50 hover:border-telegram-blue/30 overflow-hidden h-full">
@@ -62,6 +77,7 @@ const GroupCard = ({ title, description, members, avatar, isNew, category }: Gro
                 variant="telegram" 
                 size="sm" 
                 className="flex-1 text-xs sm:text-sm"
+                onClick={() => window.location.href = `/grupo/${groupSlug}`}
               >
                 <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 Entrar

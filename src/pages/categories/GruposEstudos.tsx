@@ -13,16 +13,7 @@ const GruposEstudos = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Estudos Concursos Brasil",
-      description: "Materiais e dicas para concursos públicos",
-      members: 32450,
-      avatar: "https://ui-avatars.com/api/?name=Estudos&background=0088cc&color=fff&size=128",
-      category: "Estudos",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

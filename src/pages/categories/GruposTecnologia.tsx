@@ -13,16 +13,7 @@ const GruposTecnologia = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Tecnologia Brasil",
-      description: "Novidades e discussões sobre tecnologia",
-      members: 41680,
-      avatar: "https://ui-avatars.com/api/?name=Tecnologia&background=0088cc&color=fff&size=128",
-      category: "Tecnologia",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

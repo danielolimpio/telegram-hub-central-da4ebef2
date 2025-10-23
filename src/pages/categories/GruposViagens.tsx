@@ -13,16 +13,7 @@ const GruposViagens = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Viagens Brasil",
-      description: "Dicas destinos e experiências viagens incríveis",
-      members: 29850,
-      avatar: "https://ui-avatars.com/api/?name=Viagens&background=0088cc&color=fff&size=128",
-      category: "Viagens",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

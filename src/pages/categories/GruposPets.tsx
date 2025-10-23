@@ -13,16 +13,7 @@ const GruposPets = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Pets Brasil",
-      description: "Comunidade para amantes animais e cuidados pets",
-      members: 37890,
-      avatar: "https://ui-avatars.com/api/?name=Pets&background=0088cc&color=fff&size=128",
-      category: "Pets",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

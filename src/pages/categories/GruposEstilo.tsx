@@ -13,16 +13,7 @@ const GruposEstilo = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Estilo Brasil",
-      description: "Moda, beleza e tendências estilo",
-      members: 28560,
-      avatar: "https://ui-avatars.com/api/?name=Estilo&background=0088cc&color=fff&size=128",
-      category: "Estilo",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

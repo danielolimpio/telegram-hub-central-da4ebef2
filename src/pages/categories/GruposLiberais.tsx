@@ -13,16 +13,7 @@ const GruposLiberais = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Liberais Brasil",
-      description: "Comunidade aberta e respeitosa para adultos",
-      members: 16720,
-      avatar: "https://ui-avatars.com/api/?name=Liberais&background=0088cc&color=fff&size=128",
-      category: "Liberais",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

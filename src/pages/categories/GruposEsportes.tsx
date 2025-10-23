@@ -13,16 +13,7 @@ const GruposEsportes = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Esportes Brasil",
-      description: "Discussões e notícias sobre esportes em geral",
-      members: 44590,
-      avatar: "https://ui-avatars.com/api/?name=Esportes&background=0088cc&color=fff&size=128",
-      category: "Esportes",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

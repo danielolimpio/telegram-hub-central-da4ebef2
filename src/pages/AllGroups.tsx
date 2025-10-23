@@ -8,95 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Filter, Grid, List } from "lucide-react";
 
 const AllGroups = () => {
-  // Mock data com mais grupos
-  const allGroups = [
-    {
-      title: "Grupo de Telegram Compra e Venda",
-      description: "Marketplace para comprar e vender produtos com segurança",
-      members: 2789,
-      avatar: "https://ui-avatars.com/api/?name=Compras&background=0088cc&color=fff&size=128",
-      category: "Compra e Venda"
-    },
-    {
-      title: "Grupo de Telegram Renda Extra",
-      description: "Oportunidades reais de renda extra e trabalhos online",
-      members: 2134,
-      avatar: "https://ui-avatars.com/api/?name=Renda&background=0088cc&color=fff&size=128",
-      category: "Renda Extra",
-      isNew: true
-    },
-    {
-      title: "Grupo de Telegram Investimento",
-      description: "Aprenda a investir e multiplique seu dinheiro",
-      members: 1567,
-      avatar: "https://ui-avatars.com/api/?name=Investir&background=0088cc&color=fff&size=128",
-      category: "Investimento"
-    },
-    {
-      title: "Grupo de Telegram Marketing Digital",
-      description: "Estratégias de marketing digital e vendas online",
-      members: 1834,
-      avatar: "https://ui-avatars.com/api/?name=Marketing&background=0088cc&color=fff&size=128",
-      category: "Marketing"
-    },
-    {
-      title: "Grupo de Telegram Games",
-      description: "Discussões sobre jogos, reviews e gameplay",
-      members: 956,
-      avatar: "https://ui-avatars.com/api/?name=Games&background=0088cc&color=fff&size=128",
-      category: "Games"
-    },
-    {
-      title: "Grupo de Telegram Tecnologia",
-      description: "Últimas novidades do mundo tech e programação",
-      members: 1420,
-      avatar: "https://ui-avatars.com/api/?name=Tech&background=0088cc&color=fff&size=128",
-      category: "Tecnologia",
-      isNew: true
-    },
-    {
-      title: "Grupo de Telegram Culinária",
-      description: "Receitas, dicas culinárias e experiências gastronômicas",
-      members: 876,
-      avatar: "https://ui-avatars.com/api/?name=Food&background=0088cc&color=fff&size=128",
-      category: "Culinária"
-    },
-    {
-      title: "Grupo de Telegram Viagens",
-      description: "Dicas de viagens, destinos e experiências pelo mundo",
-      members: 1123,
-      avatar: "https://ui-avatars.com/api/?name=Travel&background=0088cc&color=fff&size=128",
-      category: "Viagens"
-    },
-    {
-      title: "Grupo de Telegram Música",
-      description: "Compartilhe suas músicas favoritas e descubra novos artistas",
-      members: 789,
-      avatar: "https://ui-avatars.com/api/?name=Music&background=0088cc&color=fff&size=128",
-      category: "Música"
-    },
-    {
-      title: "Grupo de Telegram Esportes",
-      description: "Discussões sobre futebol, basquete e outros esportes",
-      members: 1678,
-      avatar: "https://ui-avatars.com/api/?name=Sports&background=0088cc&color=fff&size=128",
-      category: "Esportes"
-    },
-    {
-      title: "Grupo de Telegram Estudos",
-      description: "Grupo para estudantes compartilharem materiais e dicas",
-      members: 1345,
-      avatar: "https://ui-avatars.com/api/?name=Study&background=0088cc&color=fff&size=128",
-      category: "Estudos"
-    },
-    {
-      title: "Grupo de Telegram Fotografia",
-      description: "Compartilhe suas fotos e aprenda técnicas de fotografia",
-      members: 567,
-      avatar: "https://ui-avatars.com/api/?name=Photo&background=0088cc&color=fff&size=128",
-      category: "Fotografia"
-    }
-  ];
+  const allGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -174,17 +86,23 @@ const AllGroups = () => {
 
             {/* Groups Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {allGroups.map((group, index) => (
-                <GroupCard
-                  key={index}
-                  title={group.title}
-                  description={group.description}
-                  members={group.members}
-                  avatar={group.avatar}
-                  category={group.category}
-                  isNew={group.isNew}
-                />
-              ))}
+              {allGroups.length === 0 ? (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-muted-foreground">Nenhum grupo cadastrado ainda. Seja o primeiro a enviar seu grupo!</p>
+                </div>
+              ) : (
+                allGroups.map((group, index) => (
+                  <GroupCard
+                    key={index}
+                    title={group.title}
+                    description={group.description}
+                    members={group.members}
+                    avatar={group.avatar}
+                    category={group.category}
+                    isNew={group.isNew}
+                  />
+                ))
+              )}
             </div>
 
             {/* Pagination */}

@@ -13,16 +13,7 @@ const GruposInvestimentos = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Investimentos Brasil",
-      description: "Dicas e estratégias investimento para todos níveis",
-      members: 35670,
-      avatar: "https://ui-avatars.com/api/?name=Investimentos&background=0088cc&color=fff&size=128",
-      category: "Investimentos",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

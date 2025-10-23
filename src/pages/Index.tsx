@@ -17,66 +17,7 @@ const Index = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Grupo de Telegram Compra e Venda",
-      description: "Marketplace para comprar e vender produtos com segurança",
-      members: 2789,
-      avatar: "https://ui-avatars.com/api/?name=Compras&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Compra e Venda"
-    },
-    {
-      title: "Grupo de Telegram Renda Extra",
-      description: "Oportunidades reais de renda extra e trabalhos online",
-      members: 2134,
-      avatar: "https://ui-avatars.com/api/?name=Renda&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Renda Extra",
-      isNew: true
-    },
-    {
-      title: "Grupo de Telegram Investimento",
-      description: "Aprenda a investir e multiplique seu dinheiro",
-      members: 1567,
-      avatar: "https://ui-avatars.com/api/?name=Investir&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Investimento"
-    },
-    {
-      title: "Grupo de Telegram Marketing Digital",
-      description: "Estratégias de marketing digital e vendas online",
-      members: 1834,
-      avatar: "https://ui-avatars.com/api/?name=Marketing&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Marketing"
-    },
-    {
-      title: "Grupo de Telegram Vendas SP",
-      description: "Melhores oportunidades de vendas e negócios em São Paulo",
-      members: 1256,
-      avatar: "https://ui-avatars.com/api/?name=Vendas&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Vendas"
-    },
-    {
-      title: "Grupo de Telegram Concurso",
-      description: "Preparação para concursos públicos e dicas de estudo",
-      members: 1876,
-      avatar: "https://ui-avatars.com/api/?name=Concurso&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Concurso",
-      isNew: true
-    },
-    {
-      title: "Grupo de Telegram Inglês",
-      description: "Pratique inglês diariamente com falantes nativos",
-      members: 1456,
-      avatar: "https://ui-avatars.com/api/?name=English&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Inglês"
-    },
-    {
-      title: "Grupo de Telegram Namoro",
-      description: "Encontre relacionamentos sérios e verdadeiro amor",
-      members: 1234,
-      avatar: "https://ui-avatars.com/api/?name=Namoro&background=0088cc&color=fff&size=128",
-      category: "Grupo de Telegram Namoro"
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -118,17 +59,23 @@ const Index = () => {
 
             {/* Groups Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-              {featuredGroups.slice(0, 8).map((group, index) => (
-                <GroupCard
-                  key={index}
-                  title={group.title}
-                  description={group.description}
-                  members={group.members}
-                  avatar={group.avatar}
-                  category={group.category}
-                  isNew={group.isNew}
-                />
-              ))}
+              {featuredGroups.length === 0 ? (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-muted-foreground">Nenhum grupo disponível no momento.</p>
+                </div>
+              ) : (
+                featuredGroups.slice(0, 8).map((group, index) => (
+                  <GroupCard
+                    key={index}
+                    title={group.title}
+                    description={group.description}
+                    members={group.members}
+                    avatar={group.avatar}
+                    category={group.category}
+                    isNew={group.isNew}
+                  />
+                ))
+              )}
             </div>
 
             {/* Grupos Mais Recentes */}
@@ -150,17 +97,23 @@ const Index = () => {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-                {featuredGroups.filter(group => group.isNew).slice(0, 4).map((group, index) => (
-                  <GroupCard
-                    key={`recent-${index}`}
-                    title={group.title}
-                    description={group.description}
-                    members={group.members}
-                    avatar={group.avatar}
-                    category={group.category}
-                    isNew={group.isNew}
-                  />
-                ))}
+                {featuredGroups.length === 0 ? (
+                  <div className="col-span-full text-center py-12">
+                    <p className="text-muted-foreground">Nenhum grupo recente disponível.</p>
+                  </div>
+                ) : (
+                  featuredGroups.filter(group => group.isNew).slice(0, 4).map((group, index) => (
+                    <GroupCard
+                      key={`recent-${index}`}
+                      title={group.title}
+                      description={group.description}
+                      members={group.members}
+                      avatar={group.avatar}
+                      category={group.category}
+                      isNew={group.isNew}
+                    />
+                  ))
+                )}
               </div>
             </div>
 
@@ -183,17 +136,23 @@ const Index = () => {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-                {featuredGroups.slice(0, 12).map((group, index) => (
-                  <GroupCard
-                    key={`all-${index}`}
-                    title={group.title}
-                    description={group.description}
-                    members={group.members}
-                    avatar={group.avatar}
-                    category={group.category}
-                    isNew={group.isNew}
-                  />
-                ))}
+                {featuredGroups.length === 0 ? (
+                  <div className="col-span-full text-center py-12">
+                    <p className="text-muted-foreground">Nenhum grupo disponível.</p>
+                  </div>
+                ) : (
+                  featuredGroups.slice(0, 12).map((group, index) => (
+                    <GroupCard
+                      key={`all-${index}`}
+                      title={group.title}
+                      description={group.description}
+                      members={group.members}
+                      avatar={group.avatar}
+                      category={group.category}
+                      isNew={group.isNew}
+                    />
+                  ))
+                )}
               </div>
             </div>
           </div>

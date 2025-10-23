@@ -13,16 +13,7 @@ const GruposZoeira = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Zoeira Brasil",
-      description: "Memes, piadas e diversão garantida",
-      members: 54320,
-      avatar: "https://ui-avatars.com/api/?name=Zoeira&background=0088cc&color=fff&size=128",
-      category: "Zoeira",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

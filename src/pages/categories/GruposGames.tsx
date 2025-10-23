@@ -13,16 +13,7 @@ const GruposGames = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Gamers Brasil",
-      description: "Comunidade gamers, dicas e torneios",
-      members: 47950,
-      avatar: "https://ui-avatars.com/api/?name=Games&background=0088cc&color=fff&size=128",
-      category: "Games",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

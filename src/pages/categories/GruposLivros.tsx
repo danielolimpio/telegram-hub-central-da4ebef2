@@ -13,16 +13,7 @@ const GruposLivros = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Clube Leitura Brasil",
-      description: "Compartilhe indicações e discussões sobre livros",
-      members: 24680,
-      avatar: "https://ui-avatars.com/api/?name=Livros&background=0088cc&color=fff&size=128",
-      category: "Livros",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

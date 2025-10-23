@@ -13,16 +13,7 @@ const GruposNoticias = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Notícias Brasil",
-      description: "Fique informado com notícias em tempo real",
-      members: 52180,
-      avatar: "https://ui-avatars.com/api/?name=Noticias&background=0088cc&color=fff&size=128",
-      category: "Notícias",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

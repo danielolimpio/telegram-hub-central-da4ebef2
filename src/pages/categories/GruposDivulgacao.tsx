@@ -13,30 +13,7 @@ const GruposDivulgacao = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Divulgação Premium Brasil",
-      description: "Melhor espaço para divulgar produtos, serviços e conteúdo",
-      members: 15420,
-      avatar: "https://ui-avatars.com/api/?name=Divulgação&background=0088cc&color=fff&size=128",
-      category: "Divulgação"
-    },
-    {
-      title: "Empreendedores Brasil",
-      description: "Rede networking para empreendedores",
-      members: 8950,
-      avatar: "https://ui-avatars.com/api/?name=Empreendedores&background=0088cc&color=fff&size=128",
-      category: "Divulgação",
-      isNew: true
-    },
-    {
-      title: "Marketing Digital BR",
-      description: "Marketing digital e divulgação estratégica",
-      members: 12300,
-      avatar: "https://ui-avatars.com/api/?name=Marketing&background=0088cc&color=fff&size=128",
-      category: "Divulgação"
-    },
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

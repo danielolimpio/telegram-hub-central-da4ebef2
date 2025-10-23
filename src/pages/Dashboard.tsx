@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [userName] = useState("Usuário");
+  const [telegramLink, setTelegramLink] = useState("");
+  const [groupThumbnail, setGroupThumbnail] = useState("");
 
   const categories = [
     "Amizades", "Cinema", "Cursos", "Divulgação", "Encontros", "Esportes",
@@ -29,48 +31,7 @@ const Dashboard = () => {
     { icon: Heart, label: "Favoritos", value: "0", color: "text-red-500" },
   ];
 
-  const recentGroups = [
-    {
-      title: "Círculo de Amizades Leves e Autenticas",
-      category: "Grupos do Telegram Amizades",
-      status: "Aprovado",
-      views: 0,
-      date: "18/10/2025",
-      canPromote: false
-    },
-    {
-      title: "ZEUS STORE",
-      category: "Grupos do Telegram Cinema",
-      status: "Aprovado",
-      views: 0,
-      date: "18/10/2025",
-      canPromote: false
-    },
-    {
-      title: "TADALAFLIX",
-      category: "Grupos do Telegram Cinema",
-      status: "Aprovado",
-      views: 0,
-      date: "18/10/2025",
-      canPromote: false
-    },
-    {
-      title: "Clube da Resenha",
-      category: "Grupos do Telegram Zoeiras",
-      status: "Aprovado",
-      views: 0,
-      date: "18/10/2025",
-      canPromote: true
-    },
-    {
-      title: "GS OFERTAS RELAMPAGOS",
-      category: "Grupos do Telegram Oportunidades",
-      status: "Aprovado",
-      views: 0,
-      date: "18/10/2025",
-      canPromote: true
-    }
-  ];
+  const recentGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -110,7 +71,7 @@ const Dashboard = () => {
             <TabsTrigger value="overview">Visão Geral</TabsTrigger>
             <TabsTrigger value="groups">Meus Grupos</TabsTrigger>
             <TabsTrigger value="favorites">Favoritos</TabsTrigger>
-            <TabsTrigger value="promote">Anunciar Grupo</TabsTrigger>
+            <TabsTrigger value="promote">Enviar Grupo</TabsTrigger>
             <TabsTrigger value="profile">Perfil</TabsTrigger>
           </TabsList>
 
@@ -123,39 +84,48 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentGroups.map((group, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-2">{group.category}</p>
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Eye className="w-3 h-3" />
-                            {group.views} acessos
+                  {recentGroups.length === 0 ? (
+                    <div className="text-center py-8">
+                      <p className="text-muted-foreground">Você ainda não enviou nenhum grupo.</p>
+                      <p className="text-sm text-muted-foreground mt-2">
+                        Clique na aba "Enviar Grupo" para adicionar seu primeiro grupo.
+                      </p>
+                    </div>
+                  ) : (
+                    recentGroups.map((group, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
+                      >
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
+                          <p className="text-sm text-muted-foreground mb-2">{group.category}</p>
+                          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Eye className="w-3 h-3" />
+                              {group.views} acessos
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {group.date}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="flex items-center gap-1 text-sm text-green-500">
+                            <CheckCircle className="w-4 h-4" />
+                            {group.status}
                           </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {group.date}
-                          </span>
+                          {group.canPromote && (
+                            <Button size="sm" className="bg-yellow-500 hover:bg-yellow-600">
+                              <Star className="w-4 h-4 mr-1" />
+                              Anunciar
+                            </Button>
+                          )}
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1 text-sm text-green-500">
-                          <CheckCircle className="w-4 h-4" />
-                          {group.status}
-                        </span>
-                        {group.canPromote && (
-                          <Button size="sm" className="bg-yellow-500 hover:bg-yellow-600">
-                            <Star className="w-4 h-4 mr-1" />
-                            Anunciar
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -185,7 +155,7 @@ const Dashboard = () => {
             </Card>
           </TabsContent>
 
-          {/* Anunciar Grupo */}
+          {/* Enviar Grupo */}
           <TabsContent value="promote">
             <Card className="border-border/50">
               <CardHeader>
@@ -249,8 +219,33 @@ const Dashboard = () => {
                   <Input
                     id="telegramLink"
                     placeholder="https://t.me/seugrupo"
+                    value={telegramLink}
+                    onChange={(e) => {
+                      setTelegramLink(e.target.value);
+                      // Gera uma thumbnail placeholder baseada no nome do grupo
+                      // Em produção, isso seria substituído por uma chamada à API do Telegram
+                      if (e.target.value.includes('t.me/')) {
+                        const groupName = e.target.value.split('t.me/')[1] || 'Grupo';
+                        setGroupThumbnail(`https://ui-avatars.com/api/?name=${groupName}&background=0088cc&color=fff&size=128`);
+                      } else {
+                        setGroupThumbnail("");
+                      }
+                    }}
                     required
                   />
+                  {groupThumbnail && (
+                    <div className="mt-4 flex items-center gap-3 p-3 border rounded-lg bg-muted/30">
+                      <img 
+                        src={groupThumbnail} 
+                        alt="Preview do grupo" 
+                        className="w-16 h-16 rounded-lg object-cover"
+                      />
+                      <div className="text-sm text-muted-foreground">
+                        <p className="font-medium text-foreground">Preview da miniatura</p>
+                        <p className="text-xs">Miniatura do grupo será carregada aqui</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">

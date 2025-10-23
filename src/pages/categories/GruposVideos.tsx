@@ -13,16 +13,7 @@ const GruposVideos = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Vídeos Diários Brasil",
-      description: "Compartilhe e descubra vídeos interessantes",
-      members: 42180,
-      avatar: "https://ui-avatars.com/api/?name=Videos&background=0088cc&color=fff&size=128",
-      category: "Vídeos",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

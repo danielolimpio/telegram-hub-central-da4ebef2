@@ -13,16 +13,7 @@ const GruposReceitas = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Receitas Brasil",
-      description: "Compartilhe e descubra receitas deliciosas",
-      members: 36420,
-      avatar: "https://ui-avatars.com/api/?name=Receitas&background=0088cc&color=fff&size=128",
-      category: "Receitas",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

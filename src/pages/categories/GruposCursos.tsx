@@ -13,16 +13,7 @@ const GruposCursos = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Cursos Online Brasil",
-      description: "Melhores cursos e capacitações profissionais",
-      members: 28930,
-      avatar: "https://ui-avatars.com/api/?name=Cursos&background=0088cc&color=fff&size=128",
-      category: "Cursos",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

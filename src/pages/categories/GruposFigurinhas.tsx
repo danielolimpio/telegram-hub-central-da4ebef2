@@ -13,16 +13,7 @@ const GruposFigurinhas = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Figurinhas Brasil",
-      description: "Milhares figurinhas para compartilhar conversas",
-      members: 58720,
-      avatar: "https://ui-avatars.com/api/?name=Figurinhas&background=0088cc&color=fff&size=128",
-      category: "Figurinhas",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

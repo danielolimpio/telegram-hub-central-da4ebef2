@@ -13,16 +13,7 @@ const GruposAmizades = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups = [
-    {
-      title: "Amizades Brasil",
-      description: "Faça novas amizades e expanda seu círculo social",
-      members: 31240,
-      avatar: "https://ui-avatars.com/api/?name=Amizades&background=0088cc&color=fff&size=128",
-      category: "Amizades",
-      isNew: true
-    }
-  ];
+  const featuredGroups: any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
