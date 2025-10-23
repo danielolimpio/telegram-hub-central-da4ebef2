@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import AllGroups from "./pages/AllGroups";
-import SubmitGroup from "./pages/SubmitGroup";
 import NotFound from "./pages/NotFound";
 import ComoFunciona from "./pages/ComoFunciona";
 import RegrasComunidade from "./pages/RegrasComunitariade";
@@ -61,7 +60,6 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/all-groups" element={<AllGroups />} />
-          <Route path="/submit-group" element={<SubmitGroup />} />
           <Route path="/como-funciona" element={<ComoFunciona />} />
           <Route path="/regras" element={<RegrasComunidade />} />
           <Route path="/seguranca" element={<DicasSeguranca />} />

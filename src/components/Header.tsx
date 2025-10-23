@@ -41,7 +41,7 @@ const Header = () => {
               variant="telegram" 
               size="sm" 
               className="hidden sm:flex"
-              onClick={() => navigate('/submit-group')}
+              onClick={() => navigate('/auth')}
             >
               <Send className="w-4 h-4 mr-2" />
               Enviar Grupo

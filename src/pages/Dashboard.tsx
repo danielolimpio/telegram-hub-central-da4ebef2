@@ -1,14 +1,25 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MessageSquare, CheckCircle, Clock, Eye, Heart, Star, User } from "lucide-react";
+import { MessageSquare, CheckCircle, Clock, Eye, Heart, Star, User, Send, Upload, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [userName] = useState("Usuário");
+
+  const categories = [
+    "Amizades", "Cinema", "Cursos", "Divulgação", "Encontros", "Esportes",
+    "Estilo", "Estudos", "Figurinhas", "Games", "Investimentos", "LGBTQIA+",
+    "Liberais", "Livros", "Músicas", "Namoros", "Notícias", "Oportunidades",
+    "Pets", "Promoções", "Receitas", "Redes Sociais", "Tecnologia", "Vendas",
+    "Viagens", "Vídeos", "Zoeira"
+  ];
 
   const stats = [
     { icon: MessageSquare, label: "Total de Grupos", value: "25", color: "text-blue-500" },
@@ -63,13 +74,17 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
-      <Header />
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-          <p className="text-muted-foreground mt-1">Bem-vindo, {userName}</p>
+        {/* Header with Logout */}
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+            <p className="text-muted-foreground mt-1">Bem-vindo, {userName}</p>
+          </div>
+          <Button variant="outline" onClick={() => navigate('/')}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Sair
+          </Button>
         </div>
 
         {/* Stats Cards */}
@@ -172,19 +187,84 @@ const Dashboard = () => {
 
           {/* Anunciar Grupo */}
           <TabsContent value="promote">
-            <Card>
+            <Card className="border-border/50">
               <CardHeader>
-                <CardTitle>Anunciar Grupo</CardTitle>
-                <p className="text-sm text-muted-foreground">
-                  Destaque seu grupo e alcance mais pessoas
-                </p>
+                <CardTitle className="flex items-center space-x-2">
+                  <Upload className="w-5 h-5 text-telegram-blue" />
+                  <span>Enviar Novo Grupo</span>
+                </CardTitle>
+                <CardDescription>
+                  Preencha as informações do seu grupo do Telegram
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <Link to="/submit-group">
-                  <Button className="bg-telegram-blue hover:bg-telegram-blue/90">
-                    Enviar Novo Grupo
-                  </Button>
-                </Link>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="groupName">Nome do Grupo *</Label>
+                  <Input
+                    id="groupName"
+                    placeholder="Ex: Grupo de Marketing Digital"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="groupDescription">Descrição *</Label>
+                  <Textarea
+                    id="groupDescription"
+                    placeholder="Descreva do que se trata seu grupo..."
+                    rows={4}
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="category">Categoria *</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione uma categoria" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map((category) => (
+                          <SelectItem key={category} value={category.toLowerCase()}>
+                            {category}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="members">Número de Membros</Label>
+                    <Input
+                      id="members"
+                      type="number"
+                      placeholder="Ex: 150"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="telegramLink">Link do Telegram *</Label>
+                  <Input
+                    id="telegramLink"
+                    placeholder="https://t.me/seugrupo"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="adminContact">Contato do Administrador</Label>
+                  <Input
+                    id="adminContact"
+                    placeholder="@seuusuario ou email@exemplo.com"
+                  />
+                </div>
+
+                <Button variant="telegram" size="lg" className="w-full">
+                  <Send className="w-5 h-5 mr-2" />
+                  Enviar Grupo
+                </Button>
               </CardContent>
             </Card>
           </TabsContent>
@@ -205,8 +285,6 @@ const Dashboard = () => {
           </TabsContent>
         </Tabs>
       </main>
-
-      <Footer />
     </div>
   );
 };
