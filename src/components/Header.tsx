@@ -50,7 +50,11 @@ const Header = () => {
               <Zap className="w-4 h-4 mr-2" />
               Impulsionar
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/auth')}
+            >
               <User className="w-4 h-4 mr-2" />
               Entrar
             </Button>
