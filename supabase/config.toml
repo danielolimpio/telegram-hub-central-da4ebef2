@@ -1,1 +1,4 @@
 project_id = "fsfrpjsuakhkpbmqgibf"
+
+[functions.fetch-telegram-thumbnail]
+verify_jwt = false
