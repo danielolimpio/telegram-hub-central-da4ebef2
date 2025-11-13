@@ -74,25 +74,23 @@ const Dashboard = () => {
       setGroupThumbnail("");
       return;
     }
-    
-    const username = link.split("t.me/")[1]?.replace(/^@/, "").split("/")[0];
-    if (!username) {
-      setGroupThumbnail("");
-      return;
-    }
 
     try {
-      const response = await fetch(`https://t.me/${username}`);
-      const html = await response.text();
-      
-      // Extract og:image meta tag
-      const match = html.match(/<meta property="og:image" content="([^"]+)"/);
-      if (match && match[1]) {
-        setGroupThumbnail(match[1]);
+      const { data, error } = await supabase.functions.invoke('fetch-telegram-thumbnail', {
+        body: { telegramLink: link }
+      });
+
+      if (error) throw error;
+
+      if (data?.thumbnailUrl) {
+        setGroupThumbnail(data.thumbnailUrl);
       } else {
+        const username = link.split("t.me/")[1]?.replace(/^@/, "").split("/")[0];
         setGroupThumbnail(`https://ui-avatars.com/api/?name=${username}&background=0088cc&color=fff&size=128`);
       }
     } catch (error) {
+      console.error("Error fetching thumbnail:", error);
+      const username = link.split("t.me/")[1]?.replace(/^@/, "").split("/")[0];
       setGroupThumbnail(`https://ui-avatars.com/api/?name=${username}&background=0088cc&color=fff&size=128`);
     }
   };
