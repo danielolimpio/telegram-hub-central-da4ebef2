@@ -11,6 +11,7 @@ import { MessageSquare, CheckCircle, Clock, Eye, Heart, Star, User, Send, Upload
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { RichTextEditor } from "@/components/RichTextEditor";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -397,17 +398,11 @@ const Dashboard = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="groupDescription">Descrição *</Label>
-                  <Textarea
-                    id="groupDescription"
-                    placeholder="Descreva do que se trata seu grupo..."
-                    rows={4}
-                    value={groupDescription}
-                    onChange={(e) => setGroupDescription(e.target.value)}
-                    required
-                  />
-                </div>
+                <RichTextEditor
+                  label="Descrição *"
+                  content={groupDescription}
+                  onChange={setGroupDescription}
+                />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
