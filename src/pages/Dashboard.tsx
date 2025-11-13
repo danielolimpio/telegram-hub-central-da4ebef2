@@ -155,14 +155,36 @@ const Dashboard = () => {
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setAvatarFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    if (file.size > maxSize) {
+      toast({
+        title: "Arquivo muito grande",
+        description: "O tamanho máximo do avatar é 5MB.",
+        variant: "destructive"
+      });
+      return;
     }
+
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      toast({
+        title: "Tipo de arquivo inválido",
+        description: "Por favor, selecione uma imagem (JPEG, PNG, GIF ou WebP).",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setAvatarFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAvatarPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleUpdateProfile = async () => {
