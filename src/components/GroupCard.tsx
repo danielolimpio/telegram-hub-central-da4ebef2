@@ -2,6 +2,7 @@ import { Users, Heart, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { sanitizeHTML } from "@/lib/sanitize";
 
 interface GroupCardProps {
   id?: number;
@@ -61,9 +62,10 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
             <h3 className="font-semibold text-foreground text-base sm:text-lg mb-2 group-hover:text-telegram-blue transition-colors line-clamp-2">
               {title}
             </h3>
-            <p className="text-muted-foreground text-xs sm:text-sm line-clamp-2 mb-3 flex-1">
-              {description}
-            </p>
+            <div 
+              className="text-muted-foreground text-xs sm:text-sm line-clamp-2 mb-3 flex-1"
+              dangerouslySetInnerHTML={{ __html: sanitizeHTML(description) }}
+            />
             <div className="text-xs text-muted-foreground mb-3 truncate">{category}</div>
             
             <div className="flex items-center justify-center text-sm text-muted-foreground mb-4">

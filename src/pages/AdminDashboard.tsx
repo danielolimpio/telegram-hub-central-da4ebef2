@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,9 +18,81 @@ import {
   UserCheck
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const AdminDashboard = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkAdminAccess();
+  }, []);
+
+  const checkAdminAccess = async () => {
+    try {
+      // Check if user is authenticated
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        toast({
+          title: "Acesso negado",
+          description: "Você precisa estar logado para acessar esta página.",
+          variant: "destructive",
+        });
+        navigate("/auth");
+        return;
+      }
+
+      // Check if user has admin role using the security definer function
+      const { data: hasAdminRole, error: roleError } = await supabase
+        .rpc('is_admin', { _user_id: user.id });
+
+      if (roleError) {
+        console.error("Error checking admin role:", roleError);
+        toast({
+          title: "Erro ao verificar permissões",
+          description: "Ocorreu um erro ao verificar suas permissões.",
+          variant: "destructive",
+        });
+        navigate("/");
+        return;
+      }
+
+      if (!hasAdminRole) {
+        toast({
+          title: "Acesso negado",
+          description: "Você não tem permissão para acessar o painel administrativo.",
+          variant: "destructive",
+        });
+        navigate("/");
+        return;
+      }
+
+      setIsAdmin(true);
+    } catch (error) {
+      console.error("Error in checkAdminAccess:", error);
+      navigate("/");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle flex items-center justify-center">
+        <div className="text-center">
+          <Shield className="w-12 h-12 text-telegram-blue animate-pulse mx-auto mb-4" />
+          <p className="text-muted-foreground">Verificando permissões...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return null;
+  }
 
   const stats = [
     { icon: MessageSquare, label: "Total de Grupos", value: "1.247", color: "text-blue-500" },

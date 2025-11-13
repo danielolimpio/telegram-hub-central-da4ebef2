@@ -20,6 +20,7 @@ import {
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { cn } from '@/lib/utils';
+import { sanitizeHTML } from '@/lib/sanitize';
 
 interface RichTextEditorProps {
   content: string;
@@ -46,7 +47,10 @@ export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps
     ],
     content,
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      // Sanitize HTML before passing to parent
+      const html = editor.getHTML();
+      const sanitized = sanitizeHTML(html);
+      onChange(sanitized);
     },
     editorProps: {
       attributes: {

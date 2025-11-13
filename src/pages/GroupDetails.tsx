@@ -16,6 +16,7 @@ import {
   Clock,
   Shield
 } from "lucide-react";
+import { sanitizeHTML } from "@/lib/sanitize";
 
 const GroupDetails = () => {
   const { slug } = useParams();
@@ -145,7 +146,10 @@ const GroupDetails = () => {
                   </div>
                 </div>
 
-                <p className="text-muted-foreground mb-4">{group.description}</p>
+                <div 
+                  className="text-muted-foreground mb-4"
+                  dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.description) }}
+                />
 
                 <div className="flex flex-wrap gap-4 mb-6">
                   <div className="flex items-center gap-2 text-sm">
@@ -193,9 +197,10 @@ const GroupDetails = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground leading-relaxed">
-                {group.longDescription}
-              </p>
+              <div 
+                className="text-muted-foreground leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.longDescription) }}
+              />
             </CardContent>
           </Card>
 
