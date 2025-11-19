@@ -20,7 +20,8 @@ import {
   X,
   RefreshCw,
   Edit,
-  Trash2
+  Trash2,
+  Image
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -156,6 +157,48 @@ const AdminDashboard = () => {
         description: "Não foi possível excluir o grupo.",
         variant: "destructive",
       });
+    }
+  };
+
+  const handleRefreshThumbnail = async (groupId: string, telegramLink: string) => {
+    setLoading(true);
+    
+    try {
+      toast({
+        title: "Atualizando miniatura...",
+        description: "Buscando nova imagem do Telegram.",
+      });
+
+      const { data, error } = await supabase.functions.invoke('fetch-telegram-thumbnail', {
+        body: { link: telegramLink }
+      });
+
+      if (error) throw error;
+
+      const thumbnailUrl = data?.thumbnailUrl;
+
+      const { error: updateError } = await supabase
+        .from("groups")
+        .update({ thumbnail_url: thumbnailUrl })
+        .eq("id", groupId);
+
+      if (updateError) throw updateError;
+
+      toast({
+        title: "Miniatura atualizada!",
+        description: "A imagem do grupo foi atualizada com sucesso.",
+      });
+
+      fetchGroups();
+    } catch (error) {
+      console.error("Error refreshing thumbnail:", error);
+      toast({
+        title: "Erro ao atualizar miniatura",
+        description: "Não foi possível atualizar a imagem. Verifique o link do Telegram.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -317,6 +360,16 @@ const AdminDashboard = () => {
                           <Button
                             size="sm"
                             variant="outline"
+                            className="text-purple-500 hover:bg-purple-500/10"
+                            onClick={() => handleRefreshThumbnail(group.id, group.telegram_link)}
+                            disabled={loading}
+                            title="Recarregar miniatura"
+                          >
+                            <Image className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
                             className="text-green-500 hover:bg-green-500/10"
                             onClick={() => handleApproveGroup(group.id)}
                           >
@@ -377,6 +430,16 @@ const AdminDashboard = () => {
                           </div>
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-purple-500 hover:bg-purple-500/10"
+                            onClick={() => handleRefreshThumbnail(group.id, group.telegram_link)}
+                            disabled={loading}
+                            title="Recarregar miniatura"
+                          >
+                            <Image className="w-4 h-4" />
+                          </Button>
                           <Button
                             size="sm"
                             variant="outline"
