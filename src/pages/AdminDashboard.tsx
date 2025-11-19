@@ -17,11 +17,15 @@ import {
   Ban,
   UserCheck,
   Check,
-  X
+  X,
+  RefreshCw,
+  Edit,
+  Trash2
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 type Group = Tables<"groups">;
 
@@ -126,6 +130,35 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleDeleteGroup = async (groupId: string) => {
+    if (!confirm("Tem certeza que deseja excluir este grupo? Esta ação não pode ser desfeita.")) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from("groups")
+        .delete()
+        .eq("id", groupId);
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Grupo excluído",
+        description: "O grupo foi excluído com sucesso.",
+      });
+      
+      fetchGroups();
+    } catch (error) {
+      console.error("Error deleting group:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível excluir o grupo.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const checkAdminAccess = async () => {
     try {
       // Check if user is authenticated
@@ -212,6 +245,14 @@ const AdminDashboard = () => {
             </h1>
             <p className="text-muted-foreground mt-1">Gerencie grupos e usuários da plataforma</p>
           </div>
+          <Button
+            onClick={fetchGroups}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Recarregar
+          </Button>
         </div>
 
         {/* Stats Cards */}
@@ -256,17 +297,23 @@ const AdminDashboard = () => {
                     groups.filter(g => g.status === 'pending').map((group) => (
                       <div
                         key={group.id}
-                        className="flex items-center justify-between p-4 border rounded-lg"
+                        className="flex items-center gap-4 p-4 border rounded-lg"
                       >
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                        <Avatar className="w-12 h-12 flex-shrink-0">
+                          <AvatarImage src={group.thumbnail_url || ""} alt={group.title} />
+                          <AvatarFallback className="bg-telegram-blue text-white">
+                            {group.title.substring(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground mb-1 truncate">{group.title}</h3>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
                             <Badge variant="outline">{group.category}</Badge>
                             <span>{group.members || 0} membros</span>
                             <span>{new Date(group.created_at).toLocaleDateString('pt-BR')}</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-shrink-0">
                           <Button
                             size="sm"
                             variant="outline"
@@ -308,11 +355,17 @@ const AdminDashboard = () => {
                     groups.map((group) => (
                       <div
                         key={group.id}
-                        className="flex items-center justify-between p-4 border rounded-lg"
+                        className="flex items-center gap-4 p-4 border rounded-lg"
                       >
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                        <Avatar className="w-12 h-12 flex-shrink-0">
+                          <AvatarImage src={group.thumbnail_url || ""} alt={group.title} />
+                          <AvatarFallback className="bg-telegram-blue text-white">
+                            {group.title.substring(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground mb-1 truncate">{group.title}</h3>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
                             <Badge variant="outline">{group.category}</Badge>
                             <Badge 
                               variant={group.status === 'approved' ? 'default' : group.status === 'pending' ? 'secondary' : 'destructive'}
@@ -322,6 +375,26 @@ const AdminDashboard = () => {
                             <span>{group.members || 0} membros</span>
                             <span>{new Date(group.created_at).toLocaleDateString('pt-BR')}</span>
                           </div>
+                        </div>
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-blue-500 hover:bg-blue-500/10"
+                            onClick={() => navigate(`/grupo/${group.slug}`)}
+                          >
+                            <Edit className="w-4 h-4 mr-1" />
+                            Editar
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-red-500 hover:bg-red-500/10"
+                            onClick={() => handleDeleteGroup(group.id)}
+                          >
+                            <Trash2 className="w-4 h-4 mr-1" />
+                            Excluir
+                          </Button>
                         </div>
                       </div>
                     ))
