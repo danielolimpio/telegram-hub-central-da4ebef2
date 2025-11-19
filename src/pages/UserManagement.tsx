@@ -110,17 +110,12 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
-      // Get all profiles with their associated group counts
+      // Get all profiles
       const { data: profiles, error: profilesError } = await supabase
         .from("profiles")
         .select("id, display_name, created_at");
 
       if (profilesError) throw profilesError;
-
-      // Get auth users data
-      const { data: { users: authUsers }, error: authError } = await supabase.auth.admin.listUsers();
-      
-      if (authError) throw authError;
 
       // Get group counts for each user
       const { data: groupCounts, error: groupError } = await supabase
@@ -135,15 +130,14 @@ const UserManagement = () => {
         return acc;
       }, {} as Record<string, number>) || {};
 
-      // Merge data
-      const usersData: UserData[] = authUsers.map(authUser => {
-        const profile = profiles?.find(p => p.id === authUser.id);
+      // Create users data from profiles
+      const usersData: UserData[] = (profiles || []).map(profile => {
         return {
-          id: authUser.id,
-          email: authUser.email || "N/A",
-          display_name: profile?.display_name || null,
-          created_at: authUser.created_at,
-          groupCount: groupCountMap[authUser.id] || 0,
+          id: profile.id,
+          email: "Email protegido", // Email is not available in profiles table
+          display_name: profile.display_name || null,
+          created_at: profile.created_at,
+          groupCount: groupCountMap[profile.id] || 0,
           isPremium: false, // TODO: Implement premium logic
         };
       });
@@ -186,13 +180,17 @@ const UserManagement = () => {
     if (!deleteUserId) return;
 
     try {
-      const { error } = await supabase.auth.admin.deleteUser(deleteUserId);
+      // Delete user profile
+      const { error } = await supabase
+        .from("profiles")
+        .delete()
+        .eq("id", deleteUserId);
       
       if (error) throw error;
 
       toast({
         title: "Usuário excluído",
-        description: "O usuário foi excluído com sucesso.",
+        description: "O perfil do usuário foi excluído com sucesso.",
       });
 
       setDeleteUserId(null);
