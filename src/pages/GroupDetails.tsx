@@ -30,6 +30,7 @@ interface Group {
   telegram_link: string;
   created_at: string;
   slug: string;
+  views: number;
 }
 
 const GroupDetails = () => {
@@ -38,13 +39,13 @@ const GroupDetails = () => {
   const [group, setGroup] = useState<Group | null>(null);
   const [loading, setLoading] = useState(true);
   const [acceptedRules, setAcceptedRules] = useState(false);
-  const [views, setViews] = useState(3);
 
   useEffect(() => {
     const fetchGroup = async () => {
       if (!slug) return;
 
       try {
+        // First fetch the group
         const { data, error } = await supabase
           .from('groups')
           .select('*')
@@ -59,7 +60,19 @@ const GroupDetails = () => {
           return;
         }
 
-        setGroup(data);
+        // Increment views using the database function
+        const { data: viewsData, error: viewsError } = await supabase
+          .rpc('increment_group_views', { group_slug: slug });
+
+        if (viewsError) {
+          console.error('Error incrementing views:', viewsError);
+        }
+
+        // Update group data with new views count
+        setGroup({
+          ...data,
+          views: viewsData || data.views || 0
+        });
       } catch (error) {
         console.error('Error:', error);
         toast.error('Erro ao carregar grupo');
@@ -210,7 +223,7 @@ const GroupDetails = () => {
                 </Badge>
                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                   <Users className="w-4 h-4" />
-                  <span>{views} acessos</span>
+                  <span>{formatMembers(group.views)} {group.views === 1 ? 'acesso' : 'acessos'}</span>
                 </div>
                 <Badge variant="outline" className="flex items-center gap-1.5 px-3 py-1.5 text-yellow-600 border-yellow-600">
                   <Star className="w-4 h-4 fill-yellow-600" />
