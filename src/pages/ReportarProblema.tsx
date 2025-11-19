@@ -240,8 +240,8 @@ const ReportarProblema = () => {
                   <p className="text-sm text-muted-foreground">urgente@gruposdotelegram.com</p>
                 </div>
                 <div>
-                  <strong className="text-sm">WhatsApp:</strong>
-                  <p className="text-sm text-muted-foreground">+55 11 99999-9999</p>
+                  <strong className="text-sm">Telegram:</strong>
+                  <p className="text-sm text-muted-foreground">@gruposdotelegram</p>
                 </div>
                 <div>
                   <strong className="text-sm">Horário de Atendimento:</strong>

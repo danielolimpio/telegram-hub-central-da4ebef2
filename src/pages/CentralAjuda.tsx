@@ -61,10 +61,10 @@ const CentralAjuda = () => {
   const contactOptions = [
     {
       icon: <MessageCircle className="w-8 h-8 text-green-500" />,
-      title: "WhatsApp",
-      description: "Suporte rápido pelo WhatsApp",
+      title: "Telegram",
+      description: "Suporte rápido pelo Telegram",
       action: "Enviar Mensagem",
-      href: "https://wa.me/5511999999999?text=Olá, preciso de ajuda com o Grupos do Telegram"
+      href: "https://t.me/gruposdotelegram"
     },
     {
       icon: <Mail className="w-8 h-8 text-blue-500" />,

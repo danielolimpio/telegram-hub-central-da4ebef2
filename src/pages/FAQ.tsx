@@ -124,7 +124,7 @@ const FAQ = () => {
       faqs: [
         {
           question: "Como entrar em contato com o suporte do portal?",
-          answer: "Temos várias opções: E-mail (suporte@gruposdotelegram.com), WhatsApp (+55 11 99999-9999), Central de Ajuda no site, ou formulário de contato. Nosso horário de atendimento é de segunda a sexta, das 9h às 18h."
+          answer: "Temos várias opções: E-mail (suporte@gruposdotelegram.com), Telegram (@gruposdotelegram), Central de Ajuda no site, ou formulário de contato. Nosso horário de atendimento é de segunda a sexta, das 9h às 18h."
         }
       ]
     }
@@ -205,7 +205,7 @@ const FAQ = () => {
                     rel="noopener noreferrer"
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Falar no WhatsApp
+                    Falar no Telegram
                   </a>
                 </Button>
                 <Button asChild variant="outline">
