@@ -273,33 +273,33 @@ const AdminDashboard = () => {
   };
 
   const categories = [
-    "Grupos do Whatsapp de Promoções",
-    "Grupos do Whatsapp de Vendas",
-    "Grupos do Whatsapp de Oportunidades",
-    "Grupos do Whatsapp de Namoros",
-    "Grupos do Whatsapp de Amizades",
-    "Grupos do Whatsapp de Encontros",
-    "Grupos do Whatsapp de Games",
-    "Grupos do Whatsapp de Esportes",
-    "Grupos do Whatsapp de Tecnologia",
-    "Grupos do Whatsapp de Estudos",
-    "Grupos do Whatsapp de Cursos",
-    "Grupos do Whatsapp de Notícias",
-    "Grupos do Whatsapp de Músicas",
-    "Grupos do Whatsapp de Filmes e Cinema",
-    "Grupos do Whatsapp de Livros",
-    "Grupos do Whatsapp de Receitas",
-    "Grupos do Whatsapp de Pets",
-    "Grupos do Whatsapp de Viagens",
-    "Grupos do Whatsapp de Investimentos",
-    "Grupos do Whatsapp de Figurinhas",
-    "Grupos do Whatsapp de Zoeira",
-    "Grupos do Whatsapp de Divulgação",
-    "Grupos do Whatsapp de Redes Sociais",
-    "Grupos do Whatsapp de Vídeos",
-    "Grupos do Whatsapp de LGBTQIA+",
-    "Grupos do Whatsapp de Estilo e Moda",
-    "Grupos do Whatsapp de Liberais"
+    "Grupos do Telegram de Promoções",
+    "Grupos do Telegram de Vendas",
+    "Grupos do Telegram de Oportunidades",
+    "Grupos do Telegram de Namoros",
+    "Grupos do Telegram de Amizades",
+    "Grupos do Telegram de Encontros",
+    "Grupos do Telegram de Games",
+    "Grupos do Telegram de Esportes",
+    "Grupos do Telegram de Tecnologia",
+    "Grupos do Telegram de Estudos",
+    "Grupos do Telegram de Cursos",
+    "Grupos do Telegram de Notícias",
+    "Grupos do Telegram de Músicas",
+    "Grupos do Telegram de Filmes e Cinema",
+    "Grupos do Telegram de Livros",
+    "Grupos do Telegram de Receitas",
+    "Grupos do Telegram de Pets",
+    "Grupos do Telegram de Viagens",
+    "Grupos do Telegram de Investimentos",
+    "Grupos do Telegram de Figurinhas",
+    "Grupos do Telegram de Zoeira",
+    "Grupos do Telegram de Divulgação",
+    "Grupos do Telegram de Redes Sociais",
+    "Grupos do Telegram de Vídeos",
+    "Grupos do Telegram de LGBTQIA+",
+    "Grupos do Telegram de Estilo e Moda",
+    "Grupos do Telegram de Liberais"
   ];
 
   const filteredGroups = groups
@@ -478,7 +478,7 @@ const AdminDashboard = () => {
                     </AvatarFallback>
                   </Avatar>
                   <Button variant="outline" size="sm" className="gap-2" onClick={() => window.open(group.telegram_link, '_blank')}>
-                    Ver Link do WhatsApp
+                    Ver Link do Telegram
                     <ExternalLink className="w-4 h-4" />
                   </Button>
                 </div>
@@ -517,7 +517,7 @@ const AdminDashboard = () => {
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-2 block">Link do WhatsApp</label>
+              <label className="text-sm font-medium mb-2 block">Link do Telegram</label>
               <Input value={editForm.telegram_link} onChange={(e) => setEditForm(prev => ({ ...prev, telegram_link: e.target.value }))} />
             </div>
 
@@ -539,7 +539,7 @@ const AdminDashboard = () => {
                 </Button>
                 <input id="file-upload" type="file" accept="image/*" className="hidden" />
                 <Button type="button" variant="outline" size="sm" onClick={() => handleRefreshThumbnail(editForm.telegram_link)} className="gap-2">
-                  <ImageIcon className="w-4 h-4" />Atualizar do WhatsApp
+                  <ImageIcon className="w-4 h-4" />Atualizar do Telegram
                 </Button>
               </div>
 
