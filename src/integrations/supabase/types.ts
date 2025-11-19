@@ -28,6 +28,7 @@ export type Database = {
           title: string
           updated_at: string
           user_id: string
+          views: number
         }
         Insert: {
           category: string
@@ -42,6 +43,7 @@ export type Database = {
           title: string
           updated_at?: string
           user_id: string
+          views?: number
         }
         Update: {
           category?: string
@@ -56,6 +58,7 @@ export type Database = {
           title?: string
           updated_at?: string
           user_id?: string
+          views?: number
         }
         Relationships: []
       }
@@ -119,6 +122,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_group_views: { Args: { group_slug: string }; Returns: number }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
