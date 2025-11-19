@@ -56,7 +56,7 @@ export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm max-w-none min-h-[200px] p-3 focus:outline-none',
+        class: 'prose prose-sm max-w-none min-h-[200px] p-3 focus:outline-none [&_ul]:list-disc [&_ul]:ml-6 [&_ol]:list-decimal [&_ol]:ml-6 [&_li]:ml-2',
       },
     },
   });
@@ -241,7 +241,10 @@ export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps
         </div>
 
         {/* Editor Content */}
-        <EditorContent editor={editor} className="prose-headings:font-bold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg" />
+        <EditorContent 
+          editor={editor} 
+          className="prose-headings:font-bold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:ml-2" 
+        />
       </div>
     </div>
   );
