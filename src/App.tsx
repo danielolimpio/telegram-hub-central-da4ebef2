@@ -48,6 +48,7 @@ import GruposLGBTQIA from "./pages/categories/GruposLGBTQIA";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import UserManagement from "./pages/UserManagement";
 import GroupDetails from "./pages/GroupDetails";
 import GroupStats from "./pages/GroupStats";
 
@@ -103,6 +104,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<UserManagement />} />
           <Route path="/grupo/:slug" element={<GroupDetails />} />
           <Route path="/grupo/:slug/stats" element={<GroupStats />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
