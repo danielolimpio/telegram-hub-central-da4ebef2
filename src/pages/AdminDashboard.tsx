@@ -443,7 +443,7 @@ const AdminDashboard = () => {
 
                     <div 
                       className="prose prose-sm max-w-none mb-3"
-                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(group.description) }}
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml.sanitize(group.description) }}
                     />
                     <p className="text-sm text-muted-foreground">Acessos: 0</p>
                   </div>
