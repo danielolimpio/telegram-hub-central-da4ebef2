@@ -215,7 +215,7 @@ const GroupDetails = () => {
 
               {/* Description */}
               <div 
-                className="text-muted-foreground mb-4 max-w-3xl leading-relaxed"
+                className="text-muted-foreground mb-4 max-w-3xl leading-relaxed text-left"
                 dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.description) }}
               />
 
