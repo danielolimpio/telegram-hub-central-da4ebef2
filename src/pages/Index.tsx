@@ -6,9 +6,16 @@ import Footer from "@/components/Footer";
 import { Users, TrendingUp, Star, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
+
+type Group = Tables<"groups">;
 
 const Index = () => {
   const navigate = useNavigate();
+  const [groups, setGroups] = useState<Group[]>([]);
+  const [loading, setLoading] = useState(true);
   
   const stats = [
     { icon: Users, value: "+12.500", label: "Grupos Ativos", color: "blue" as const },
@@ -17,7 +24,26 @@ const Index = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  const featuredGroups: any[] = [];
+  useEffect(() => {
+    const fetchGroups = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("groups")
+          .select("*")
+          .eq("status", "approved")
+          .order("created_at", { ascending: false });
+        
+        if (error) throw error;
+        setGroups(data || []);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGroups();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -59,20 +85,25 @@ const Index = () => {
 
             {/* Groups Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-              {featuredGroups.length === 0 ? (
+              {loading ? (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-muted-foreground">Carregando grupos...</p>
+                </div>
+              ) : groups.length === 0 ? (
                 <div className="col-span-full text-center py-12">
                   <p className="text-muted-foreground">Nenhum grupo disponível no momento.</p>
                 </div>
               ) : (
-                featuredGroups.slice(0, 8).map((group, index) => (
+                groups.slice(0, 8).map((group) => (
                   <GroupCard
-                    key={index}
+                    key={group.id}
                     title={group.title}
                     description={group.description}
-                    members={group.members}
-                    avatar={group.avatar}
+                    members={group.members || 0}
+                    avatar={group.thumbnail_url}
                     category={group.category}
-                    isNew={group.isNew}
+                    telegramLink={group.telegram_link}
+                    slug={group.slug}
                   />
                 ))
               )}
@@ -97,20 +128,25 @@ const Index = () => {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-                {featuredGroups.length === 0 ? (
+                {loading ? (
+                  <div className="col-span-full text-center py-12">
+                    <p className="text-muted-foreground">Carregando grupos...</p>
+                  </div>
+                ) : groups.length === 0 ? (
                   <div className="col-span-full text-center py-12">
                     <p className="text-muted-foreground">Nenhum grupo recente disponível.</p>
                   </div>
                 ) : (
-                  featuredGroups.filter(group => group.isNew).slice(0, 4).map((group, index) => (
+                  groups.slice(0, 4).map((group) => (
                     <GroupCard
-                      key={`recent-${index}`}
+                      key={`recent-${group.id}`}
                       title={group.title}
                       description={group.description}
-                      members={group.members}
-                      avatar={group.avatar}
+                      members={group.members || 0}
+                      avatar={group.thumbnail_url}
                       category={group.category}
-                      isNew={group.isNew}
+                      telegramLink={group.telegram_link}
+                      slug={group.slug}
                     />
                   ))
                 )}
@@ -136,20 +172,25 @@ const Index = () => {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-                {featuredGroups.length === 0 ? (
+                {loading ? (
+                  <div className="col-span-full text-center py-12">
+                    <p className="text-muted-foreground">Carregando grupos...</p>
+                  </div>
+                ) : groups.length === 0 ? (
                   <div className="col-span-full text-center py-12">
                     <p className="text-muted-foreground">Nenhum grupo disponível.</p>
                   </div>
                 ) : (
-                  featuredGroups.slice(0, 12).map((group, index) => (
+                  groups.slice(0, 12).map((group) => (
                     <GroupCard
-                      key={`all-${index}`}
+                      key={`all-${group.id}`}
                       title={group.title}
                       description={group.description}
-                      members={group.members}
-                      avatar={group.avatar}
+                      members={group.members || 0}
+                      avatar={group.thumbnail_url}
                       category={group.category}
-                      isNew={group.isNew}
+                      telegramLink={group.telegram_link}
+                      slug={group.slug}
                     />
                   ))
                 )}
