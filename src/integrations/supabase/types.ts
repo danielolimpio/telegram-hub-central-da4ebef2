@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      group_views: {
+        Row: {
+          created_at: string
+          group_id: string
+          id: string
+          user_agent: string | null
+          viewed_at: string
+        }
+        Insert: {
+          created_at?: string
+          group_id: string
+          id?: string
+          user_agent?: string | null
+          viewed_at?: string
+        }
+        Update: {
+          created_at?: string
+          group_id?: string
+          id?: string
+          user_agent?: string | null
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_group_views_group_id"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       groups: {
         Row: {
           category: string
@@ -122,7 +154,12 @@ export type Database = {
         }
         Returns: boolean
       }
-      increment_group_views: { Args: { group_slug: string }; Returns: number }
+      increment_group_views:
+        | { Args: { group_slug: string }; Returns: number }
+        | {
+            Args: { group_slug: string; user_agent_str?: string }
+            Returns: number
+          }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
