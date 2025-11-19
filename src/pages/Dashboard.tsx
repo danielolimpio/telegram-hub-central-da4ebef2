@@ -7,11 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MessageSquare, CheckCircle, Clock, Eye, Heart, Star, User, Send, Upload, LogOut, Camera } from "lucide-react";
+import { MessageSquare, CheckCircle, Clock, Eye, Heart, Star, User, Send, Upload, LogOut, Camera, BarChart3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { RichTextEditor } from "@/components/RichTextEditor";
+import { Badge } from "@/components/ui/badge";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Dashboard = () => {
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [myGroups, setMyGroups] = useState<any[]>([]);
   
   // Group form states
   const [groupTitle, setGroupTitle] = useState("");
@@ -60,6 +62,17 @@ const Dashboard = () => {
       setDisplayName(profileData.display_name || "");
       setBio(profileData.bio || "");
       setAvatarPreview(profileData.avatar_url || "");
+    }
+
+    // Load user's groups
+    const { data: groupsData } = await supabase
+      .from("groups")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (groupsData) {
+      setMyGroups(groupsData);
     }
     
     setLoading(false);
@@ -377,9 +390,60 @@ const Dashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Todos os Meus Grupos</CardTitle>
+                <CardDescription>{myGroups.length} grupos cadastrados</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Lista completa dos seus grupos...</p>
+                {myGroups.length === 0 ? (
+                  <p className="text-muted-foreground text-center py-8">
+                    Você ainda não enviou nenhum grupo.
+                  </p>
+                ) : (
+                  <div className="space-y-4">
+                    {myGroups.map((group) => (
+                      <div key={group.id} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center gap-4">
+                          <Avatar className="w-12 h-12">
+                            <AvatarImage src={group.thumbnail_url || ""} />
+                            <AvatarFallback className="bg-telegram-blue text-white">
+                              {group.title.substring(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h3 className="font-semibold text-foreground">{group.title}</h3>
+                            <div className="flex items-center gap-2 mt-1">
+                              <Badge variant={group.status === 'approved' ? 'default' : group.status === 'pending' ? 'secondary' : 'destructive'}>
+                                {group.status === 'approved' ? 'Aprovado' : group.status === 'pending' ? 'Pendente' : 'Rejeitado'}
+                              </Badge>
+                              <span className="text-sm text-muted-foreground flex items-center gap-1">
+                                <Eye className="w-3 h-3" />
+                                {group.views || 0} visualizações
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {group.status === 'approved' && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => navigate(`/grupo/${group.slug}/stats`)}
+                            >
+                              <BarChart3 className="w-4 h-4 mr-2" />
+                              Estatísticas
+                            </Button>
+                          )}
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => window.open(group.telegram_link, '_blank')}
+                          >
+                            Ver Grupo
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>

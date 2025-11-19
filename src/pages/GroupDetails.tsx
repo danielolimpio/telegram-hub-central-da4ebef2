@@ -61,8 +61,12 @@ const GroupDetails = () => {
         }
 
         // Increment views using the database function
+        const userAgent = navigator.userAgent;
         const { data: viewsData, error: viewsError } = await supabase
-          .rpc('increment_group_views', { group_slug: slug });
+          .rpc('increment_group_views', { 
+            group_slug: slug,
+            user_agent_str: userAgent 
+          });
 
         if (viewsError) {
           console.error('Error incrementing views:', viewsError);
