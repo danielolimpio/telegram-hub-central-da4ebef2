@@ -2,31 +2,30 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { 
-  MessageSquare, 
-  CheckCircle, 
-  Clock, 
-  Users, 
   Shield,
+  Search,
+  Clock,
+  CheckCircle,
   XCircle,
-  Star,
-  Ban,
-  UserCheck,
-  Check,
-  X,
-  RefreshCw,
   Edit,
   Trash2,
-  Image
+  Image as ImageIcon,
+  Users,
+  ExternalLink,
+  MessageSquare
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import sanitizeHtml from "dompurify";
 
 type Group = Tables<"groups">;
 
@@ -36,11 +35,15 @@ const AdminDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [groups, setGroups] = useState<Group[]>([]);
-  const [stats, setStats] = useState({
-    total: 0,
-    approved: 0,
-    pending: 0,
-    rejected: 0
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"pending" | "approved" | "rejected">("pending");
+  const [editingGroup, setEditingGroup] = useState<Group | null>(null);
+  const [editForm, setEditForm] = useState({
+    title: "",
+    category: "",
+    description: "",
+    telegram_link: "",
+    thumbnail_url: ""
   });
 
   useEffect(() => {
@@ -61,16 +64,7 @@ const AdminDashboard = () => {
         .order("created_at", { ascending: false });
       
       if (error) throw error;
-      
       setGroups(data || []);
-      
-      // Calculate stats
-      const total = data?.length || 0;
-      const approved = data?.filter(g => g.status === 'approved').length || 0;
-      const pending = data?.filter(g => g.status === 'pending').length || 0;
-      const rejected = data?.filter(g => g.status === 'rejected').length || 0;
-      
-      setStats({ total, approved, pending, rejected });
     } catch (error) {
       console.error("Error fetching groups:", error);
       toast({
@@ -160,9 +154,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleRefreshThumbnail = async (groupId: string, telegramLink: string) => {
-    setLoading(true);
-    
+  const handleRefreshThumbnail = async (telegramLink: string) => {
     try {
       toast({
         title: "Atualizando miniatura...",
@@ -176,63 +168,90 @@ const AdminDashboard = () => {
       if (error) throw error;
 
       const thumbnailUrl = data?.thumbnailUrl;
-
-      const { error: updateError } = await supabase
-        .from("groups")
-        .update({ thumbnail_url: thumbnailUrl })
-        .eq("id", groupId);
-
-      if (updateError) throw updateError;
+      setEditForm(prev => ({ ...prev, thumbnail_url: thumbnailUrl || "" }));
 
       toast({
         title: "Miniatura atualizada!",
         description: "A imagem do grupo foi atualizada com sucesso.",
       });
-
-      fetchGroups();
     } catch (error) {
       console.error("Error refreshing thumbnail:", error);
       toast({
         title: "Erro ao atualizar miniatura",
-        description: "Não foi possível atualizar a imagem. Verifique o link do Telegram.",
+        description: "Não foi possível atualizar a imagem.",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  const handleEditGroup = (group: Group) => {
+    setEditingGroup(group);
+    setEditForm({
+      title: group.title,
+      category: group.category,
+      description: group.description,
+      telegram_link: group.telegram_link,
+      thumbnail_url: group.thumbnail_url || ""
+    });
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editingGroup) return;
+
+    try {
+      const { error } = await supabase
+        .from("groups")
+        .update({
+          title: editForm.title,
+          category: editForm.category,
+          description: editForm.description,
+          telegram_link: editForm.telegram_link,
+          thumbnail_url: editForm.thumbnail_url
+        })
+        .eq("id", editingGroup.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Grupo atualizado!",
+        description: "As alterações foram salvas com sucesso.",
+      });
+
+      setEditingGroup(null);
+      fetchGroups();
+    } catch (error) {
+      console.error("Error updating group:", error);
+      toast({
+        title: "Erro ao atualizar",
+        description: "Não foi possível salvar as alterações.",
+        variant: "destructive",
+      });
     }
   };
 
   const checkAdminAccess = async () => {
     try {
-      // Check if user is authenticated
-      const { data: { user }, error: authError } = await supabase.auth.getUser();
-      
-      if (authError || !user) {
-        toast({
-          title: "Acesso negado",
-          description: "Você precisa estar logado para acessar esta página.",
-          variant: "destructive",
-        });
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
         navigate("/auth");
         return;
       }
 
-      // Check if user has admin role using the security definer function
-      const { data: hasAdminRole, error: roleError } = await supabase
-        .rpc('is_admin', { _user_id: user.id });
+      const { data: roleData, error: roleError } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
 
       if (roleError) {
         console.error("Error checking admin role:", roleError);
-        toast({
-          title: "Erro ao verificar permissões",
-          description: "Ocorreu um erro ao verificar suas permissões.",
-          variant: "destructive",
-        });
         navigate("/");
         return;
       }
 
-      if (!hasAdminRole) {
+      if (!roleData) {
         toast({
           title: "Acesso negado",
           description: "Você não tem permissão para acessar o painel administrativo.",
@@ -251,11 +270,50 @@ const AdminDashboard = () => {
     }
   };
 
+  const categories = [
+    "Grupos do Whatsapp de Promoções",
+    "Grupos do Whatsapp de Vendas",
+    "Grupos do Whatsapp de Oportunidades",
+    "Grupos do Whatsapp de Namoros",
+    "Grupos do Whatsapp de Amizades",
+    "Grupos do Whatsapp de Encontros",
+    "Grupos do Whatsapp de Games",
+    "Grupos do Whatsapp de Esportes",
+    "Grupos do Whatsapp de Tecnologia",
+    "Grupos do Whatsapp de Estudos",
+    "Grupos do Whatsapp de Cursos",
+    "Grupos do Whatsapp de Notícias",
+    "Grupos do Whatsapp de Músicas",
+    "Grupos do Whatsapp de Filmes e Cinema",
+    "Grupos do Whatsapp de Livros",
+    "Grupos do Whatsapp de Receitas",
+    "Grupos do Whatsapp de Pets",
+    "Grupos do Whatsapp de Viagens",
+    "Grupos do Whatsapp de Investimentos",
+    "Grupos do Whatsapp de Figurinhas",
+    "Grupos do Whatsapp de Zoeira",
+    "Grupos do Whatsapp de Divulgação",
+    "Grupos do Whatsapp de Redes Sociais",
+    "Grupos do Whatsapp de Vídeos",
+    "Grupos do Whatsapp de LGBTQIA+",
+    "Grupos do Whatsapp de Estilo e Moda",
+    "Grupos do Whatsapp de Liberais"
+  ];
+
+  const filteredGroups = groups
+    .filter(g => g.status === statusFilter)
+    .filter(g => 
+      searchQuery === "" ||
+      g.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      g.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      g.user_id.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-subtle flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <Shield className="w-12 h-12 text-telegram-blue animate-pulse mx-auto mb-4" />
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Verificando permissões...</p>
         </div>
       </div>
@@ -263,228 +321,237 @@ const AdminDashboard = () => {
   }
 
   if (!isAdmin) {
-    return null;
-  }
-
-  const statsCards = [
-    { icon: MessageSquare, label: "Total de Grupos", value: stats.total.toString(), color: "text-blue-500" },
-    { icon: CheckCircle, label: "Aprovados", value: stats.approved.toString(), color: "text-green-500" },
-    { icon: Clock, label: "Pendentes", value: stats.pending.toString(), color: "text-yellow-500" },
-    { icon: XCircle, label: "Rejeitados", value: stats.rejected.toString(), color: "text-red-500" },
-  ];
-
-
-  return (
-    <div className="min-h-screen bg-gradient-subtle">
-      <Header />
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
-              <Shield className="w-8 h-8 text-telegram-blue" />
-              Painel do Administrador
-            </h1>
-            <p className="text-muted-foreground mt-1">Gerencie grupos e usuários da plataforma</p>
-          </div>
-          <Button
-            onClick={fetchGroups}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <RefreshCw className="w-4 h-4" />
-            Recarregar
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="max-w-md text-center">
+          <Shield className="w-16 h-16 mx-auto mb-4 text-destructive" />
+          <h2 className="text-2xl font-bold mb-2">Acesso Negado</h2>
+          <p className="text-muted-foreground mb-4">
+            Você não tem permissão para acessar o painel administrativo.
+          </p>
+          <Button onClick={() => navigate("/")} className="w-full">
+            Voltar para Home
           </Button>
         </div>
+      </div>
+    );
+  }
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {statsCards.map((stat) => (
-            <Card key={stat.label}>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
-                    <p className="text-3xl font-bold">{stat.value}</p>
-                  </div>
-                  <stat.icon className={`w-8 h-8 ${stat.color}`} />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      
+      <main className="container mx-auto px-4 py-8">
+        <div className="flex items-start justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-green-500/10">
+              <Shield className="w-6 h-6 text-green-500" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold">Painel Administrativo</h1>
+              <p className="text-sm text-muted-foreground">Gerencie grupos e moderação de conteúdo</p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" className="gap-2">
+              <Users className="w-4 h-4" />
+              Gerenciar Usuários
+            </Button>
+            <Button variant="destructive">Administrador</Button>
+          </div>
         </div>
 
-        {/* Tabs Navigation */}
-        <Tabs defaultValue="pending" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="pending">Grupos Pendentes</TabsTrigger>
-            <TabsTrigger value="all-groups">Todos os Grupos</TabsTrigger>
-            <TabsTrigger value="users">Gerenciar Usuários</TabsTrigger>
-          </TabsList>
+        <div className="bg-card border rounded-lg p-6 mb-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Search className="w-5 h-5 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">Filtros e Busca</h2>
+          </div>
+          
+          <div className="flex gap-4 items-center flex-wrap">
+            <Input
+              placeholder="Buscar por nome, categoria ou usuário..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 min-w-[300px]"
+            />
+            
+            <div className="flex gap-2">
+              <Button
+                variant={statusFilter === "pending" ? "default" : "outline"}
+                onClick={() => setStatusFilter("pending")}
+                className={statusFilter === "pending" ? "bg-green-500 hover:bg-green-600" : ""}
+              >
+                <Clock className="w-4 h-4 mr-2" />
+                Pendentes
+              </Button>
+              <Button
+                variant={statusFilter === "approved" ? "default" : "outline"}
+                onClick={() => setStatusFilter("approved")}
+                className={statusFilter === "approved" ? "bg-green-500 hover:bg-green-600" : ""}
+              >
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Aprovados
+              </Button>
+              <Button
+                variant={statusFilter === "rejected" ? "default" : "outline"}
+                onClick={() => setStatusFilter("rejected")}
+                className={statusFilter === "rejected" ? "bg-green-500 hover:bg-green-600" : ""}
+              >
+                <XCircle className="w-4 h-4 mr-2" />
+                Rejeitados
+              </Button>
+            </div>
+          </div>
+        </div>
 
-          {/* Grupos Pendentes */}
-          <TabsContent value="pending">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-yellow-500" />
-                  Grupos Aguardando Aprovação
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {groups.filter(g => g.status === 'pending').length === 0 ? (
-                    <p className="text-center text-muted-foreground py-8">Nenhum grupo pendente</p>
-                  ) : (
-                    groups.filter(g => g.status === 'pending').map((group) => (
-                      <div
-                        key={group.id}
-                        className="flex items-center gap-4 p-4 border rounded-lg"
+        <div className="space-y-4">
+          {filteredGroups.length === 0 ? (
+            <div className="bg-card border rounded-lg p-12 text-center">
+              <MessageSquare className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+              <p className="text-muted-foreground">
+                Nenhum grupo encontrado com o status "{statusFilter}"
+              </p>
+            </div>
+          ) : (
+            filteredGroups.map((group) => (
+              <div key={group.id} className="bg-card border rounded-lg p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-xl font-semibold">{group.title}</h3>
+                      <Badge 
+                        variant={group.status === "approved" ? "default" : "secondary"}
+                        className={group.status === "approved" ? "bg-green-500/10 text-green-500" : ""}
                       >
-                        <Avatar className="w-12 h-12 flex-shrink-0">
-                          <AvatarImage src={group.thumbnail_url || ""} alt={group.title} />
-                          <AvatarFallback className="bg-telegram-blue text-white">
-                            {group.title.substring(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground mb-1 truncate">{group.title}</h3>
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
-                            <Badge variant="outline">{group.category}</Badge>
-                            <span>{group.members || 0} membros</span>
-                            <span>{new Date(group.created_at).toLocaleDateString('pt-BR')}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-purple-500 hover:bg-purple-500/10"
-                            onClick={() => handleRefreshThumbnail(group.id, group.telegram_link)}
-                            disabled={loading}
-                            title="Recarregar miniatura"
-                          >
-                            <Image className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-green-500 hover:bg-green-500/10"
-                            onClick={() => handleApproveGroup(group.id)}
-                          >
-                            <Check className="w-4 h-4 mr-1" />
-                            Aprovar
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-red-500 hover:bg-red-500/10"
-                            onClick={() => handleRejectGroup(group.id)}
-                          >
-                            <X className="w-4 h-4 mr-1" />
-                            Rejeitar
-                          </Button>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                        {group.status === "approved" ? (
+                          <><CheckCircle className="w-3 h-3 mr-1" />Aprovado</>
+                        ) : group.status === "pending" ? (
+                          <><Clock className="w-3 h-3 mr-1" />Pendente</>
+                        ) : (
+                          <><XCircle className="w-3 h-3 mr-1" />Rejeitado</>
+                        )}
+                      </Badge>
+                    </div>
+                    
+                    <div className="space-y-1 text-sm text-muted-foreground mb-3">
+                      <p><strong>Categoria:</strong> {group.category}</p>
+                      <p><strong>ID do Usuário:</strong> {group.user_id}</p>
+                      <p><strong>Criado em:</strong> {new Date(group.created_at).toLocaleDateString('pt-BR', { 
+                        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                      })}</p>
+                    </div>
 
-          {/* Todos os Grupos */}
-          <TabsContent value="all-groups">
-            <Card>
-              <CardHeader>
-                <CardTitle>Todos os Grupos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {groups.length === 0 ? (
-                    <p className="text-center text-muted-foreground py-8">Nenhum grupo cadastrado</p>
-                  ) : (
-                    groups.map((group) => (
-                      <div
-                        key={group.id}
-                        className="flex items-center gap-4 p-4 border rounded-lg"
-                      >
-                        <Avatar className="w-12 h-12 flex-shrink-0">
-                          <AvatarImage src={group.thumbnail_url || ""} alt={group.title} />
-                          <AvatarFallback className="bg-telegram-blue text-white">
-                            {group.title.substring(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground mb-1 truncate">{group.title}</h3>
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
-                            <Badge variant="outline">{group.category}</Badge>
-                            <Badge 
-                              variant={group.status === 'approved' ? 'default' : group.status === 'pending' ? 'secondary' : 'destructive'}
-                            >
-                              {group.status === 'approved' ? 'Aprovado' : group.status === 'pending' ? 'Pendente' : 'Rejeitado'}
-                            </Badge>
-                            <span>{group.members || 0} membros</span>
-                            <span>{new Date(group.created_at).toLocaleDateString('pt-BR')}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-purple-500 hover:bg-purple-500/10"
-                            onClick={() => handleRefreshThumbnail(group.id, group.telegram_link)}
-                            disabled={loading}
-                            title="Recarregar miniatura"
-                          >
-                            <Image className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-blue-500 hover:bg-blue-500/10"
-                            onClick={() => navigate(`/grupo/${group.slug}`)}
-                          >
-                            <Edit className="w-4 h-4 mr-1" />
-                            Editar
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-red-500 hover:bg-red-500/10"
-                            onClick={() => handleDeleteGroup(group.id)}
-                          >
-                            <Trash2 className="w-4 h-4 mr-1" />
-                            Excluir
-                          </Button>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                    <div 
+                      className="prose prose-sm max-w-none mb-3"
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(group.description) }}
+                    />
+                    <p className="text-sm text-muted-foreground">Acessos: 0</p>
+                  </div>
 
-          {/* Gerenciar Usuários */}
-          <TabsContent value="users">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  Gerenciar Usuários
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-muted-foreground py-8">
-                  Funcionalidade de gerenciamento de usuários em desenvolvimento
-                </p>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                  <div className="flex gap-2 ml-4">
+                    {group.status === "pending" && (
+                      <>
+                        <Button size="sm" className="bg-green-500 hover:bg-green-600" onClick={() => handleApproveGroup(group.id)}>
+                          <CheckCircle className="w-4 h-4 mr-1" />Aprovar
+                        </Button>
+                        <Button size="sm" variant="destructive" onClick={() => handleRejectGroup(group.id)}>
+                          <XCircle className="w-4 h-4 mr-1" />Rejeitar
+                        </Button>
+                      </>
+                    )}
+                    <Button size="sm" variant="outline" onClick={() => handleEditGroup(group)}>
+                      <Edit className="w-4 h-4 mr-1" />Editar
+                    </Button>
+                    <Button size="sm" variant="outline" className="text-destructive" onClick={() => handleDeleteGroup(group.id)}>
+                      <Trash2 className="w-4 h-4 mr-1" />Excluir
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <Avatar className="w-16 h-16 rounded">
+                    <AvatarImage src={group.thumbnail_url || ""} alt={group.title} />
+                    <AvatarFallback className="rounded text-xs">
+                      {group.title.substring(0, 2).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <Button variant="outline" size="sm" className="gap-2" onClick={() => window.open(group.telegram_link, '_blank')}>
+                    Ver Link do WhatsApp
+                    <ExternalLink className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </main>
+
+      <Dialog open={!!editingGroup} onOpenChange={() => setEditingGroup(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Editar Grupo</DialogTitle>
+            <p className="text-sm text-muted-foreground">Faça as alterações necessárias no grupo</p>
+          </DialogHeader>
+
+          <div className="space-y-4 mt-4">
+            <div>
+              <label className="text-sm font-medium mb-2 block">Nome do Grupo</label>
+              <Input value={editForm.title} onChange={(e) => setEditForm(prev => ({ ...prev, title: e.target.value }))} />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-2 block">Categoria</label>
+              <Select value={editForm.category} onValueChange={(value) => setEditForm(prev => ({ ...prev, category: value }))}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {categories.map((cat) => (<SelectItem key={cat} value={cat}>{cat}</SelectItem>))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-2 block">Descrição</label>
+              <Textarea value={editForm.description} onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))} rows={6} />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-2 block">Link do WhatsApp</label>
+              <Input value={editForm.telegram_link} onChange={(e) => setEditForm(prev => ({ ...prev, telegram_link: e.target.value }))} />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-2 block">Imagem do Grupo</label>
+              {editForm.thumbnail_url && (
+                <div className="mb-3 flex items-center gap-3">
+                  <Avatar className="w-16 h-16 rounded">
+                    <AvatarImage src={editForm.thumbnail_url} />
+                    <AvatarFallback>IMG</AvatarFallback>
+                  </Avatar>
+                  <span className="text-sm text-muted-foreground">Imagem atual</span>
+                </div>
+              )}
+              
+              <div className="flex gap-2 mb-3">
+                <Button type="button" variant="outline" size="sm" onClick={() => document.getElementById('file-upload')?.click()}>
+                  Escolher arquivo
+                </Button>
+                <input id="file-upload" type="file" accept="image/*" className="hidden" />
+                <Button type="button" variant="outline" size="sm" onClick={() => handleRefreshThumbnail(editForm.telegram_link)} className="gap-2">
+                  <ImageIcon className="w-4 h-4" />Atualizar do WhatsApp
+                </Button>
+              </div>
+
+              <label className="text-sm text-muted-foreground mb-2 block">Ou cole a URL da imagem</label>
+              <Input value={editForm.thumbnail_url} onChange={(e) => setEditForm(prev => ({ ...prev, thumbnail_url: e.target.value }))} />
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-2 mt-6">
+            <Button variant="outline" onClick={() => setEditingGroup(null)}>Cancelar</Button>
+            <Button className="bg-green-500 hover:bg-green-600" onClick={handleSaveEdit}>Salvar Alterações</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
