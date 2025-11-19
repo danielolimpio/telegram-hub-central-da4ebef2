@@ -3,73 +3,107 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { 
   Users, 
   ExternalLink, 
   Heart, 
   Share2, 
-  AlertCircle,
   CheckCircle,
-  Clock,
-  Shield
+  Star,
+  MessageCircle
 } from "lucide-react";
 import { sanitizeHTML } from "@/lib/sanitize";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+
+interface Group {
+  id: string;
+  title: string;
+  description: string;
+  members: number;
+  thumbnail_url: string | null;
+  category: string;
+  telegram_link: string;
+  created_at: string;
+  slug: string;
+}
 
 const GroupDetails = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  // Mock data - isso será substituído por dados reais do Supabase
-  const group = {
-    id: 1,
-    title: "Grupo de Telegram Exemplo",
-    description: "Este é um grupo de exemplo para demonstrar a página de detalhes. Aqui você encontrará conteúdo relevante e discussões interessantes sobre diversos tópicos.",
-    longDescription: "Descrição completa do grupo com mais detalhes sobre o que é discutido, regras e expectativas. Este é um espaço para compartilhar conhecimento, fazer networking e crescer junto com a comunidade.",
-    members: 1234,
-    avatar: "https://ui-avatars.com/api/?name=Exemplo&background=0088cc&color=fff&size=256",
-    category: "Geral",
-    telegramLink: "https://t.me/exemplo",
-    isNew: true,
-    createdAt: "2025-01-15",
-    rules: [
-      "Seja respeitoso com todos os membros",
-      "Não compartilhe conteúdo ofensivo ou ilegal",
-      "Mantenha as discussões no tópico",
-      "Não faça spam ou autopromoção excessiva"
-    ],
-    tags: ["Networking", "Comunidade", "Aprendizado"],
-    adminContact: "@admin_exemplo"
-  };
+  const [group, setGroup] = useState<Group | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [acceptedRules, setAcceptedRules] = useState(false);
+  const [views, setViews] = useState(3);
 
   useEffect(() => {
-    // Aqui você buscaria os dados reais do grupo do Supabase
-    // usando o slug da URL
-    console.log("Loading group with slug:", slug);
-  }, [slug]);
+    const fetchGroup = async () => {
+      if (!slug) return;
+
+      try {
+        const { data, error } = await supabase
+          .from('groups')
+          .select('*')
+          .eq('slug', slug)
+          .eq('status', 'approved')
+          .single();
+
+        if (error) {
+          console.error('Error fetching group:', error);
+          toast.error('Grupo não encontrado');
+          navigate('/');
+          return;
+        }
+
+        setGroup(data);
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error('Erro ao carregar grupo');
+        navigate('/');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGroup();
+  }, [slug, navigate]);
 
   const handleJoinGroup = () => {
-    window.open(group.telegramLink, '_blank');
+    if (!group || !acceptedRules) {
+      toast.error('Você precisa concordar com as regras antes de continuar');
+      return;
+    }
+    window.open(group.telegram_link, '_blank');
   };
 
-  const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
+  const handleShare = async (platform: string) => {
+    if (!group) return;
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: group.title,
-          text: group.description,
-          url: window.location.href
-        });
-      } catch (err) {
-        console.log('Error sharing:', err);
-      }
+    const url = window.location.href;
+    const text = `${group.title} - ${group.description}`;
+
+    let shareUrl = '';
+    switch (platform) {
+      case 'whatsapp':
+        shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        break;
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        break;
+    }
+
+    if (shareUrl) {
+      window.open(shareUrl, '_blank', 'width=600,height=400');
     }
   };
 
@@ -77,188 +111,226 @@ const GroupDetails = () => {
     return count.toLocaleString('pt-BR');
   };
 
+  const communityRules = [
+    { 
+      text: "Respeite a privacidade alheia: Não compartilhe dados pessoais de outras pessoas sem autorização explícita.",
+      icon: CheckCircle
+    },
+    { 
+      text: "Compartilhe com responsabilidade: Envie apenas links de grupos públicos e apropriados para um público geral.",
+      icon: CheckCircle
+    },
+    { 
+      text: "Evite conteúdo impróprio: Não publique ou promova materiais que violem leis, direitos autorais ou políticas de plataformas como WhatsApp e Google.",
+      icon: CheckCircle
+    },
+    { 
+      text: "Verifique antes de enviar: Certifique-se de que os links e conteúdos sejam seguros, funcionais e livres de riscos digitais.",
+      icon: CheckCircle
+    },
+    { 
+      text: "Seja gentil e respeitoso: Use uma linguagem cordial e evite mensagens que possam ofender, discriminar ou perturbar outros usuários.",
+      icon: CheckCircle
+    },
+    { 
+      text: "Mantenha a relevância: Evite repetições excessivas ou publicações fora do tema. Qualidade sempre vem antes da quantidade!",
+      icon: CheckCircle
+    },
+    { 
+      text: "Siga as políticas oficiais: Todos os grupos devem estar em conformidade com os Termos de Serviço do WhatsApp e as Políticas do Programa Google AdSense.",
+      icon: CheckCircle
+    },
+    { 
+      text: "Ajude a manter o ambiente saudável: Se for administrador, modere seu grupo com cuidado e incentive um espaço positivo para todos.",
+      icon: CheckCircle
+    }
+  ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle">
+        <Header />
+        <main className="max-w-5xl mx-auto px-4 py-8">
+          <div className="text-center">Carregando...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!group) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle">
+        <Header />
+        <main className="max-w-5xl mx-auto px-4 py-8">
+          <div className="text-center">Grupo não encontrado</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
       <Header />
       
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Breadcrumb */}
-        <div className="mb-6 text-sm text-muted-foreground">
-          <button onClick={() => navigate('/')} className="hover:text-telegram-blue">
-            Início
-          </button>
-          <span className="mx-2">/</span>
-          <button onClick={() => navigate('/all-groups')} className="hover:text-telegram-blue">
-            Todos os Grupos
-          </button>
-          <span className="mx-2">/</span>
-          <span className="text-foreground">{group.title}</span>
-        </div>
-
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Main Card */}
         <Card className="border-border/50 mb-6">
           <CardContent className="p-6 sm:p-8">
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Avatar and Quick Actions */}
-              <div className="flex flex-col items-center md:items-start">
-                <div className="relative mb-4">
-                  <img
-                    src={group.avatar}
-                    alt={group.title}
-                    className="w-32 h-32 rounded-2xl object-cover border-4 border-telegram-blue/20"
-                  />
-                  {group.isNew && (
-                    <Badge className="absolute -top-2 -right-2 bg-success text-success-foreground">
-                      Novo
-                    </Badge>
-                  )}
-                </div>
-                
-                <div className="flex gap-2 w-full md:w-auto">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={handleToggleFavorite}
-                    className={isFavorite ? "text-red-500 border-red-500" : ""}
-                  >
-                    <Heart className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`} />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={handleShare}
-                  >
-                    <Share2 className="w-5 h-5" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Group Info */}
-              <div className="flex-1">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                      {group.title}
-                    </h1>
-                    <Badge variant="secondary" className="mb-3">
-                      {group.category}
-                    </Badge>
-                  </div>
-                </div>
-
-                <div 
-                  className="text-muted-foreground mb-4"
-                  dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.description) }}
+            <div className="flex flex-col items-center text-center">
+              {/* Avatar */}
+              <Avatar className="w-24 h-24 sm:w-32 sm:h-32 mb-4 border-4 border-telegram-blue/20">
+                <AvatarImage 
+                  src={group.thumbnail_url || ""} 
+                  alt={group.title}
+                  className="object-cover"
                 />
+                <AvatarFallback className="bg-telegram-blue text-white text-3xl font-bold">
+                  {group.title.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
 
-                <div className="flex flex-wrap gap-4 mb-6">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Users className="w-4 h-4 text-telegram-blue" />
-                    <span className="font-semibold">{formatMembers(group.members)}</span>
-                    <span className="text-muted-foreground">membros</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <Clock className="w-4 h-4 text-telegram-blue" />
-                    <span className="text-muted-foreground">
-                      Criado em {new Date(group.createdAt).toLocaleDateString('pt-BR')}
-                    </span>
-                  </div>
+              {/* Title */}
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                {group.title}
+              </h1>
+
+              {/* Description */}
+              <div 
+                className="text-muted-foreground mb-4 max-w-3xl leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.description) }}
+              />
+
+              {/* Stats */}
+              <div className="flex items-center gap-6 mb-6">
+                <Badge variant="secondary" className="flex items-center gap-1.5 px-3 py-1.5">
+                  <MessageCircle className="w-4 h-4" />
+                  {group.category}
+                </Badge>
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <Users className="w-4 h-4" />
+                  <span>{views} acessos</span>
                 </div>
+                <Badge variant="outline" className="flex items-center gap-1.5 px-3 py-1.5 text-yellow-600 border-yellow-600">
+                  <Star className="w-4 h-4 fill-yellow-600" />
+                  Premium
+                </Badge>
+              </div>
+            </div>
 
-                <div className="flex gap-2 mb-4">
-                  {group.tags.map((tag, index) => (
-                    <Badge key={index} variant="outline">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                <Button 
-                  variant="telegram" 
-                  size="lg" 
-                  className="w-full md:w-auto"
-                  onClick={handleJoinGroup}
+            {/* Share Buttons */}
+            <div className="border-t border-border pt-6 mt-6">
+              <p className="text-sm font-medium mb-3 flex items-center justify-center gap-2">
+                <Share2 className="w-4 h-4" />
+                Compartilhar este grupo:
+              </p>
+              <div className="flex justify-center gap-3 flex-wrap">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleShare('whatsapp')}
+                  className="gap-2"
                 >
-                  <ExternalLink className="w-5 h-5 mr-2" />
-                  Entrar no Grupo
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleShare('facebook')}
+                  className="gap-2"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Facebook
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleShare('twitter')}
+                  className="gap-2"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Twitter
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleShare('linkedin')}
+                  className="gap-2"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  LinkedIn
                 </Button>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* About */}
-          <Card className="md:col-span-2 border-border/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-telegram-blue" />
-                Sobre o Grupo
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div 
-                className="text-muted-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.longDescription) }}
-              />
-            </CardContent>
-          </Card>
+        {/* Community Rules */}
+        <Card className="border-border/50 mb-6">
+          <CardContent className="p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              📋 Regras e Boas Práticas da Comunidade
+            </h2>
+            <div className="space-y-4 mb-6">
+              {communityRules.map((rule, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <div className="mt-1">
+                    <CheckCircle className="w-5 h-5 text-success" />
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <span className="font-medium text-foreground">{rule.text.split(':')[0]}:</span>
+                    {rule.text.split(':').slice(1).join(':')}
+                  </p>
+                </div>
+              ))}
+            </div>
+            
+            <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 mb-6">
+              <p className="text-sm text-foreground flex items-start gap-2">
+                <span className="text-lg">⚠️</span>
+                <span>
+                  <strong>Ao seguir essas práticas, você contribui para uma comunidade mais confiável, inclusiva e útil para todos!</strong>
+                </span>
+              </p>
+            </div>
 
-          {/* Group Info */}
-          <Card className="border-border/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-telegram-blue" />
-                Informações
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Administrador</p>
-                <p className="font-medium">{group.adminContact}</p>
-              </div>
-              <Separator />
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Categoria</p>
-                <p className="font-medium">{group.category}</p>
-              </div>
-              <Separator />
-              <div>
-                <p className="text-sm text-muted-foreground mb-1">Link</p>
-                <a 
-                  href={group.telegramLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-telegram-blue hover:underline text-sm break-all"
+            {/* Acceptance Checkbox */}
+            <div className="bg-muted/30 border border-border rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <Checkbox 
+                  id="accept-rules"
+                  checked={acceptedRules}
+                  onCheckedChange={(checked) => setAcceptedRules(checked as boolean)}
+                  className="mt-1"
+                />
+                <label 
+                  htmlFor="accept-rules" 
+                  className="text-sm text-muted-foreground cursor-pointer leading-relaxed"
                 >
-                  {group.telegramLink}
-                </a>
+                  <strong className="text-foreground">Li e concordo com as regras da comunidade.</strong> Entendo que devo respeitar todas as diretrizes acima ao participar deste grupo.
+                </label>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          {/* Rules */}
-          <Card className="md:col-span-3 border-border/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-telegram-blue" />
-                Regras do Grupo
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3">
-                {group.rules.map((rule, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-telegram-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-telegram-blue font-semibold text-sm">{index + 1}</span>
-                    </div>
-                    <p className="text-muted-foreground">{rule}</p>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
+            {/* Join Button */}
+            <Button
+              variant="telegram"
+              size="lg"
+              className="w-full text-lg py-6"
+              onClick={handleJoinGroup}
+              disabled={!acceptedRules}
+            >
+              <CheckCircle className="w-5 h-5 mr-2" />
+              Aceite as regras para continuar
+            </Button>
+
+            <p className="text-xs text-center text-muted-foreground mt-3">
+              Você precisa concordar com as regras antes de entrar no grupo
+            </p>
+          </CardContent>
+        </Card>
       </main>
       
       <Footer />
