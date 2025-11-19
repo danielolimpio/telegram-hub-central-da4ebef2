@@ -16,7 +16,7 @@ import {
   XCircle,
   Edit,
   Trash2,
-  Image as ImageIcon,
+  RefreshCw,
   Users,
   ExternalLink,
   MessageSquare
@@ -539,7 +539,7 @@ const AdminDashboard = () => {
                 </Button>
                 <input id="file-upload" type="file" accept="image/*" className="hidden" />
                 <Button type="button" variant="outline" size="sm" onClick={() => handleRefreshThumbnail(editForm.telegram_link)} className="gap-2">
-                  <ImageIcon className="w-4 h-4" />Atualizar do Telegram
+                  <RefreshCw className="w-4 h-4" />Atualizar do Telegram
                 </Button>
               </div>
 
