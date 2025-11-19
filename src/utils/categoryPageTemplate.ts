@@ -1,16 +1,26 @@
-import { useEffect, useState } from "react";
+// Template helper for category pages
+export const generateCategoryPageContent = (params: {
+  category: string;
+  icon: string;
+  gradient: string;
+  title: string;
+  description: string;
+}) => {
+  const { category, icon, gradient, title, description } = params;
+  
+  return `import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
-import { Users, TrendingUp, Star, Clock, UserPlus } from "lucide-react";
+import { Users, TrendingUp, Star, Clock, ${icon} } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Group = Tables<"groups">;
 
-const GruposAmizades = () => {
+const Grupos${category} = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +38,7 @@ const GruposAmizades = () => {
           .from("groups")
           .select("*")
           .eq("status", "approved")
-          .eq("category", "Grupos do Telegram de Amizades")
+          .eq("category", "Grupos do Telegram de ${title}")
           .order("created_at", { ascending: false });
 
         if (error) throw error;
@@ -64,15 +74,15 @@ const GruposAmizades = () => {
           <div className="flex-1">
             <div className="mb-8">
               <div className="flex items-center mb-4">
-                <div className="p-3 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl mr-4">
-                  <UserPlus className="w-8 h-8 text-white" />
+                <div className="p-3 bg-gradient-to-br ${gradient} rounded-xl mr-4">
+                  <${icon} className="w-8 h-8 text-white" />
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold text-foreground">
-                    Grupos do Telegram de Amizades
+                    Grupos do Telegram de ${title}
                   </h1>
                   <p className="text-muted-foreground mt-1">
-                    Conecte-se com pessoas e construa amizades verdadeiras
+                    ${description}
                   </p>
                 </div>
               </div>
@@ -81,7 +91,7 @@ const GruposAmizades = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
                 <TrendingUp className="w-6 h-6 text-telegram-blue mr-2" />
-                Grupos de Amizades
+                Grupos de ${title}
               </h2>
               {loading ? (
                 <div className="text-center py-12">
@@ -99,7 +109,7 @@ const GruposAmizades = () => {
                       title={group.title}
                       description={group.description}
                       members={group.members || 0}
-                      avatar={group.thumbnail_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(group.title)}&background=0088cc&color=fff&size=128`}
+                      avatar={group.thumbnail_url || \`https://ui-avatars.com/api/?name=\${encodeURIComponent(group.title)}&background=0088cc&color=fff&size=128\`}
                       category={group.category}
                     />
                   ))}
@@ -119,4 +129,6 @@ const GruposAmizades = () => {
   );
 };
 
-export default GruposAmizades;
+export default Grupos${category};
+`;
+};
