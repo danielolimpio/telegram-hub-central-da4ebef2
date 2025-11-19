@@ -15,20 +15,116 @@ import {
   XCircle,
   Star,
   Ban,
-  UserCheck
+  UserCheck,
+  Check,
+  X
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
+
+type Group = Tables<"groups">;
 
 const AdminDashboard = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [groups, setGroups] = useState<Group[]>([]);
+  const [stats, setStats] = useState({
+    total: 0,
+    approved: 0,
+    pending: 0,
+    rejected: 0
+  });
 
   useEffect(() => {
     checkAdminAccess();
   }, []);
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchGroups();
+    }
+  }, [isAdmin]);
+
+  const fetchGroups = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("groups")
+        .select("*")
+        .order("created_at", { ascending: false });
+      
+      if (error) throw error;
+      
+      setGroups(data || []);
+      
+      // Calculate stats
+      const total = data?.length || 0;
+      const approved = data?.filter(g => g.status === 'approved').length || 0;
+      const pending = data?.filter(g => g.status === 'pending').length || 0;
+      const rejected = data?.filter(g => g.status === 'rejected').length || 0;
+      
+      setStats({ total, approved, pending, rejected });
+    } catch (error) {
+      console.error("Error fetching groups:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível carregar os grupos.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleApproveGroup = async (groupId: string) => {
+    try {
+      const { error } = await supabase
+        .from("groups")
+        .update({ status: "approved" })
+        .eq("id", groupId);
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Grupo aprovado",
+        description: "O grupo foi aprovado com sucesso.",
+      });
+      
+      fetchGroups();
+    } catch (error) {
+      console.error("Error approving group:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível aprovar o grupo.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleRejectGroup = async (groupId: string) => {
+    try {
+      const { error } = await supabase
+        .from("groups")
+        .update({ status: "rejected" })
+        .eq("id", groupId);
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Grupo rejeitado",
+        description: "O grupo foi rejeitado.",
+      });
+      
+      fetchGroups();
+    } catch (error) {
+      console.error("Error rejecting group:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível rejeitar o grupo.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const checkAdminAccess = async () => {
     try {
@@ -94,80 +190,13 @@ const AdminDashboard = () => {
     return null;
   }
 
-  const stats = [
-    { icon: MessageSquare, label: "Total de Grupos", value: "1.247", color: "text-blue-500" },
-    { icon: CheckCircle, label: "Aprovados", value: "1.180", color: "text-green-500" },
-    { icon: Clock, label: "Pendentes", value: "47", color: "text-yellow-500" },
-    { icon: Users, label: "Usuários Ativos", value: "3.542", color: "text-purple-500" },
+  const statsCards = [
+    { icon: MessageSquare, label: "Total de Grupos", value: stats.total.toString(), color: "text-blue-500" },
+    { icon: CheckCircle, label: "Aprovados", value: stats.approved.toString(), color: "text-green-500" },
+    { icon: Clock, label: "Pendentes", value: stats.pending.toString(), color: "text-yellow-500" },
+    { icon: XCircle, label: "Rejeitados", value: stats.rejected.toString(), color: "text-red-500" },
   ];
 
-  const pendingGroups = [
-    {
-      id: 1,
-      title: "Grupo de Tecnologia Avançada",
-      category: "Tecnologia",
-      user: "João Silva",
-      date: "22/10/2025",
-      members: 150,
-    },
-    {
-      id: 2,
-      title: "Promoções Imperdíveis",
-      category: "Promoções",
-      user: "Maria Santos",
-      date: "22/10/2025",
-      members: 320,
-    },
-  ];
-
-  const users = [
-    {
-      id: 1,
-      name: "João Silva",
-      email: "joao@email.com",
-      groups: 15,
-      status: "active",
-      isPremium: true,
-    },
-    {
-      id: 2,
-      name: "Maria Santos",
-      email: "maria@email.com",
-      groups: 8,
-      status: "active",
-      isPremium: false,
-    },
-  ];
-
-  const handleApprove = (groupId: number) => {
-    toast({
-      title: "Grupo aprovado!",
-      description: "O grupo foi aprovado e está visível para todos.",
-    });
-  };
-
-  const handleReject = (groupId: number) => {
-    toast({
-      title: "Grupo rejeitado",
-      description: "O grupo foi rejeitado e o usuário foi notificado.",
-      variant: "destructive",
-    });
-  };
-
-  const handleBlockUser = (userId: number) => {
-    toast({
-      title: "Usuário bloqueado",
-      description: "O usuário não poderá mais enviar grupos.",
-      variant: "destructive",
-    });
-  };
-
-  const handleTogglePremium = (userId: number) => {
-    toast({
-      title: "Status premium atualizado",
-      description: "As configurações do usuário foram atualizadas.",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -187,7 +216,7 @@ const AdminDashboard = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {stats.map((stat) => (
+          {statsCards.map((stat) => (
             <Card key={stat.label}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -221,42 +250,45 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {pendingGroups.map((group) => (
-                    <div
-                      key={group.id}
-                      className="flex items-center justify-between p-4 border rounded-lg"
-                    >
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                          <Badge variant="outline">{group.category}</Badge>
-                          <span>Por: {group.user}</span>
-                          <span>{group.members} membros</span>
-                          <span>{group.date}</span>
+                  {groups.filter(g => g.status === 'pending').length === 0 ? (
+                    <p className="text-center text-muted-foreground py-8">Nenhum grupo pendente</p>
+                  ) : (
+                    groups.filter(g => g.status === 'pending').map((group) => (
+                      <div
+                        key={group.id}
+                        className="flex items-center justify-between p-4 border rounded-lg"
+                      >
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                            <Badge variant="outline">{group.category}</Badge>
+                            <span>{group.members || 0} membros</span>
+                            <span>{new Date(group.created_at).toLocaleDateString('pt-BR')}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-green-500 hover:bg-green-500/10"
+                            onClick={() => handleApproveGroup(group.id)}
+                          >
+                            <Check className="w-4 h-4 mr-1" />
+                            Aprovar
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-red-500 hover:bg-red-500/10"
+                            onClick={() => handleRejectGroup(group.id)}
+                          >
+                            <X className="w-4 h-4 mr-1" />
+                            Rejeitar
+                          </Button>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-green-500 hover:bg-green-500/10"
-                          onClick={() => handleApprove(group.id)}
-                        >
-                          <CheckCircle className="w-4 h-4 mr-1" />
-                          Aprovar
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-red-500 hover:bg-red-500/10"
-                          onClick={() => handleReject(group.id)}
-                        >
-                          <XCircle className="w-4 h-4 mr-1" />
-                          Rejeitar
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -269,7 +301,32 @@ const AdminDashboard = () => {
                 <CardTitle>Todos os Grupos</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Lista completa de todos os grupos da plataforma...</p>
+                <div className="space-y-4">
+                  {groups.length === 0 ? (
+                    <p className="text-center text-muted-foreground py-8">Nenhum grupo cadastrado</p>
+                  ) : (
+                    groups.map((group) => (
+                      <div
+                        key={group.id}
+                        className="flex items-center justify-between p-4 border rounded-lg"
+                      >
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                            <Badge variant="outline">{group.category}</Badge>
+                            <Badge 
+                              variant={group.status === 'approved' ? 'default' : group.status === 'pending' ? 'secondary' : 'destructive'}
+                            >
+                              {group.status === 'approved' ? 'Aprovado' : group.status === 'pending' ? 'Pendente' : 'Rejeitado'}
+                            </Badge>
+                            <span>{group.members || 0} membros</span>
+                            <span>{new Date(group.created_at).toLocaleDateString('pt-BR')}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -284,53 +341,9 @@ const AdminDashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {users.map((user) => (
-                    <div
-                      key={user.id}
-                      className="flex items-center justify-between p-4 border rounded-lg"
-                    >
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold text-foreground">{user.name}</h3>
-                          {user.isPremium && (
-                            <Badge className="bg-yellow-500">
-                              <Star className="w-3 h-3 mr-1" />
-                              Premium
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                          <span>{user.email}</span>
-                          <span>{user.groups} grupos</span>
-                          <Badge variant={user.status === "active" ? "default" : "destructive"}>
-                            {user.status === "active" ? "Ativo" : "Bloqueado"}
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className={user.isPremium ? "text-gray-500" : "text-yellow-500"}
-                          onClick={() => handleTogglePremium(user.id)}
-                        >
-                          <Star className="w-4 h-4 mr-1" />
-                          {user.isPremium ? "Desativar" : "Ativar"} Premium
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-red-500 hover:bg-red-500/10"
-                          onClick={() => handleBlockUser(user.id)}
-                        >
-                          <Ban className="w-4 h-4 mr-1" />
-                          Bloquear
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <p className="text-center text-muted-foreground py-8">
+                  Funcionalidade de gerenciamento de usuários em desenvolvimento
+                </p>
               </CardContent>
             </Card>
           </TabsContent>
