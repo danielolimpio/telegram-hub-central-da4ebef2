@@ -5,9 +5,9 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { RichTextEditor } from "@/components/RichTextEditor";
 import { 
   Shield,
   Search,
@@ -512,8 +512,11 @@ const AdminDashboard = () => {
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-2 block">Descrição</label>
-              <Textarea value={editForm.description} onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))} rows={6} />
+              <RichTextEditor
+                label="Descrição"
+                content={editForm.description}
+                onChange={(value) => setEditForm(prev => ({ ...prev, description: value }))}
+              />
             </div>
 
             <div>
