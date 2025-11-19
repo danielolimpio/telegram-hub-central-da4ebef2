@@ -72,23 +72,26 @@ const UserManagement = () => {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        toast({
-          title: "Acesso negado",
-          description: "Você precisa estar logado para acessar esta página.",
-          variant: "destructive",
-        });
         navigate("/auth");
         return;
       }
 
-      const { data: roleData, error: roleError } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin")
-        .maybeSingle();
+      const { data: isAdminResult, error: adminError } = await supabase.rpc("is_admin", {
+        _user_id: user.id,
+      });
 
-      if (roleError || !roleData) {
+      if (adminError) {
+        console.error("Error checking admin role:", adminError);
+        toast({
+          title: "Erro ao verificar permissões",
+          description: "Ocorreu um erro ao verificar suas permissões.",
+          variant: "destructive",
+        });
+        navigate("/");
+        return;
+      }
+
+      if (!isAdminResult) {
         toast({
           title: "Acesso negado",
           description: "Você não tem permissão para acessar esta página.",
@@ -98,6 +101,7 @@ const UserManagement = () => {
         return;
       }
 
+      // Admin confirmado: carregar dados
       fetchUsers();
       fetchStats();
     } catch (error) {
@@ -107,7 +111,6 @@ const UserManagement = () => {
       setLoading(false);
     }
   };
-
   const fetchUsers = async () => {
     try {
       // Get all profiles
