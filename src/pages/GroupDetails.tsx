@@ -138,7 +138,7 @@ const GroupDetails = () => {
       icon: CheckCircle
     },
     { 
-      text: "Evite conteúdo impróprio: Não publique ou promova materiais que violem leis, direitos autorais ou políticas de plataformas como WhatsApp e Google.",
+      text: "Evite conteúdo impróprio: Não publique ou promova materiais que violem leis, direitos autorais ou políticas de plataformas como Telegram e Google.",
       icon: CheckCircle
     },
     { 
@@ -154,7 +154,7 @@ const GroupDetails = () => {
       icon: CheckCircle
     },
     { 
-      text: "Siga as políticas oficiais: Todos os grupos devem estar em conformidade com os Termos de Serviço do WhatsApp e as Políticas do Programa Google AdSense.",
+      text: "Siga as políticas oficiais: Todos os grupos devem estar em conformidade com os Termos de Serviço do Telegram e as Políticas do Programa Google AdSense.",
       icon: CheckCircle
     },
     { 
