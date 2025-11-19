@@ -355,7 +355,11 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" className="gap-2">
+            <Button 
+              variant="outline" 
+              className="gap-2"
+              onClick={() => navigate("/admin/users")}
+            >
               <Users className="w-4 h-4" />
               Gerenciar Usuários
             </Button>
