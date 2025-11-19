@@ -2,6 +2,7 @@ import { Users, Heart, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { sanitizeHTML } from "@/lib/sanitize";
 
 interface GroupCardProps {
@@ -46,11 +47,16 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
           {/* Avatar at the top center */}
           <div className="flex justify-center pt-6 pb-4">
             <div className="relative">
-              <img
-                src={avatar}
-                alt={title}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-telegram-blue/20"
-              />
+              <Avatar className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-telegram-blue/20">
+                <AvatarImage 
+                  src={avatar || ""} 
+                  alt={title}
+                  className="object-cover"
+                />
+                <AvatarFallback className="bg-telegram-blue text-white text-2xl font-bold">
+                  {title.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full border-2 border-background flex items-center justify-center">
                 <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
