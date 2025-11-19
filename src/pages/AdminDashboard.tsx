@@ -162,12 +162,12 @@ const AdminDashboard = () => {
       });
 
       const { data, error } = await supabase.functions.invoke('fetch-telegram-thumbnail', {
-        body: { link: telegramLink }
+        body: { telegramLink }
       });
 
       if (error) throw error;
 
-      const thumbnailUrl = data?.thumbnailUrl;
+      const thumbnailUrl = data?.thumbnailUrl as string | undefined;
       setEditForm(prev => ({ ...prev, thumbnail_url: thumbnailUrl || "" }));
 
       toast({
