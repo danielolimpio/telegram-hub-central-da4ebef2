@@ -28,7 +28,7 @@ const GruposVendas = () => {
           .from("groups")
           .select("*")
           .eq("status", "approved")
-          .eq("category", "Vendas")
+          .eq("category", "Grupos do Telegram de Vendas")
           .order("created_at", { ascending: false });
 
         if (error) throw error;
