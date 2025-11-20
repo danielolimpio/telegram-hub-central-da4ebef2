@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Send, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { signupSchema } from "@/lib/validation";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -79,10 +80,18 @@ const Auth = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    if (signupPassword !== confirmPassword) {
+    // Validate signup form with zod
+    const validation = signupSchema.safeParse({
+      name: signupName,
+      email: signupEmail,
+      password: signupPassword,
+      confirmPassword: confirmPassword
+    });
+
+    if (!validation.success) {
       toast({
-        title: "Erro no cadastro",
-        description: "As senhas não coincidem.",
+        title: "Dados inválidos",
+        description: validation.error.errors[0].message,
         variant: "destructive",
       });
       setIsLoading(false);
