@@ -13,6 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { Badge } from "@/components/ui/badge";
+import { groupSchema } from "@/lib/validation";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -110,10 +111,19 @@ const Dashboard = () => {
   };
 
   const handleSubmitGroup = async () => {
-    if (!groupTitle || !groupDescription || !groupCategory || !telegramLink) {
+    // Validate form data with zod
+    const validation = groupSchema.safeParse({
+      title: groupTitle,
+      description: groupDescription,
+      telegram_link: telegramLink,
+      members: groupMembers,
+      category: groupCategory
+    });
+
+    if (!validation.success) {
       toast({
-        title: "Campos obrigatórios",
-        description: "Preencha todos os campos obrigatórios",
+        title: "Dados inválidos",
+        description: validation.error.errors[0].message,
         variant: "destructive"
       });
       return;
@@ -130,11 +140,11 @@ const Dashboard = () => {
 
       const { error } = await supabase.from("groups").insert({
         user_id: user.id,
-        title: groupTitle,
-        description: groupDescription,
-        category: groupCategory,
-        members: groupMembers ? parseInt(groupMembers) : null,
-        telegram_link: telegramLink,
+        title: validation.data.title,
+        description: validation.data.description,
+        category: validation.data.category,
+        members: validation.data.members,
+        telegram_link: validation.data.telegram_link,
         slug,
         thumbnail_url: groupThumbnail,
         status: "pending"
