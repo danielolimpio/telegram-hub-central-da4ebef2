@@ -26,6 +26,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import sanitizeHtml from "dompurify";
+import { groupSchema } from "@/lib/validation";
 
 type Group = Tables<"groups">;
 
@@ -197,6 +198,24 @@ const AdminDashboard = () => {
 
   const handleSaveEdit = async () => {
     if (!editingGroup) return;
+
+    // Validate inputs before updating
+    const validation = groupSchema.safeParse({
+      title: editForm.title,
+      description: editForm.description,
+      telegram_link: editForm.telegram_link,
+      members: null,
+      category: editForm.category
+    });
+
+    if (!validation.success) {
+      toast({
+        title: "Dados inválidos",
+        description: validation.error.errors[0].message,
+        variant: "destructive",
+      });
+      return;
+    }
 
     try {
       const { error } = await supabase
