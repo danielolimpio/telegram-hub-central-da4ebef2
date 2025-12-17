@@ -4,12 +4,12 @@ import { TrendingUp, Sparkles, Megaphone } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const BlogSidebar = () => {
-  const popularCategories = [
-    { name: "Amizades", count: 245, path: "/grupos-telegram-amizades" },
-    { name: "Divulgação", count: 189, path: "/grupos-telegram-divulgacao" },
-    { name: "Games", count: 156, path: "/grupos-telegram-games" },
-    { name: "Investimentos", count: 142, path: "/grupos-telegram-investimentos" },
-    { name: "Promoções", count: 128, path: "/grupos-telegram-promocoes" }
+  const blogCategories = [
+    { name: "Dicas e Truques", count: 24, path: "/blog?categoria=dicas" },
+    { name: "Tutoriais", count: 18, path: "/blog?categoria=tutoriais" },
+    { name: "Segurança", count: 12, path: "/blog?categoria=seguranca" },
+    { name: "Novidades", count: 15, path: "/blog?categoria=novidades" },
+    { name: "Guias", count: 9, path: "/blog?categoria=guias" }
   ];
 
   const blogTips = [
@@ -21,17 +21,17 @@ const BlogSidebar = () => {
 
   return (
     <div className="space-y-6">
-      {/* Categorias Populares */}
+      {/* Categorias do Blog */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center text-lg">
             <TrendingUp className="w-5 h-5 mr-2 text-telegram-blue" />
-            Categorias Populares
+            Categorias do Blog
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {popularCategories.map((category) => (
+            {blogCategories.map((category) => (
               <Link 
                 key={category.name}
                 to={category.path}
