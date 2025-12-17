@@ -1,4 +1,4 @@
-import { Send, Heart, Mail, Globe, Users, Shield, Info, HelpCircle, BookOpen, Zap, Lock, Cookie } from "lucide-react";
+import { Send, Heart, Mail, Globe, Users, Shield, Info, HelpCircle, BookOpen, Lock, Cookie } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -38,7 +38,7 @@ const Footer = () => {
               <li><a href="/como-funciona" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><HelpCircle className="w-3 h-3 mr-1" />Como funciona</a></li>
               <li><a href="/regras" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Shield className="w-3 h-3 mr-1" />Regras da comunidade</a></li>
               <li><a href="/seguranca" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Lock className="w-3 h-3 mr-1" />Dicas de segurança</a></li>
-              <li><a href="/impulsionar" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Zap className="w-3 h-3 mr-1" />Impulsionar Grupos</a></li>
+              
             </ul>
           </div>
 
