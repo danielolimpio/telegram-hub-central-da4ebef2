@@ -1,4 +1,4 @@
-import { Send, BookOpen, Zap, Star, Crown, Users, TrendingUp, ChevronDown, ChevronUp } from "lucide-react";
+import { Send, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 
 const CategorySidebar = () => {
@@ -112,39 +112,6 @@ const CategorySidebar = () => {
         </div>
       </div>
 
-      {/* Anúncio Premium */}
-      <div className="bg-gradient-to-br from-telegram-blue/10 to-telegram-light-blue/10 rounded-lg p-4 sm:p-6 border border-telegram-blue/20 relative overflow-hidden">
-        <div className="absolute top-2 right-2">
-          <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
-        </div>
-        <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2 flex items-center">
-          <Zap className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-telegram-blue" />
-          Impulse seu Grupo
-        </h3>
-        <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-          Destaque seu grupo no topo da lista e alcance milhares de novos membros!
-        </p>
-        <div className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
-          <div className="flex items-center text-xs sm:text-sm">
-            <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500 mr-2" />
-            <span className="text-muted-foreground">Posição prioritária</span>
-          </div>
-          <div className="flex items-center text-xs sm:text-sm">
-            <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mr-2" />
-            <span className="text-muted-foreground">+500% mais visualizações</span>
-          </div>
-          <div className="flex items-center text-xs sm:text-sm">
-            <Users className="w-3 h-3 sm:w-4 sm:h-4 text-telegram-blue mr-2" />
-            <span className="text-muted-foreground">Selo Premium</span>
-          </div>
-        </div>
-        <button className="w-full bg-gradient-telegram text-white py-2 px-3 sm:px-4 rounded-lg font-medium hover:shadow-lg transition-all text-xs sm:text-sm">
-          Impulsionar Grupo
-        </button>
-        <p className="text-xs text-muted-foreground text-center mt-2">
-          A partir de R$ 29,90/mês
-        </p>
-      </div>
 
       {/* Stats */}
       <div className="bg-card rounded-lg p-4 sm:p-6 border border-border/50">

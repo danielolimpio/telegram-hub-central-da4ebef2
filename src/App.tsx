@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound";
 import ComoFunciona from "./pages/ComoFunciona";
 import RegrasComunidade from "./pages/RegrasComunitariade";
 import DicasSeguranca from "./pages/DicasSeguranca";
-import ImpulsionarGrupos from "./pages/ImpulsionarGrupos";
+
 import CentralAjuda from "./pages/CentralAjuda";
 import ReportarProblema from "./pages/ReportarProblema";
 import FAQ from "./pages/FAQ";
@@ -66,7 +66,7 @@ const App = () => (
           <Route path="/como-funciona" element={<ComoFunciona />} />
           <Route path="/regras" element={<RegrasComunidade />} />
           <Route path="/seguranca" element={<DicasSeguranca />} />
-          <Route path="/impulsionar" element={<ImpulsionarGrupos />} />
+          
           <Route path="/ajuda" element={<CentralAjuda />} />
           <Route path="/reportar" element={<ReportarProblema />} />
           <Route path="/faq" element={<FAQ />} />

@@ -1,4 +1,4 @@
-import { Search, Send, Zap, User, BookOpen } from "lucide-react";
+import { Search, Send, User, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
@@ -45,10 +45,6 @@ const Header = () => {
             >
               <Send className="w-4 h-4 mr-2" />
               Enviar Grupo
-            </Button>
-            <Button variant="outline" size="sm" className="hidden sm:flex">
-              <Zap className="w-4 h-4 mr-2" />
-              Impulsionar
             </Button>
             <Button 
               variant="ghost" 
