@@ -92,6 +92,10 @@ const Footer = () => {
                 <Cookie className="w-3 h-3" />
                 <span>Política de Cookies</span>
               </a>
+              <a href="/sitemap" className="hover:text-telegram-blue transition-colors flex items-center space-x-1">
+                <Globe className="w-3 h-3" />
+                <span>Sitemap</span>
+              </a>
             </div>
           </div>
 
