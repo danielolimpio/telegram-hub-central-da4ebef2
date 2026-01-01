@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { mainPagesSEO } from "@/config/seo";
 
 const ComoFunciona = () => {
   const steps = [
@@ -69,6 +71,11 @@ const ComoFunciona = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title={mainPagesSEO.comoFunciona.title}
+        description={mainPagesSEO.comoFunciona.description}
+        canonical={mainPagesSEO.comoFunciona.canonical}
+      />
       <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}

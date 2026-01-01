@@ -6,6 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { mainPagesSEO } from "@/config/seo";
 
 const PoliticaCookies = () => {
   const [cookiePreferences, setCookiePreferences] = useState({
@@ -88,6 +90,11 @@ const PoliticaCookies = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title={mainPagesSEO.cookies.title}
+        description={mainPagesSEO.cookies.description}
+        canonical={mainPagesSEO.cookies.canonical}
+      />
       <Header />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}

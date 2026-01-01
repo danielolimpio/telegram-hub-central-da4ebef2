@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { mainPagesSEO } from "@/config/seo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Map, 
@@ -141,6 +143,11 @@ const Sitemap = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+      <SEOHead
+        title={mainPagesSEO.sitemap.title}
+        description={mainPagesSEO.sitemap.description}
+        canonical={mainPagesSEO.sitemap.canonical}
+      />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

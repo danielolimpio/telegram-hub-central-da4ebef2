@@ -7,6 +7,8 @@ import { Link, useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogSidebar from "@/components/BlogSidebar";
+import SEOHead from "@/components/SEOHead";
+import { mainPagesSEO, blogCategoriesSEO } from "@/config/seo";
 
 const Blog = () => {
   const { categoria } = useParams();
@@ -44,8 +46,23 @@ const Blog = () => {
     }
   };
 
+  // Determine SEO based on category
+  const getSEO = () => {
+    if (activeCategory && blogCategoriesSEO[activeCategory]) {
+      return blogCategoriesSEO[activeCategory];
+    }
+    return mainPagesSEO.blog;
+  };
+
+  const seo = getSEO();
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title={seo.title}
+        description={seo.description}
+        canonical={seo.canonical}
+      />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
