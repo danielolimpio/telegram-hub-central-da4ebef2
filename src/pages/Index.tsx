@@ -3,6 +3,7 @@ import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
@@ -49,6 +50,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title="Grupos do Telegram - Encontre os Melhores Grupos em 2025"
+        description="Descubra e participe dos melhores grupos do Telegram. Milhares de grupos verificados em diversas categorias. Conecte-se com pessoas que compartilham seus interesses de forma segura."
+        canonical="/"
+      />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
