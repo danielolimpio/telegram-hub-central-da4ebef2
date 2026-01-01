@@ -3,6 +3,8 @@ import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { categorySEO } from "@/config/seo";
 import { Users, TrendingUp, Star, Clock, BookOpen } from "lucide-react";
 
 const GruposLivros = () => {
@@ -17,6 +19,11 @@ const GruposLivros = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title={categorySEO.livros.title}
+        description={categorySEO.livros.description}
+        canonical={categorySEO.livros.canonical}
+      />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

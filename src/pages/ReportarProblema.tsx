@@ -9,6 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { mainPagesSEO } from "@/config/seo";
 
 const ReportarProblema = () => {
   const reportTypes = [
@@ -54,6 +56,11 @@ const ReportarProblema = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title={mainPagesSEO.reportar.title}
+        description={mainPagesSEO.reportar.description}
+        canonical={mainPagesSEO.reportar.canonical}
+      />
       <Header />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
