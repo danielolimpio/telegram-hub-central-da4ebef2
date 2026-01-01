@@ -17,6 +17,7 @@ import Blog from "./pages/Blog";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import PoliticaCookies from "./pages/PoliticaCookies";
+import Sitemap from "./pages/Sitemap";
 import GruposDivulgacao from "./pages/categories/GruposDivulgacao";
 import GruposVendas from "./pages/categories/GruposVendas";
 import GruposPromocoes from "./pages/categories/GruposPromocoes";
@@ -74,6 +75,7 @@ const App = () => (
           <Route path="/privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos" element={<TermosUso />} />
           <Route path="/cookies" element={<PoliticaCookies />} />
+          <Route path="/sitemap" element={<Sitemap />} />
           <Route path="/grupos-telegram-divulgacao" element={<GruposDivulgacao />} />
           <Route path="/grupos-telegram-vendas" element={<GruposVendas />} />
           <Route path="/grupos-telegram-promocoes" element={<GruposPromocoes />} />
