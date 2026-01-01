@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
+import {
   Map, 
   Home, 
   Users, 
@@ -94,11 +94,11 @@ const Sitemap = () => {
   ];
 
   const blogCategories = [
-    { name: "Ferramentas", url: "/blog?categoria=ferramentas", icon: Wrench },
-    { name: "Negócios", url: "/blog?categoria=negocios", icon: Building },
-    { name: "Comunidade", url: "/blog?categoria=comunidade", icon: Users },
-    { name: "Grupos", url: "/blog?categoria=grupos", icon: Users2 },
-    { name: "Privacidade", url: "/blog?categoria=privacidade", icon: Lock },
+    { name: "Ferramentas", url: "/blog/ferramentas", icon: Wrench },
+    { name: "Negócios", url: "/blog/negocios", icon: Building },
+    { name: "Comunidade", url: "/blog/comunidade", icon: Users },
+    { name: "Grupos", url: "/blog/grupos", icon: Users2 },
+    { name: "Privacidade", url: "/blog/privacidade", icon: Lock },
   ];
 
   const SitemapSection = ({ 

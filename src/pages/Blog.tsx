@@ -3,19 +3,24 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link, useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogSidebar from "@/components/BlogSidebar";
 
 const Blog = () => {
+  const { categoria } = useParams();
+  
   const categories = [
-    { name: "Todos", count: 0, active: true },
-    { name: "Ferramentas", count: 0, active: false },
-    { name: "Negócios", count: 0, active: false },
-    { name: "Comunidade", count: 0, active: false },
-    { name: "Grupos", count: 0, active: false },
-    { name: "Privacidade", count: 0, active: false }
+    { name: "Todos", slug: "", count: 0 },
+    { name: "Ferramentas", slug: "ferramentas", count: 0 },
+    { name: "Negócios", slug: "negocios", count: 0 },
+    { name: "Comunidade", slug: "comunidade", count: 0 },
+    { name: "Grupos", slug: "grupos", count: 0 },
+    { name: "Privacidade", slug: "privacidade", count: 0 }
   ];
+  
+  const activeCategory = categoria || "";
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -62,15 +67,18 @@ const Blog = () => {
               {categories.map((category, index) => (
                 <Button
                   key={index}
-                  variant={category.active ? "default" : "outline"}
+                  variant={activeCategory === category.slug ? "default" : "outline"}
                   size="sm"
-                  className={category.active ? "bg-telegram-blue hover:bg-telegram-blue/90" : ""}
+                  className={activeCategory === category.slug ? "bg-telegram-blue hover:bg-telegram-blue/90" : ""}
+                  asChild
                 >
-                  {getCategoryIcon(category.name)}
-                  <span className="ml-1">{category.name}</span>
-                  <Badge variant="secondary" className="ml-2">
-                    {category.count}
-                  </Badge>
+                  <Link to={category.slug ? `/blog/${category.slug}` : "/blog"}>
+                    {getCategoryIcon(category.name)}
+                    <span className="ml-1">{category.name}</span>
+                    <Badge variant="secondary" className="ml-2">
+                      {category.count}
+                    </Badge>
+                  </Link>
                 </Button>
               ))}
             </div>
