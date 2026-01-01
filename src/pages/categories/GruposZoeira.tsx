@@ -3,6 +3,8 @@ import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { categorySEO } from "@/config/seo";
 import { Users, TrendingUp, Star, Clock, Laugh } from "lucide-react";
 
 const GruposZoeira = () => {
@@ -14,9 +16,11 @@ const GruposZoeira = () => {
   ];
 
   const featuredGroups: any[] = [];
+  const seo = categorySEO.zoeira;
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead title={seo.title} description={seo.description} canonical={seo.canonical} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -4,6 +4,7 @@ import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Users, TrendingUp, Star, Clock, Megaphone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -45,6 +46,11 @@ const GruposDivulgacao = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title="Grupos do Telegram de Divulgação - Promova seu Conteúdo"
+        description="Encontre os melhores grupos de divulgação no Telegram. Divulgue produtos, serviços e conteúdo para milhares de pessoas. Grupos verificados e seguros."
+        canonical="/grupos-telegram-divulgacao"
+      />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
