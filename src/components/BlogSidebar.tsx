@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const BlogSidebar = () => {
   const blogCategories = [
-    { name: "Ferramentas", count: 0, path: "/blog?categoria=ferramentas" },
-    { name: "Negócios", count: 0, path: "/blog?categoria=negocios" },
-    { name: "Comunidade", count: 0, path: "/blog?categoria=comunidade" },
-    { name: "Grupos", count: 0, path: "/blog?categoria=grupos" },
-    { name: "Privacidade", count: 0, path: "/blog?categoria=privacidade" }
+    { name: "Ferramentas", count: 0, path: "/blog/ferramentas" },
+    { name: "Negócios", count: 0, path: "/blog/negocios" },
+    { name: "Comunidade", count: 0, path: "/blog/comunidade" },
+    { name: "Grupos", count: 0, path: "/blog/grupos" },
+    { name: "Privacidade", count: 0, path: "/blog/privacidade" }
   ];
 
   return (
