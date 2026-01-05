@@ -21,5 +21,9 @@ export default defineConfig(({ mode }) => ({
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
+    crittersOptions: {
+      preload: 'swap',
+    },
+    dirStyle: 'nested', // Creates /path/index.html structure
   },
 }));

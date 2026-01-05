@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Head } from "vite-react-ssg";
 
 interface SEOHeadProps {
   title: string;
@@ -11,70 +11,37 @@ const SEOHead = ({
   title, 
   description, 
   canonical,
-  ogImage = "https://lovable.dev/opengraph-image-p98pqg.png"
+  ogImage = "https://gruposdotelegram.org/og-image.png"
 }: SEOHeadProps) => {
   const baseUrl = "https://gruposdotelegram.org";
-  const fullCanonical = canonical ? `${baseUrl}${canonical}` : undefined;
+  const fullCanonical = canonical ? `${baseUrl}${canonical}` : baseUrl;
 
-  useEffect(() => {
-    // Update document title
-    document.title = title;
-
-    // Update or create meta description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.setAttribute("name", "description");
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.setAttribute("content", description);
-
-    // Update or create canonical link
-    if (fullCanonical) {
-      let canonicalLink = document.querySelector('link[rel="canonical"]');
-      if (!canonicalLink) {
-        canonicalLink = document.createElement("link");
-        canonicalLink.setAttribute("rel", "canonical");
-        document.head.appendChild(canonicalLink);
-      }
-      canonicalLink.setAttribute("href", fullCanonical);
-    }
-
-    // Update Open Graph tags
-    const updateOrCreateMeta = (property: string, content: string) => {
-      let meta = document.querySelector(`meta[property="${property}"]`);
-      if (!meta) {
-        meta = document.createElement("meta");
-        meta.setAttribute("property", property);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute("content", content);
-    };
-
-    updateOrCreateMeta("og:title", title);
-    updateOrCreateMeta("og:description", description);
-    if (fullCanonical) {
-      updateOrCreateMeta("og:url", fullCanonical);
-    }
-    updateOrCreateMeta("og:image", ogImage);
-
-    // Update Twitter tags
-    const updateOrCreateTwitterMeta = (name: string, content: string) => {
-      let meta = document.querySelector(`meta[name="${name}"]`);
-      if (!meta) {
-        meta = document.createElement("meta");
-        meta.setAttribute("name", name);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute("content", content);
-    };
-
-    updateOrCreateTwitterMeta("twitter:title", title);
-    updateOrCreateTwitterMeta("twitter:description", description);
-    updateOrCreateTwitterMeta("twitter:image", ogImage);
-  }, [title, description, fullCanonical, ogImage]);
-
-  return null;
+  return (
+    <Head>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <link rel="canonical" href={fullCanonical} />
+      
+      {/* Open Graph */}
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:url" content={fullCanonical} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:site_name" content="Grupos do Telegram" />
+      <meta property="og:locale" content="pt_BR" />
+      
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+      
+      {/* Additional SEO */}
+      <meta name="robots" content="index, follow" />
+      <meta name="author" content="Grupos do Telegram" />
+    </Head>
+  );
 };
 
 export default SEOHead;
