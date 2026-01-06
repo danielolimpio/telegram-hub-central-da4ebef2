@@ -4,6 +4,9 @@ import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import { CategorySchema, BreadcrumbSchema } from "@/components/JsonLd";
+import { categorySEO } from "@/config/seo";
 import { Users, TrendingUp, Star, Clock, Award } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -43,8 +46,12 @@ const GruposCursos = () => {
     fetchGroups();
   }, []);
 
-  return (
+    const seo = categorySEO.cursos;
+    return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead title={seo.title} description={seo.description} canonical={seo.canonical} />
+      <CategorySchema name="Grupos do Telegram de Cursos" description={seo.description} url={`https://gruposdotelegram.org${seo.canonical}/`} />
+      <BreadcrumbSchema items={[{ name: "Início", url: "https://gruposdotelegram.org/" }, { name: "Cursos", url: `https://gruposdotelegram.org${seo.canonical}/` }]} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

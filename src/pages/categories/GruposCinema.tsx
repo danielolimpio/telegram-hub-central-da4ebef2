@@ -4,6 +4,7 @@ import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { CategorySchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { categorySEO } from "@/config/seo";
 import { Users, TrendingUp, Star, Clock, Film } from "lucide-react";
 
@@ -24,6 +25,8 @@ const GruposCinema = () => {
         description={categorySEO.cinema.description}
         canonical={categorySEO.cinema.canonical}
       />
+      <CategorySchema name="Grupos do Telegram de Cinema" description={categorySEO.cinema.description} url={`https://gruposdotelegram.org${categorySEO.cinema.canonical}/`} />
+      <BreadcrumbSchema items={[{ name: "Início", url: "https://gruposdotelegram.org/" }, { name: "Cinema", url: `https://gruposdotelegram.org${categorySEO.cinema.canonical}/` }]} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
