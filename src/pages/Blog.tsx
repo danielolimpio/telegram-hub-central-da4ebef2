@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlogSidebar from "@/components/BlogSidebar";
 import SEOHead from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { mainPagesSEO, blogCategoriesSEO } from "@/config/seo";
 
 const Blog = () => {
@@ -63,6 +64,10 @@ const Blog = () => {
         description={seo.description}
         canonical={seo.canonical}
       />
+      <BreadcrumbSchema items={[
+        { name: "Início", url: "https://gruposdotelegram.org/" },
+        { name: "Blog", url: "https://gruposdotelegram.org/blog/" }
+      ]} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -3,6 +3,7 @@ import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { mainPagesSEO } from "@/config/seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +47,10 @@ const AllGroups = () => {
         description={mainPagesSEO.allGroups.description}
         canonical={mainPagesSEO.allGroups.canonical}
       />
+      <BreadcrumbSchema items={[
+        { name: "Início", url: "https://gruposdotelegram.org/" },
+        { name: "Todos os Grupos", url: "https://gruposdotelegram.org/all-groups/" }
+      ]} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

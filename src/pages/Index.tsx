@@ -4,6 +4,7 @@ import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { OrganizationSchema, WebSiteSchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
@@ -55,6 +56,11 @@ const Index = () => {
         description="Descubra e participe dos melhores grupos do Telegram. Milhares de grupos verificados em diversas categorias. Conecte-se com pessoas que compartilham seus interesses de forma segura."
         canonical="/"
       />
+      <OrganizationSchema />
+      <WebSiteSchema />
+      <BreadcrumbSchema items={[
+        { name: "Início", url: "https://gruposdotelegram.org/" }
+      ]} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
