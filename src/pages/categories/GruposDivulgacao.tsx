@@ -5,6 +5,7 @@ import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { CategorySchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { Users, TrendingUp, Star, Clock, Megaphone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -51,6 +52,15 @@ const GruposDivulgacao = () => {
         description="Encontre os melhores grupos de divulgação no Telegram. Divulgue produtos, serviços e conteúdo para milhares de pessoas. Grupos verificados e seguros."
         canonical="/grupos-telegram-divulgacao"
       />
+      <CategorySchema
+        name="Grupos do Telegram de Divulgação"
+        description="Encontre os melhores grupos de divulgação no Telegram. Divulgue produtos, serviços e conteúdo para milhares de pessoas."
+        url="https://gruposdotelegram.org/grupos-telegram-divulgacao/"
+      />
+      <BreadcrumbSchema items={[
+        { name: "Início", url: "https://gruposdotelegram.org/" },
+        { name: "Divulgação", url: "https://gruposdotelegram.org/grupos-telegram-divulgacao/" }
+      ]} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { mainPagesSEO } from "@/config/seo";
 
 const ComoFunciona = () => {
@@ -76,6 +77,10 @@ const ComoFunciona = () => {
         description={mainPagesSEO.comoFunciona.description}
         canonical={mainPagesSEO.comoFunciona.canonical}
       />
+      <BreadcrumbSchema items={[
+        { name: "Início", url: "https://gruposdotelegram.org/" },
+        { name: "Como Funciona", url: "https://gruposdotelegram.org/como-funciona/" }
+      ]} />
       <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}

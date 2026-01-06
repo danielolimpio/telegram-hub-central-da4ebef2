@@ -6,6 +6,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { FAQSchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { mainPagesSEO } from "@/config/seo";
 
 const FAQ = () => {
@@ -139,6 +140,16 @@ const FAQ = () => {
         description={mainPagesSEO.faq.description}
         canonical={mainPagesSEO.faq.canonical}
       />
+      <FAQSchema items={faqSections.flatMap(section => 
+        section.faqs.map(faq => ({
+          question: faq.question,
+          answer: faq.answer
+        }))
+      )} />
+      <BreadcrumbSchema items={[
+        { name: "Início", url: "https://gruposdotelegram.org/" },
+        { name: "FAQ", url: "https://gruposdotelegram.org/faq/" }
+      ]} />
       <Header />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
