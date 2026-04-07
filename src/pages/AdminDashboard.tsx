@@ -25,8 +25,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import sanitizeHtml from "dompurify";
 import { groupSchema } from "@/lib/validation";
+import { sanitizeHTML } from "@/lib/sanitize";
 
 type Group = Tables<"groups">;
 
@@ -468,7 +468,7 @@ const AdminDashboard = () => {
 
                     <div 
                       className="prose prose-sm max-w-none mb-3"
-                      dangerouslySetInnerHTML={{ __html: sanitizeHtml.sanitize(group.description) }}
+                      dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.description) }}
                     />
                     <p className="text-sm text-muted-foreground">Acessos: 0</p>
                   </div>

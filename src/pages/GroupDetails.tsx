@@ -1,5 +1,5 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useParams, useLoaderData, type LoaderFunctionArgs } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -18,76 +18,177 @@ import {
 } from "lucide-react";
 import { sanitizeHTML } from "@/lib/sanitize";
 import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
 import { toast } from "sonner";
 
-interface Group {
-  id: string;
-  title: string;
-  description: string;
-  members: number;
-  thumbnail_url: string | null;
-  category: string;
-  telegram_link: string;
-  created_at: string;
-  slug: string;
-  views: number;
-}
+type Group = Tables<"groups">;
+
+const SUPABASE_URL = "https://fsfrpjsuakhkpbmqgibf.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzZnJwanN1YWtoa3BibXFnaWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MDcyOTAsImV4cCI6MjA3NDM4MzI5MH0.Z4sFNkScO7rjFigMrbJsV-8vP4spjhadL-z28_AX37M";
+
+const supabaseRestHeaders = {
+  apikey: SUPABASE_PUBLISHABLE_KEY,
+  Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+};
+
+const buildGroupsUrl = (params: Record<string, string>) => {
+  const url = new URL(`${SUPABASE_URL}/rest/v1/groups`);
+
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
+  return url.toString();
+};
+
+const fetchApprovedGroupBySlug = async (slug: string): Promise<Group | null> => {
+  const response = await fetch(
+    buildGroupsUrl({
+      select: "*",
+      slug: `eq.${slug}`,
+      status: "eq.approved",
+      limit: "1",
+    }),
+    {
+      headers: supabaseRestHeaders,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Falha ao buscar grupo ${slug}`);
+  }
+
+  const data = (await response.json()) as Group[];
+  return data[0] ?? null;
+};
+
+export const getGroupStaticPaths = async (): Promise<string[]> => {
+  try {
+    const response = await fetch(
+      buildGroupsUrl({
+        select: "slug",
+        status: "eq.approved",
+        order: "created_at.desc",
+      }),
+      {
+        headers: supabaseRestHeaders,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Falha ao gerar rotas estáticas dos grupos");
+    }
+
+    const data = (await response.json()) as Array<Pick<Group, "slug">>;
+    return data.map((group) => `grupo/${group.slug}`);
+  } catch (error) {
+    console.error("Error generating static group paths:", error);
+    return [];
+  }
+};
+
+export const groupDetailsLoader = async ({ params }: LoaderFunctionArgs) => {
+  if (!params.slug) {
+    return null;
+  }
+
+  try {
+    return await fetchApprovedGroupBySlug(params.slug);
+  } catch (error) {
+    console.error("Error loading group details:", error);
+    return null;
+  }
+};
 
 const GroupDetails = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const [group, setGroup] = useState<Group | null>(null);
-  const [loading, setLoading] = useState(true);
+  const loaderGroup = useLoaderData() as Group | null;
+  const [group, setGroup] = useState<Group | null>(loaderGroup);
+  const [loading, setLoading] = useState(Boolean(slug && !loaderGroup));
   const [acceptedRules, setAcceptedRules] = useState(false);
+  const trackedSlugRef = useRef<string | null>(null);
 
   useEffect(() => {
+    setGroup(loaderGroup);
+    setLoading(Boolean(slug && !loaderGroup));
+  }, [loaderGroup, slug]);
+
+  useEffect(() => {
+    if (!slug || loaderGroup) return;
+
+    let cancelled = false;
+
     const fetchGroup = async () => {
-      if (!slug) return;
-
       try {
-        // First fetch the group
-        const { data, error } = await supabase
-          .from('groups')
-          .select('*')
-          .eq('slug', slug)
-          .eq('status', 'approved')
-          .single();
+        const data = await fetchApprovedGroupBySlug(slug);
 
-        if (error) {
-          console.error('Error fetching group:', error);
-          toast.error('Grupo não encontrado');
-          navigate('/');
+        if (!data) {
+          if (!cancelled) {
+            setGroup(null);
+            toast.error('Grupo não encontrado');
+          }
           return;
         }
 
-        // Increment views using the database function
-        const userAgent = navigator.userAgent;
-        const { data: viewsData, error: viewsError } = await supabase
-          .rpc('increment_group_views', { 
-            group_slug: slug,
-            user_agent_str: userAgent 
-          });
-
-        if (viewsError) {
-          console.error('Error incrementing views:', viewsError);
+        if (!cancelled) {
+          setGroup(data);
         }
-
-        // Update group data with new views count
-        setGroup({
-          ...data,
-          views: viewsData || data.views || 0
-        });
       } catch (error) {
         console.error('Error:', error);
-        toast.error('Erro ao carregar grupo');
-        navigate('/');
+        if (!cancelled) {
+          toast.error('Erro ao carregar grupo');
+          setGroup(null);
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     fetchGroup();
-  }, [slug, navigate]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, loaderGroup]);
+
+  useEffect(() => {
+    if (!slug || !group || trackedSlugRef.current === slug || typeof navigator === 'undefined') {
+      return;
+    }
+
+    trackedSlugRef.current = slug;
+
+    const incrementViews = async () => {
+      try {
+        const userAgent = navigator.userAgent;
+        const { data: viewsData, error: viewsError } = await supabase
+          .rpc('increment_group_views', {
+            group_slug: slug,
+            user_agent_str: userAgent,
+          });
+
+        if (viewsError) {
+          console.error('Error incrementing views:', viewsError);
+          return;
+        }
+
+        setGroup((currentGroup) =>
+          currentGroup
+            ? {
+                ...currentGroup,
+                views: viewsData || currentGroup.views || 0,
+              }
+            : currentGroup
+        );
+      } catch (error) {
+        console.error('Error incrementing views:', error);
+      }
+    };
+
+    incrementViews();
+  }, [slug, group]);
 
   const handleJoinGroup = () => {
     if (!group || !acceptedRules) {
