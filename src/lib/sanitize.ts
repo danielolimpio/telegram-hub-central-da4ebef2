@@ -35,8 +35,8 @@ const sanitizeHTMLForSSR = (dirty: string): string =>
 export const sanitizeHTML = (dirty: string): string => {
   if (!dirty) return '';
 
-  if (typeof DOMPurify === 'object' && typeof DOMPurify.sanitize === 'function') {
-    return DOMPurify.sanitize(dirty, config);
+  if (DOMPurify && typeof DOMPurify === 'object' && typeof (DOMPurify as any).sanitize === 'function') {
+    return (DOMPurify as any).sanitize(dirty, config);
   }
 
   return sanitizeHTMLForSSR(dirty);
