@@ -1,6 +1,7 @@
 import type { RouteRecord } from 'vite-react-ssg';
 import { lazy } from 'react';
 import App from './App';
+import { getGroupStaticPaths, groupDetailsLoader } from './pages/GroupDetails';
 
 // Lazy load all pages for better code splitting
 const Index = lazy(() => import('./pages/Index'));
@@ -109,12 +110,12 @@ export const routes: RouteRecord[] = [
       { path: 'grupos-telegram-lgbtqia', element: <GruposLGBTQIA /> },
       
       // Dynamic pages - excluded from SSG
-      { path: 'auth', element: <Auth />, entry: 'client' },
-      { path: 'dashboard', element: <Dashboard />, entry: 'client' },
-      { path: 'admin', element: <AdminDashboard />, entry: 'client' },
-      { path: 'admin/users', element: <UserManagement />, entry: 'client' },
-      { path: 'grupo/:slug', element: <GroupDetails />, entry: 'client' },
-      { path: 'grupo/:slug/stats', element: <GroupStats />, entry: 'client' },
+      { path: 'auth', element: <Auth /> },
+      { path: 'dashboard', element: <Dashboard /> },
+      { path: 'admin', element: <AdminDashboard /> },
+      { path: 'admin/users', element: <UserManagement /> },
+      { path: 'grupo/:slug', element: <GroupDetails />, loader: groupDetailsLoader, getStaticPaths: getGroupStaticPaths },
+      { path: 'grupo/:slug/stats', element: <GroupStats /> },
       
       // Catch-all
       { path: '*', element: <NotFound /> },

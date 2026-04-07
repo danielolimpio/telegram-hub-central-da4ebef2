@@ -23,8 +23,8 @@ jobs:
       - name: Build do projeto
         run: npm run build
 
-      - name: Mostrar arquivos gerados
-        run: ls -la dist/
+      - name: Mostrar rotas estáticas geradas
+        run: find dist -maxdepth 3 -type f -name 'index.html' | sort
 
       - name: Deploy FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
