@@ -3,243 +3,275 @@
   <!-- Main Pages -->
   <url>
     <loc>https://gruposdotelegram.org/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/all-groups/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/blog/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/como-funciona/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/faq/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/ajuda/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/seguranca/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/regras/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/reportar/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/privacidade/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/termos/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/cookies/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/sitemap/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+
+  <!-- Blog Categories -->
+  <url>
+    <loc>https://gruposdotelegram.org/blog/ferramentas/</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gruposdotelegram.org/blog/negocios/</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gruposdotelegram.org/blog/comunidade/</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gruposdotelegram.org/blog/grupos/</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gruposdotelegram.org/blog/privacidade/</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <!-- Category Pages -->
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-divulgacao/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-vendas/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-promocoes/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-oportunidades/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-investimentos/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-redes-sociais/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-livros/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-estudos/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-cursos/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-videos/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-musicas/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-amizades/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-namoros/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-encontros/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-liberais/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-noticias/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-esportes/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-figurinhas/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-receitas/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-viagens/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-tecnologia/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-games/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-cinema/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-pets/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-estilo/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-zoeira/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gruposdotelegram.org/grupos-telegram-lgbtqia/</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2026-04-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>

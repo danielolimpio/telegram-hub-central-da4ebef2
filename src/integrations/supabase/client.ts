@@ -5,12 +5,37 @@ import type { Database } from './types';
 const SUPABASE_URL = "https://fsfrpjsuakhkpbmqgibf.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzZnJwanN1YWtoa3BibXFnaWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MDcyOTAsImV4cCI6MjA3NDM4MzI5MH0.Z4sFNkScO7rjFigMrbJsV-8vP4spjhadL-z28_AX37M";
 
+// SSR-safe storage that falls back to memory when localStorage is unavailable
+const memoryStorage: Record<string, string> = {};
+const safeStorage = {
+  getItem: (key: string) => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem(key);
+    }
+    return memoryStorage[key] ?? null;
+  },
+  setItem: (key: string, value: string) => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem(key, value);
+    } else {
+      memoryStorage[key] = value;
+    }
+  },
+  removeItem: (key: string) => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem(key);
+    } else {
+      delete memoryStorage[key];
+    }
+  },
+};
+
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
-    storage: localStorage,
+    storage: safeStorage,
     persistSession: true,
     autoRefreshToken: true,
   }
