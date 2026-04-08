@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { mainPagesSEO } from "@/config/seo";
 
 const DicasSeguranca = () => {
@@ -111,6 +112,7 @@ const DicasSeguranca = () => {
         description={mainPagesSEO.seguranca.description}
         canonical={mainPagesSEO.seguranca.canonical}
       />
+      <BreadcrumbSchema items={[{ name: "Início", url: "https://gruposdotelegram.org/" }, { name: "Dicas de Segurança", url: "https://gruposdotelegram.org/seguranca/" }]} />
       <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/JsonLd";
 import { mainPagesSEO } from "@/config/seo";
 
 const CentralAjuda = () => {
@@ -110,6 +111,7 @@ const CentralAjuda = () => {
         description={mainPagesSEO.ajuda.description}
         canonical={mainPagesSEO.ajuda.canonical}
       />
+      <BreadcrumbSchema items={[{ name: "Início", url: "https://gruposdotelegram.org/" }, { name: "Central de Ajuda", url: "https://gruposdotelegram.org/ajuda/" }]} />
       <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
