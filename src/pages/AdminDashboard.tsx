@@ -27,6 +27,7 @@ import { Tables } from "@/integrations/supabase/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { groupSchema } from "@/lib/validation";
 import { sanitizeHTML } from "@/lib/sanitize";
+import { CATEGORIES, getCategoryLabel } from "@/config/categories";
 
 type Group = Tables<"groups">;
 
