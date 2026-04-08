@@ -4,9 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { sanitizeHTML } from "@/lib/sanitize";
+import { useFavorites } from "@/hooks/useFavorites";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface GroupCardProps {
-  id?: number;
+  id?: string;
   title: string;
   description: string;
   members: number;
@@ -18,6 +21,9 @@ interface GroupCardProps {
 }
 
 const GroupCard = ({ id, title, description, members, avatar, isNew, category, slug, telegramLink }: GroupCardProps) => {
+  const { isFavorite, toggleFavorite, isLoggedIn } = useFavorites();
+  const navigate = useNavigate();
+
   const formatMembers = (count: number) => {
     return count.toLocaleString('pt-BR');
   };
@@ -32,7 +38,19 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
   };
 
   const groupSlug = slug || generateSlug(title);
-  const groupLink = telegramLink || '#';
+  const isFav = id ? isFavorite(id) : false;
+
+  const handleFavorite = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!isLoggedIn) {
+      toast.info("Faça login para salvar favoritos");
+      navigate("/auth");
+      return;
+    }
+    if (!id) return;
+    const added = await toggleFavorite(id);
+    toast.success(added ? "Adicionado aos favoritos!" : "Removido dos favoritos");
+  };
 
   return (
     <Card className="group hover:shadow-telegram transition-all duration-300 border-border/50 hover:border-telegram-blue/30 overflow-hidden h-full">
@@ -93,9 +111,10 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
               <Button 
                 variant="outline" 
                 size="sm"
-                className="hover:bg-accent hover:text-accent-foreground sm:w-auto"
+                className={`hover:bg-accent hover:text-accent-foreground sm:w-auto ${isFav ? 'text-red-500 border-red-500/50' : ''}`}
+                onClick={handleFavorite}
               >
-                <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
+                <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isFav ? 'fill-current' : ''}`} />
               </Button>
             </div>
           </div>
