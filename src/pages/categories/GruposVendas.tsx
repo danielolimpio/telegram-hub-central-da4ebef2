@@ -108,6 +108,8 @@ const GruposVendas = () => {
                   {groups.map((group) => (
                     <GroupCard
                       key={group.id}
+                      id={group.id}
+                      slug={group.slug}
                       title={group.title}
                       description={group.description}
                       members={group.members || 0}

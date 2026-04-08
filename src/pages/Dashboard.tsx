@@ -8,12 +8,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageSquare, CheckCircle, Clock, Eye, Heart, Star, User, Send, Upload, LogOut, Camera, BarChart3 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { Badge } from "@/components/ui/badge";
 import { groupSchema } from "@/lib/validation";
+import { CATEGORIES, getCategoryLabel } from "@/config/categories";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ const Dashboard = () => {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [myGroups, setMyGroups] = useState<any[]>([]);
+  const [favoriteGroups, setFavoriteGroups] = useState<any[]>([]);
   
   // Group form states
   const [groupTitle, setGroupTitle] = useState("");
@@ -75,6 +79,16 @@ const Dashboard = () => {
     if (groupsData) {
       setMyGroups(groupsData);
     }
+
+    // Load favorites
+    const { data: favData } = await supabase
+      .from("favorites")
+      .select("group_id, groups(*)")
+      .eq("user_id", user.id);
+
+    if (favData) {
+      setFavoriteGroups(favData.map((f: any) => f.groups).filter(Boolean));
+    }
     
     setLoading(false);
   };
@@ -111,7 +125,6 @@ const Dashboard = () => {
   };
 
   const handleSubmitGroup = async () => {
-    // Validate form data with zod
     const validation = groupSchema.safeParse({
       title: groupTitle,
       description: groupDescription,
@@ -157,7 +170,6 @@ const Dashboard = () => {
         description: "Seu grupo está aguardando aprovação."
       });
 
-      // Clear form
       setGroupTitle("");
       setGroupDescription("");
       setGroupCategory("");
@@ -165,6 +177,8 @@ const Dashboard = () => {
       setTelegramLink("");
       setGroupThumbnail("");
       setAdminContact("");
+      
+      await checkUser();
     } catch (error: any) {
       toast({
         title: "Erro ao enviar grupo",
@@ -180,8 +194,7 @@ const Dashboard = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file size (max 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
       toast({
         title: "Arquivo muito grande",
@@ -191,7 +204,6 @@ const Dashboard = () => {
       return;
     }
 
-    // Validate file type
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
       toast({
@@ -217,7 +229,6 @@ const Dashboard = () => {
     try {
       let avatarUrl = profile?.avatar_url;
 
-      // Upload avatar if changed
       if (avatarFile) {
         const fileExt = avatarFile.name.split(".").pop();
         const fileName = `${user.id}/${Date.now()}.${fileExt}`;
@@ -263,13 +274,19 @@ const Dashboard = () => {
     }
   };
 
-  const categories = [
-    "Amizades", "Cinema", "Cursos", "Divulgação", "Encontros", "Esportes",
-    "Estilo", "Estudos", "Figurinhas", "Games", "Investimentos", "LGBTQIA+",
-    "Liberais", "Livros", "Músicas", "Namoros", "Notícias", "Oportunidades",
-    "Pets", "Promoções", "Receitas", "Redes Sociais", "Tecnologia", "Vendas",
-    "Viagens", "Vídeos", "Zoeira"
-  ];
+  const handleRemoveFavorite = async (groupId: string) => {
+    if (!user) return;
+    const { error } = await supabase
+      .from("favorites")
+      .delete()
+      .eq("user_id", user.id)
+      .eq("group_id", groupId);
+
+    if (!error) {
+      setFavoriteGroups(prev => prev.filter(g => g.id !== groupId));
+      toast({ title: "Removido dos favoritos" });
+    }
+  };
 
   if (loading) {
     return (
@@ -279,18 +296,21 @@ const Dashboard = () => {
     );
   }
 
-  const stats = [
-    { icon: MessageSquare, label: "Total de Grupos", value: "25", color: "text-blue-500" },
-    { icon: CheckCircle, label: "Aprovados", value: "25", color: "text-green-500" },
-    { icon: Clock, label: "Pendentes", value: "0", color: "text-yellow-500" },
-    { icon: Eye, label: "Total de Acessos", value: "1", color: "text-purple-500" },
-    { icon: Heart, label: "Favoritos", value: "0", color: "text-red-500" },
-  ];
+  const approvedCount = myGroups.filter(g => g.status === 'approved').length;
+  const pendingCount = myGroups.filter(g => g.status === 'pending').length;
+  const totalViews = myGroups.reduce((sum, g) => sum + (g.views || 0), 0);
 
-  const recentGroups: any[] = [];
+  const stats = [
+    { icon: MessageSquare, label: "Total de Grupos", value: String(myGroups.length), color: "text-blue-500" },
+    { icon: CheckCircle, label: "Aprovados", value: String(approvedCount), color: "text-green-500" },
+    { icon: Clock, label: "Pendentes", value: String(pendingCount), color: "text-yellow-500" },
+    { icon: Eye, label: "Total de Acessos", value: String(totalViews), color: "text-purple-500" },
+    { icon: Heart, label: "Favoritos", value: String(favoriteGroups.length), color: "text-red-500" },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header with Logout */}
         <div className="mb-8 flex items-center justify-between">
@@ -348,7 +368,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentGroups.length === 0 ? (
+                  {myGroups.length === 0 ? (
                     <div className="text-center py-8">
                       <p className="text-muted-foreground">Você ainda não enviou nenhum grupo.</p>
                       <p className="text-sm text-muted-foreground mt-2">
@@ -356,37 +376,36 @@ const Dashboard = () => {
                       </p>
                     </div>
                   ) : (
-                    recentGroups.map((group, index) => (
+                    myGroups.slice(0, 5).map((group) => (
                       <div
-                        key={index}
+                        key={group.id}
                         className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
                       >
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
-                          <p className="text-sm text-muted-foreground mb-2">{group.category}</p>
-                          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Eye className="w-3 h-3" />
-                              {group.views} acessos
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {group.date}
-                            </span>
+                        <div className="flex items-center gap-4 flex-1">
+                          <Avatar className="w-12 h-12">
+                            <AvatarImage src={group.thumbnail_url || ""} />
+                            <AvatarFallback className="bg-telegram-blue text-white">
+                              {group.title.substring(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-foreground mb-1">{group.title}</h3>
+                            <p className="text-sm text-muted-foreground mb-2">{getCategoryLabel(group.category)}</p>
+                            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1">
+                                <Eye className="w-3 h-3" />
+                                {group.views || 0} acessos
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {new Date(group.created_at).toLocaleDateString('pt-BR')}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <span className="flex items-center gap-1 text-sm text-green-500">
-                            <CheckCircle className="w-4 h-4" />
-                            {group.status}
-                          </span>
-                          {group.canPromote && (
-                            <Button size="sm" className="bg-yellow-500 hover:bg-yellow-600">
-                              <Star className="w-4 h-4 mr-1" />
-                              Anunciar
-                            </Button>
-                          )}
-                        </div>
+                        <Badge variant={group.status === 'approved' ? 'default' : group.status === 'pending' ? 'secondary' : 'destructive'}>
+                          {group.status === 'approved' ? 'Aprovado' : group.status === 'pending' ? 'Pendente' : 'Rejeitado'}
+                        </Badge>
                       </div>
                     ))
                   )}
@@ -463,9 +482,57 @@ const Dashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Grupos Favoritos</CardTitle>
+                <CardDescription>{favoriteGroups.length} grupos salvos</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Você ainda não tem grupos favoritos.</p>
+                {favoriteGroups.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Heart className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
+                    <p className="text-muted-foreground">Você ainda não tem grupos favoritos.</p>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Clique no ❤️ nos cards de grupos para salvá-los aqui.
+                    </p>
+                    <Button variant="outline" className="mt-4" onClick={() => navigate("/all-groups")}>
+                      Explorar Grupos
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {favoriteGroups.map((group) => (
+                      <div key={group.id} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center gap-4">
+                          <Avatar className="w-12 h-12">
+                            <AvatarImage src={group.thumbnail_url || ""} />
+                            <AvatarFallback className="bg-telegram-blue text-white">
+                              {group.title.substring(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h3 className="font-semibold text-foreground">{group.title}</h3>
+                            <p className="text-sm text-muted-foreground">{getCategoryLabel(group.category)}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => navigate(`/grupo/${group.slug}`)}
+                          >
+                            Ver Grupo
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-destructive"
+                            onClick={() => handleRemoveFavorite(group.id)}
+                          >
+                            <Heart className="w-4 h-4 fill-current" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -508,9 +575,9 @@ const Dashboard = () => {
                         <SelectValue placeholder="Selecione uma categoria" />
                       </SelectTrigger>
                       <SelectContent>
-                        {categories.map((category) => (
-                          <SelectItem key={category} value={category.toLowerCase()}>
-                            {category}
+                        {CATEGORIES.map((category) => (
+                          <SelectItem key={category} value={category}>
+                            {getCategoryLabel(category)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -661,6 +728,7 @@ const Dashboard = () => {
           </TabsContent>
         </Tabs>
       </main>
+      <Footer />
     </div>
   );
 };
