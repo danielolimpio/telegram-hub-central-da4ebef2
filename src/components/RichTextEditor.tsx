@@ -287,7 +287,7 @@ export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps
             className="min-h-[260px] font-mono text-xs"
           />
           <p className="text-xs text-muted-foreground mt-1">
-            HTML é sanitizado automaticamente. Tags permitidas: p, br, strong, em, u, s, span, h1–h6, ul, ol, li, blockquote.
+            HTML é sanitizado automaticamente. Suporta divs, classes, estilos inline, &lt;style&gt;, listas, tabelas, links e imagens. Scripts e atributos perigosos são removidos.
           </p>
         </TabsContent>
       </Tabs>
