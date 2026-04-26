@@ -21,6 +21,9 @@ import {
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { sanitizeHTML } from '@/lib/sanitize';
 
@@ -31,6 +34,8 @@ interface RichTextEditorProps {
 }
 
 export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps) => {
+  const [mode, setMode] = useState<'visual' | 'html'>('visual');
+  const [htmlDraft, setHtmlDraft] = useState<string>(content ?? '');
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -83,7 +88,28 @@ export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps
   return (
     <div className="space-y-2">
       {label && <Label>{label}</Label>}
-      <div className="border rounded-md bg-background">
+      <Tabs
+        value={mode}
+        onValueChange={(v) => {
+          const next = v as 'visual' | 'html';
+          if (next === 'html') {
+            setHtmlDraft(editor.getHTML());
+          } else {
+            const sanitized = sanitizeHTML(htmlDraft);
+            editor.commands.setContent(sanitized, { emitUpdate: false });
+            onChange(sanitized);
+          }
+          setMode(next);
+        }}
+        className="w-full"
+      >
+        <TabsList className="grid w-full max-w-xs grid-cols-2">
+          <TabsTrigger value="visual">Visual</TabsTrigger>
+          <TabsTrigger value="html">HTML</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="visual" className="mt-2">
+          <div className="border rounded-md bg-background">
         {/* Toolbar */}
         <div className="border-b p-2 flex flex-wrap gap-1">
           {/* Text Formatting */}
@@ -245,7 +271,26 @@ export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps
           editor={editor} 
           className="prose-headings:font-bold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:ml-2" 
         />
-      </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="html" className="mt-2">
+          <Textarea
+            value={htmlDraft}
+            onChange={(e) => {
+              const value = e.target.value;
+              setHtmlDraft(value);
+              const sanitized = sanitizeHTML(value);
+              onChange(sanitized);
+            }}
+            placeholder="<p>Escreva ou cole seu HTML aqui...</p>"
+            className="min-h-[260px] font-mono text-xs"
+          />
+          <p className="text-xs text-muted-foreground mt-1">
+            HTML é sanitizado automaticamente. Tags permitidas: p, br, strong, em, u, s, span, h1–h6, ul, ol, li, blockquote.
+          </p>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
