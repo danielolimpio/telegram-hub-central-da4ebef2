@@ -2,26 +2,35 @@ import DOMPurify from 'dompurify';
 
 const config = {
   ALLOWED_TAGS: [
-    'p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'span', 'h1', 'h2', 'h3',
-    'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote'
+    'p', 'br', 'hr', 'strong', 'b', 'em', 'i', 'u', 's', 'small', 'sub', 'sup',
+    'span', 'div', 'section', 'article', 'header', 'footer', 'main', 'aside', 'nav',
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'ul', 'ol', 'li', 'dl', 'dt', 'dd',
+    'blockquote', 'pre', 'code',
+    'a', 'img', 'figure', 'figcaption',
+    'table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td', 'caption', 'colgroup', 'col',
+    'style',
   ],
-  ALLOWED_ATTR: ['style', 'class'],
-  ALLOWED_STYLES: {
-    '*': {
-      'color': [/^#[0-9a-fA-F]{3,6}$/, /^rgb\(/, /^rgba\(/],
-      'background-color': [/^#[0-9a-fA-F]{3,6}$/, /^rgb\(/, /^rgba\(/],
-      'text-align': [/^left$/, /^right$/, /^center$/, /^justify$/],
-      'font-family': [/.*/],
-      'font-size': [/^\d+(?:px|em|rem|%)$/],
-    }
-  },
+  ALLOWED_ATTR: [
+    'style', 'class', 'id', 'title', 'lang', 'dir',
+    'href', 'target', 'rel',
+    'src', 'alt', 'width', 'height', 'loading',
+    'colspan', 'rowspan', 'align', 'valign',
+  ],
+  // Allow <style> blocks so users can paste fully-styled HTML.
+  // DOMPurify will still sanitize CSS and strip dangerous URLs/expressions.
+  ADD_TAGS: ['style'],
+  ALLOW_DATA_ATTR: true,
   KEEP_CONTENT: true,
+  // Don't aggressively strip CSS properties — let users style freely.
+  // DOMPurify still blocks javascript:, expression(), and behaviors.
+  WHOLE_DOCUMENT: false,
+  ALLOW_UNKNOWN_PROTOCOLS: false,
 } as const;
 
 const sanitizeHTMLForSSR = (dirty: string): string =>
   dirty
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
     .replace(/<\/?(?:iframe|object|embed|link|meta|base|form|input|button|textarea|select)[^>]*>/gi, '')
     .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
     .replace(/\s+(?:href|src)\s*=\s*(['"])\s*javascript:[^'"]*\1/gi, '')
