@@ -96,7 +96,7 @@ export const RichTextEditor = ({ content, onChange, label }: RichTextEditorProps
             setHtmlDraft(editor.getHTML());
           } else {
             const sanitized = sanitizeHTML(htmlDraft);
-            editor.commands.setContent(sanitized, false);
+            editor.commands.setContent(sanitized, { emitUpdate: false });
             onChange(sanitized);
           }
           setMode(next);
