@@ -54,7 +54,7 @@ export const sanitizeHTML = (dirty: string): string => {
 /**
  * Validates and sanitizes HTML with length limit
  */
-export const validateAndSanitizeHTML = (html: string, maxLength: number = 10000): { 
+export const validateAndSanitizeHTML = (html: string, maxLength: number = 50000): { 
   sanitized: string; 
   isValid: boolean; 
   error?: string 

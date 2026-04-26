@@ -9,7 +9,7 @@ export const groupSchema = z.object({
   description: z.string()
     .trim()
     .min(10, 'Descrição deve ter no mínimo 10 caracteres')
-    .max(10000, 'Descrição deve ter no máximo 10000 caracteres'),
+    .max(50000, 'Descrição deve ter no máximo 50000 caracteres'),
   
   telegram_link: z.string()
     .url('Link inválido')
