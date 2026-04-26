@@ -219,6 +219,34 @@ const AdminDashboard = () => {
     }
 
     try {
+      // Regenerate slug if title changed
+      let newSlug = editingGroup.slug;
+      if (editForm.title !== editingGroup.title) {
+        const baseSlug = editForm.title
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+        // Ensure slug uniqueness
+        let candidate = baseSlug;
+        let suffix = 1;
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          const { data: existing } = await supabase
+            .from("groups")
+            .select("id")
+            .eq("slug", candidate)
+            .neq("id", editingGroup.id)
+            .maybeSingle();
+          if (!existing) break;
+          suffix += 1;
+          candidate = `${baseSlug}-${suffix}`;
+        }
+        newSlug = candidate;
+      }
+
       const { error } = await supabase
         .from("groups")
         .update({
@@ -226,7 +254,8 @@ const AdminDashboard = () => {
           category: editForm.category,
           description: editForm.description,
           telegram_link: editForm.telegram_link,
-          thumbnail_url: editForm.thumbnail_url
+          thumbnail_url: editForm.thumbnail_url,
+          slug: newSlug
         })
         .eq("id", editingGroup.id);
 
