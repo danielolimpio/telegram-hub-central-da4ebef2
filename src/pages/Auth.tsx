@@ -103,7 +103,7 @@ const Auth = () => {
         email: signupEmail,
         password: signupPassword,
         options: {
-          emailRedirectTo: `${window.location.origin}/`,
+          emailRedirectTo: `https://gruposdotelegram.org/dashboard`,
           data: {
             display_name: signupName,
           }
