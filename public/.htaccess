@@ -34,3 +34,23 @@
   Header set X-XSS-Protection "1; mode=block"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
+
+# SPA fallback — serve root index.html for any path that does not map to
+# an existing file or directory. This is required for groups (and other
+# dynamic routes) created AFTER the static build, otherwise Apache returns
+# 404 instead of letting the React Router handle the URL.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Do not rewrite real files (JS chunks, images, sitemap.xml, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Do not rewrite asset-like requests so missing assets still 404 properly
+  RewriteRule \.(js|mjs|css|map|json|xml|txt|ico|png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm|pdf)$ - [L]
+
+  # Everything else falls back to the SPA entry point
+  RewriteRule ^ /index.html [L]
+</IfModule>
