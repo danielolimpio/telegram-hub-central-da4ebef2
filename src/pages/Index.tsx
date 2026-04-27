@@ -8,9 +8,9 @@ import { OrganizationSchema, WebSiteSchema, BreadcrumbSchema } from "@/component
 import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -18,9 +18,7 @@ type Group = Tables<"groups">;
 
 const Index = () => {
   const navigate = useNavigate();
-  const [groups, setGroups] = useState<Group[]>([]);
-  const [loading, setLoading] = useState(true);
-  
+
   const stats = [
     { icon: Users, value: "+12.500", label: "Grupos Ativos", color: "blue" as const },
     { icon: TrendingUp, value: "8.742", label: "Acessos Hoje", color: "green" as const },
@@ -28,26 +26,23 @@ const Index = () => {
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
   ];
 
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("groups")
-          .select("*")
-          .eq("status", "approved")
-          .order("created_at", { ascending: false });
-        
-        if (error) throw error;
-        setGroups(data || []);
-      } catch (error) {
-        console.error("Error fetching groups:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGroups();
-  }, []);
+  const { data: groups = [], isLoading: loading } = useQuery({
+    queryKey: ["groups", "approved", "home"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("groups")
+        .select("id,title,description,members,thumbnail_url,category,telegram_link,slug,created_at")
+        .eq("status", "approved")
+        .order("created_at", { ascending: false })
+        .limit(12);
+      if (error) throw error;
+      return data || [];
+    },
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
