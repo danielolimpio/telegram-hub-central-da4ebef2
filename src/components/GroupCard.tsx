@@ -96,7 +96,7 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
           
           {/* Content */}
           <div className="px-4 pb-4 flex-1 flex flex-col text-center">
-            <h3 className="font-semibold text-foreground text-base sm:text-lg mb-2 group-hover:text-telegram-blue transition-colors line-clamp-2">
+            <h3 className="font-semibold text-foreground text-base sm:text-lg mb-2 group-hover:text-telegram-blue transition-colors line-clamp-1">
               {title}
             </h3>
             <p className="text-muted-foreground text-xs sm:text-sm line-clamp-2 mb-3 flex-1">
