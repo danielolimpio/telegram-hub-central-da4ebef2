@@ -1,5 +1,5 @@
 import type { RouteRecord } from 'vite-react-ssg';
-import { lazy } from 'react';
+import { lazyWithRetry as lazy } from '@/lib/lazyWithRetry';
 import App from './App';
 import { getGroupStaticPaths, groupDetailsLoader } from './pages/GroupDetails';
 
