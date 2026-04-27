@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { sanitizeHTML } from "@/lib/sanitize";
 
 interface ShadowHTMLProps {
@@ -17,10 +17,16 @@ interface ShadowHTMLProps {
 const ShadowHTML = ({ html, className }: ShadowHTMLProps) => {
   const hostRef = useRef<HTMLDivElement>(null);
   const sanitized = sanitizeHTML(html || "");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
+
+    // Clear any SSR fallback content from the light DOM before attaching shadow.
+    if (!host.shadowRoot) {
+      host.innerHTML = "";
+    }
 
     const root = host.shadowRoot ?? host.attachShadow({ mode: "open" });
 
@@ -35,15 +41,17 @@ const ShadowHTML = ({ html, className }: ShadowHTMLProps) => {
       </style>
       <div class="shadow-content">${sanitized}</div>
     `;
+    setMounted(true);
   }, [sanitized]);
 
   return (
     <div
       ref={hostRef}
       className={className}
-      // SSR fallback: visible until hydration replaces it with shadow DOM
       suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: sanitized }}
+      // SSR / pre-hydration fallback so content is visible and indexable.
+      // Once mounted, the effect attaches a Shadow DOM and takes over rendering.
+      {...(!mounted ? { dangerouslySetInnerHTML: { __html: sanitized } } : {})}
     />
   );
 };
