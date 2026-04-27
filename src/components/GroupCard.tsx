@@ -40,6 +40,19 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
   const groupSlug = slug || generateSlug(title);
   const isFav = id ? isFavorite(id) : false;
 
+  // Strip HTML tags and truncate for card preview to keep layout consistent
+  const previewText = (() => {
+    const text = (description || "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const max = 140;
+    return text.length > max ? text.slice(0, max).trimEnd() + "…" : text;
+  })();
+
   const handleFavorite = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!isLoggedIn) {
@@ -86,10 +99,9 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
             <h3 className="font-semibold text-foreground text-base sm:text-lg mb-2 group-hover:text-telegram-blue transition-colors line-clamp-2">
               {title}
             </h3>
-            <div 
-              className="text-muted-foreground text-xs sm:text-sm line-clamp-2 mb-3 flex-1"
-              dangerouslySetInnerHTML={{ __html: sanitizeHTML(description) }}
-            />
+            <p className="text-muted-foreground text-xs sm:text-sm line-clamp-2 mb-3 flex-1">
+              {previewText}
+            </p>
             <div className="text-xs text-muted-foreground mb-3 truncate">{category}</div>
             
             <div className="flex items-center justify-center text-sm text-muted-foreground mb-4">
