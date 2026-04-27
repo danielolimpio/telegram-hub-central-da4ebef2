@@ -19,6 +19,22 @@ const ShadowHTML = ({ html, className }: ShadowHTMLProps) => {
   const sanitized = sanitizeHTML(html || "");
   const [mounted, setMounted] = useState(false);
 
+  // Rewrite common top-level selectors (html, body) inside user-provided
+  // <style> blocks so they actually match something inside the Shadow DOM.
+  // Without this, pasted full-page HTML loses all of its body/html styling
+  // because there is no <body> inside the shadow root.
+  const rewritten = sanitized.replace(
+    /<style\b([^>]*)>([\s\S]*?)<\/style>/gi,
+    (_m, attrs: string, css: string) => {
+      const fixed = css
+        // `html, body { ... }` or `body, html { ... }` -> target shadow root + content
+        .replace(/(^|[},])\s*(?:html\s*,\s*body|body\s*,\s*html)\b/gi, "$1 :host, .shadow-body")
+        .replace(/(^|[},])\s*body\b/gi, "$1 .shadow-body")
+        .replace(/(^|[},])\s*html\b/gi, "$1 :host");
+      return `<style${attrs}>${fixed}</style>`;
+    }
+  );
+
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
@@ -39,10 +55,10 @@ const ShadowHTML = ({ html, className }: ShadowHTMLProps) => {
         a { color: inherit; }
         img, video { max-width: 100%; height: auto; }
       </style>
-      <div class="shadow-content">${sanitized}</div>
+      <div class="shadow-body shadow-content">${rewritten}</div>
     `;
     setMounted(true);
-  }, [sanitized]);
+  }, [rewritten]);
 
   return (
     <div
