@@ -16,7 +16,7 @@ import {
   Star,
   MessageCircle
 } from "lucide-react";
-import { sanitizeHTML } from "@/lib/sanitize";
+import ShadowHTML from "@/components/ShadowHTML";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
 import { toast } from "sonner";
@@ -314,10 +314,10 @@ const GroupDetails = () => {
                 {group.title}
               </h1>
 
-              {/* Description */}
-              <div 
-                className="text-muted-foreground mb-4 max-w-3xl leading-relaxed text-left"
-                dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.description) }}
+              {/* Description (rendered in Shadow DOM to isolate user CSS) */}
+              <ShadowHTML
+                html={group.description}
+                className="text-muted-foreground mb-4 w-full max-w-3xl leading-relaxed text-left"
               />
 
               {/* Stats */}
