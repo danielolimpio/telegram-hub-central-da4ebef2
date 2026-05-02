@@ -131,11 +131,10 @@ const Index = () => {
         {/* SEO Hero — compact, centered title; intro/keywords moved near cards and into long-form sections below */}
         <section
           aria-label="O Maior Diretório de Grupos do Telegram do Brasil em 2026"
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-telegram-blue/10 via-background to-purple-500/10 border border-telegram-blue/20 p-6 sm:p-8 mb-8 text-center"
+          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-telegram-blue/5 via-background to-purple-500/5 border border-telegram-blue/15 px-4 py-4 sm:py-5 mb-6 text-center"
         >
-          <div className="absolute top-0 right-0 w-72 h-72 bg-telegram-blue/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="relative">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight uppercase tracking-tight">
+            <h1 className="text-base sm:text-lg lg:text-xl font-semibold text-foreground leading-snug tracking-tight">
               O Maior Diretório de Grupos do Telegram do Brasil em 2026
             </h1>
           </div>
