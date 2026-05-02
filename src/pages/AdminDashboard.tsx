@@ -45,7 +45,9 @@ const AdminDashboard = () => {
     category: "",
     description: "",
     telegram_link: "",
-    thumbnail_url: ""
+    thumbnail_url: "",
+    members: "",
+    views: ""
   });
 
   useEffect(() => {
@@ -193,7 +195,9 @@ const AdminDashboard = () => {
       category: group.category,
       description: group.description,
       telegram_link: group.telegram_link,
-      thumbnail_url: group.thumbnail_url || ""
+      thumbnail_url: group.thumbnail_url || "",
+      members: group.members != null ? String(group.members) : "",
+      views: group.views != null ? String(group.views) : "0"
     });
   };
 
@@ -205,7 +209,7 @@ const AdminDashboard = () => {
       title: editForm.title,
       description: editForm.description,
       telegram_link: editForm.telegram_link,
-      members: null,
+      members: editForm.members,
       category: editForm.category
     });
 
@@ -255,6 +259,8 @@ const AdminDashboard = () => {
           description: editForm.description,
           telegram_link: editForm.telegram_link,
           thumbnail_url: editForm.thumbnail_url,
+          members: validation.data.members,
+          views: editForm.views === "" ? 0 : Math.max(0, parseInt(editForm.views.replace(/[.\s]/g, ""), 10) || 0),
           slug: newSlug
         })
         .eq("id", editingGroup.id);
@@ -547,6 +553,30 @@ const AdminDashboard = () => {
             <div>
               <label className="text-sm font-medium mb-2 block">Link do Telegram</label>
               <Input value={editForm.telegram_link} onChange={(e) => setEditForm(prev => ({ ...prev, telegram_link: e.target.value }))} />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-2 block">Número de Membros</label>
+                <Input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="Ex: 92.707"
+                  value={editForm.members}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, members: e.target.value }))}
+                />
+                <p className="text-xs text-muted-foreground mt-1">Aceita formato com pontos (ex: 92.707)</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-2 block">Acessos (visualizações)</label>
+                <Input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="Ex: 8742"
+                  value={editForm.views}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, views: e.target.value }))}
+                />
+              </div>
             </div>
 
             <div>
