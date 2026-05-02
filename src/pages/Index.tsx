@@ -99,7 +99,7 @@ const Index = () => {
       }
       const { data, error } = await supabase
         .from("groups")
-        .select("id,title,description,members,thumbnail_url,category,telegram_link,slug,created_at")
+        .select("id,title,description,members,thumbnail_url,category,telegram_link,slug,created_at,views")
         .eq("status", "approved")
         .order("created_at", { ascending: false })
         .limit(12);
@@ -218,9 +218,11 @@ const Index = () => {
                   groups.slice(0, 12).map((group) => (
                     <GroupCard
                       key={group.id}
+                      id={group.id}
                       title={group.title}
                       description={group.description}
                       members={group.members || 0}
+                      views={group.views || 0}
                       avatar={group.thumbnail_url}
                       category={group.category}
                       telegramLink={group.telegram_link}
