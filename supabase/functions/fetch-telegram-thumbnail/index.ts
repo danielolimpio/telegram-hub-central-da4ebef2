@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -36,6 +37,38 @@ function checkRateLimit(key: string): boolean {
 function isValidTelegramUsername(username: string): boolean {
   // Telegram usernames: 5-32 characters, alphanumeric and underscores
   return /^[a-zA-Z0-9_]{5,32}$/.test(username);
+}
+
+async function uploadToStorage(username: string, imageUrl: string): Promise<string | null> {
+  try {
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, serviceKey);
+
+    const imgRes = await fetch(imageUrl);
+    if (!imgRes.ok) {
+      console.warn(`Failed to download image (${imgRes.status}): ${imageUrl}`);
+      return null;
+    }
+    const contentType = imgRes.headers.get("content-type") || "image/jpeg";
+    const ext = contentType.includes("png") ? "png" : "jpg";
+    const bytes = new Uint8Array(await imgRes.arrayBuffer());
+
+    const path = `telegram/${username}-${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage.from("avatars").upload(path, bytes, {
+      contentType,
+      upsert: true,
+    });
+    if (upErr) {
+      console.error("Upload error:", upErr.message);
+      return null;
+    }
+    const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+    return data.publicUrl;
+  } catch (e) {
+    console.error("uploadToStorage failed:", e);
+    return null;
+  }
 }
 
 serve(async (req) => {
@@ -98,8 +131,10 @@ serve(async (req) => {
     
     if (match && match[1]) {
       console.log(`Thumbnail found for: ${username}`);
+      const stored = await uploadToStorage(username, match[1]);
+      const finalUrl = stored || match[1];
       return new Response(
-        JSON.stringify({ thumbnailUrl: match[1] }),
+        JSON.stringify({ thumbnailUrl: finalUrl }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     } else {
