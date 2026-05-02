@@ -140,8 +140,8 @@ export const categorySEO: Record<string, { title: string; description: string; c
 // SEO for main pages
 export const mainPagesSEO: Record<string, { title: string; description: string; canonical: string }> = {
   home: {
-    title: "Grupos do Telegram - Encontre os Melhores Grupos em 2025",
-    description: "Descubra e participe dos melhores grupos do Telegram. Milhares de grupos verificados em diversas categorias. Conecte-se com pessoas que compartilham seus interesses de forma segura.",
+    title: "Grupos do Telegram 2026 - O Maior Diretório do Brasil",
+    description: "O maior diretório de Grupos do Telegram do Brasil em 2026. Encontre os melhores grupos verificados em 27 categorias: amizade, namoro, investimentos, estudos, games, esportes e muito mais. 100% gratuito e atualizado diariamente.",
     canonical: "/"
   },
   allGroups: {
