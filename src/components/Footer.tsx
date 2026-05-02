@@ -1,6 +1,7 @@
 import { Send, Heart, Mail, Globe, Users, Shield, Info, HelpCircle, BookOpen, Lock, Cookie } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import logo from "@/assets/logo-telegram.webp";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,9 +13,13 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-telegram rounded-full flex items-center justify-center">
-                <Send className="w-5 h-5 text-white" />
-              </div>
+              <img
+                src={logo}
+                alt="Grupos do Telegram"
+                width={32}
+                height={32}
+                className="w-8 h-8 object-contain"
+              />
               <div className="text-xl font-bold">
                 <span className="text-foreground">Grupos do </span>
                 <span className="text-telegram-blue">Telegram</span>
