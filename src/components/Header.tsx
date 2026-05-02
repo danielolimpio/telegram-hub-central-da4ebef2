@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import logo from "@/assets/logo-telegram.webp";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -48,9 +49,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-telegram rounded-full flex items-center justify-center">
-              <Send className="w-5 h-5 text-white" />
-            </div>
+            <img
+              src={logo}
+              alt="Grupos do Telegram"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain"
+            />
             <div className="text-xl font-bold">
               <span className="text-foreground">Grupos do </span>
               <span className="text-telegram-blue">Telegram</span>
