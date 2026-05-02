@@ -1,4 +1,4 @@
-import { Users, Heart, ExternalLink, Eye } from "lucide-react";
+import { Heart, ExternalLink, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -106,10 +106,6 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
             <div className="text-xs text-muted-foreground mb-3 truncate">{category}</div>
             
             <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground mb-4">
-              <span className="inline-flex items-center">
-                <Users className="w-4 h-4 mr-1" />
-                <span className="text-xs sm:text-sm">{formatMembers(members)}</span>
-              </span>
               {typeof views === "number" && views > 0 && (
                 <span className="inline-flex items-center" title="Acessos">
                   <Eye className="w-4 h-4 mr-1" />

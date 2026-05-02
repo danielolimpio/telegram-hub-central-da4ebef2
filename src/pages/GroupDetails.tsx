@@ -14,7 +14,8 @@ import {
   Share2, 
   CheckCircle,
   Star,
-  MessageCircle
+  MessageCircle,
+  Eye
 } from "lucide-react";
 import ShadowHTML from "@/components/ShadowHTML";
 import { supabase } from "@/integrations/supabase/client";
@@ -314,20 +315,28 @@ const GroupDetails = () => {
                 {group.title}
               </h1>
 
+              {/* Members count below title */}
+              {typeof group.members === "number" && group.members > 0 && (
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4">
+                  <Users className="w-4 h-4" />
+                  <span>{formatMembers(group.members)} {group.members === 1 ? 'membro' : 'membros'}</span>
+                </div>
+              )}
+
               {/* Description (rendered in Shadow DOM to isolate user CSS) */}
               <ShadowHTML
                 html={group.description}
                 className="text-muted-foreground mb-4 w-full max-w-3xl leading-relaxed text-left"
               />
 
-              {/* Stats */}
+              {/* Stats — views appear after description */}
               <div className="flex items-center gap-6 mb-6">
                 <Badge variant="secondary" className="flex items-center gap-1.5 px-3 py-1.5">
                   <MessageCircle className="w-4 h-4" />
                   {group.category}
                 </Badge>
                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <Users className="w-4 h-4" />
+                  <Eye className="w-4 h-4" />
                   <span>{formatMembers(group.views)} {group.views === 1 ? 'acesso' : 'acessos'}</span>
                 </div>
                 <Badge variant="outline" className="flex items-center gap-1.5 px-3 py-1.5 text-yellow-600 border-yellow-600">
