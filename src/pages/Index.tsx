@@ -460,7 +460,71 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              {/* FAQ Section */}
+              {/* What is + How it works (long-form SEO content) */}
+              <Card className="bg-gradient-to-br from-background to-telegram-blue/5 border-telegram-blue/10">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 bg-telegram-blue/10 rounded-xl">
+                      <Compass className="w-7 h-7 text-telegram-blue" />
+                    </div>
+                    <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
+                      O que é o Grupos do Telegram?
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    O <strong className="text-foreground">Grupos do Telegram</strong> é a maior e mais completa plataforma brasileira 100% dedicada a reunir, organizar e divulgar <strong className="text-foreground">grupos do Telegram</strong> de todo o Brasil. Com 27 categorias cuidadosamente curadas — incluindo amizade, namoro, promoções, oportunidades, estudos, tecnologia, esportes, games, investimentos, livros, receitas, viagens, pets e muitas outras — conectamos diariamente milhares de pessoas a comunidades ativas e relevantes.
+                  </p>
+                  <p>
+                    Nossa missão é ser o ponto de encontro definitivo para quem busca <strong className="text-foreground">novos grupos do Telegram</strong> em qualquer nicho ou interesse. Todos os grupos são revisados por nossa equipe de moderação humana, garantindo uma experiência mais segura e confiável. Seja você um usuário buscando fazer novas amizades, encontrar oportunidades de emprego, aprender um novo idioma, descobrir promoções imperdíveis ou simplesmente se divertir, este é o lugar certo.
+                  </p>
+                  <p>
+                    A plataforma é <strong className="text-foreground">100% gratuita</strong>, não exige cadastro para navegar e acessar os grupos, e funciona perfeitamente em qualquer dispositivo — computadores, tablets e smartphones. Nosso acervo é atualizado constantemente com novos links enviados por usuários de todas as regiões do Brasil, tornando o site o diretório mais completo e atualizado de grupos do Telegram do país.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* How it works — 3 steps */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 bg-purple-500/10 rounded-xl">
+                      <Sparkles className="w-7 h-7 text-purple-600" />
+                    </div>
+                    <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
+                      Como funciona em 3 passos simples
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid sm:grid-cols-3 gap-6">
+                    <div className="relative p-5 rounded-2xl bg-telegram-blue/5 border border-telegram-blue/10">
+                      <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-telegram-blue text-white font-bold flex items-center justify-center text-lg shadow-md">1</div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 mt-2">Escolha uma categoria</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Navegue pelas 27 categorias disponíveis ou use a barra de busca para encontrar grupos sobre o assunto que mais lhe interessa — de Amizade a Tecnologia, de Investimentos a Games.
+                      </p>
+                    </div>
+                    <div className="relative p-5 rounded-2xl bg-purple-500/5 border border-purple-500/10">
+                      <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center text-lg shadow-md">2</div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 mt-2">Encontre o grupo ideal</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Explore os grupos disponíveis, leia suas descrições, confira o número de membros e visualizações. Grupos verificados possuem selo especial de confiabilidade.
+                      </p>
+                    </div>
+                    <div className="relative p-5 rounded-2xl bg-green-500/5 border border-green-500/10">
+                      <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-green-600 text-white font-bold flex items-center justify-center text-lg shadow-md">3</div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 mt-2">Entre no grupo</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Ao encontrar o grupo desejado, clique em "Entrar no Grupo". Você será redirecionado direto para o Telegram, onde confirma sua entrada na comunidade em segundos.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* FAQ Section — expanded for FAQPage rich snippets */}
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-3">
@@ -468,44 +532,22 @@ const Index = () => {
                       <HelpCircle className="w-7 h-7 text-telegram-blue" />
                     </div>
                     <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
-                      Perguntas Frequentes
+                      Perguntas Frequentes sobre Grupos do Telegram
                     </CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="item-1">
-                      <AccordionTrigger className="text-left font-medium">
-                        Onde posso encontrar grupos confiáveis?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Navegue pelas categorias acima ou use nossa busca. Todos os grupos são verificados por humanos antes da publicação.
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-2">
-                      <AccordionTrigger className="text-left font-medium">
-                        Como entro em um grupo?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Clique no grupo desejado, leia a descrição e as regras, depois toque em "Entrar no Grupo". Você será redirecionado automaticamente para o Telegram.
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                      <AccordionTrigger className="text-left font-medium">
-                        É seguro participar dos grupos listados?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Sim. Todos são pré-aprovados e monitorados. Ainda assim, mantenha o bom senso: nunca compartilhe dados sensíveis (CPF, senhas, comprovantes, etc.) em grupos, mesmo os verificados.
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-4">
-                      <AccordionTrigger className="text-left font-medium">
-                        Posso cadastrar meu próprio grupo?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Com certeza! Clique em "Anunciar Grupo" no menu, preencha as informações e aguarde a análise. O cadastro é 100% gratuito, e seu grupo pode alcançar milhares de pessoas em busca de comunidades reais.
-                      </AccordionContent>
-                    </AccordionItem>
+                    {faqItems.map((item, idx) => (
+                      <AccordionItem key={idx} value={`faq-${idx}`}>
+                        <AccordionTrigger className="text-left font-medium">
+                          {item.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground leading-relaxed">
+                          {item.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
                   </Accordion>
                 </CardContent>
               </Card>
