@@ -4,6 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fsfrpjsuakhkpbmqgibf.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://fsfrpjsuakhkpbmqgibf.supabase.co" />
+    <script>
+      // Kick off the homepage groups fetch BEFORE the JS bundle parses/hydrates.
+      // Result is awaited inside React Query as initialData → no extra round-trip.
+      (function () {
+        try {
+          var SUPA_URL = "https://fsfrpjsuakhkpbmqgibf.supabase.co";
+          var SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzZnJwanN1YWtoa3BibXFnaWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MDcyOTAsImV4cCI6MjA3NDM4MzI5MH0.Z4sFNkScO7rjFigMrbJsV-8vP4spjhadL-z28_AX37M";
+          var path = window.location.pathname;
+          if (path === "/" || path === "/index.html") {
+            window.__GROUPS_HOME_PREFETCH__ = fetch(
+              SUPA_URL +
+                "/rest/v1/groups?select=id,title,description,members,thumbnail_url,category,telegram_link,slug,created_at&status=eq.approved&order=created_at.desc&limit=12",
+              {
+                headers: {
+                  apikey: SUPA_KEY,
+                  Authorization: "Bearer " + SUPA_KEY,
+                  Accept: "application/json",
+                },
+              }
+            )
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .catch(function () { return null; });
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body>
