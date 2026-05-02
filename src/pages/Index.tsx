@@ -198,9 +198,19 @@ const Index = () => {
 
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 {loading ? (
-                  <div className="col-span-full text-center py-12">
-                    <p className="text-muted-foreground">Carregando grupos...</p>
-                  </div>
+                  Array.from({ length: 8 }).map((_, i) => (
+                    <div
+                      key={`sk-${i}`}
+                      className="rounded-lg border border-border/50 bg-card p-4 flex flex-col items-center"
+                    >
+                      <Skeleton className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mb-4" />
+                      <Skeleton className="h-4 w-3/4 mb-2" />
+                      <Skeleton className="h-3 w-full mb-1" />
+                      <Skeleton className="h-3 w-2/3 mb-3" />
+                      <Skeleton className="h-3 w-1/2 mb-3" />
+                      <Skeleton className="h-8 w-full mt-auto" />
+                    </div>
+                  ))
                 ) : groups.length === 0 ? (
                   <div className="col-span-full text-center py-12">
                     <p className="text-muted-foreground">Nenhum grupo disponível.</p>
