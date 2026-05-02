@@ -21,7 +21,9 @@ export const groupSchema = z.object({
   members: z.union([
     z.string().transform((val) => {
       if (!val) return null;
-      const parsed = parseInt(val);
+      // Aceita formato pt-BR com pontos/espaços como separadores de milhar (ex: "92.707")
+      const cleaned = val.toString().replace(/[.\s]/g, '').replace(',', '.');
+      const parsed = parseInt(cleaned, 10);
       if (isNaN(parsed)) throw new Error('Número de membros inválido');
       if (parsed < 0) throw new Error('Número de membros deve ser positivo');
       if (parsed > 1000000) throw new Error('Número de membros deve ser menor que 1.000.000');
