@@ -13,8 +13,15 @@ import { Tables } from "@/integrations/supabase/types";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Group = Tables<"groups">;
+
+declare global {
+  interface Window {
+    __GROUPS_HOME_PREFETCH__?: Promise<any[] | null>;
+  }
+}
 
 const Index = () => {
   const navigate = useNavigate();
@@ -80,6 +87,16 @@ const Index = () => {
   const { data: groups = [], isLoading: loading } = useQuery({
     queryKey: ["groups", "approved", "home"],
     queryFn: async () => {
+      // Use the inline <head> prefetch if it resolved already — saves a full round-trip.
+      if (typeof window !== "undefined" && window.__GROUPS_HOME_PREFETCH__) {
+        try {
+          const prefetched = await window.__GROUPS_HOME_PREFETCH__;
+          if (prefetched && Array.isArray(prefetched)) {
+            window.__GROUPS_HOME_PREFETCH__ = undefined;
+            return prefetched as any;
+          }
+        } catch {}
+      }
       const { data, error } = await supabase
         .from("groups")
         .select("id,title,description,members,thumbnail_url,category,telegram_link,slug,created_at")
