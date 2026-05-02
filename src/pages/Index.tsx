@@ -4,8 +4,8 @@ import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { OrganizationSchema, WebSiteSchema, BreadcrumbSchema } from "@/components/JsonLd";
-import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle } from "lucide-react";
+import { OrganizationSchema, WebSiteSchema, BreadcrumbSchema, FAQSchema } from "@/components/JsonLd";
+import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle, Search, Sparkles, Zap, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,6 +24,57 @@ const Index = () => {
     { icon: TrendingUp, value: "8.742", label: "Acessos Hoje", color: "green" as const },
     { icon: Star, value: "156", label: "Grupos Premium", color: "orange" as const },
     { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
+  ];
+
+  const faqItems = [
+    {
+      question: "O que é o Grupos do Telegram?",
+      answer: "O Grupos do Telegram é o maior diretório brasileiro 100% dedicado a reunir, organizar e divulgar grupos do Telegram em diversas categorias. Funcionamos como um catálogo verificado onde você encontra comunidades sobre amizade, namoro, estudos, investimentos, tecnologia, esportes, entretenimento, promoções e muito mais — tudo em um só lugar e totalmente gratuito."
+    },
+    {
+      question: "O Grupos do Telegram é gratuito?",
+      answer: "Sim, o Grupos do Telegram é 100% gratuito para todos os usuários. Você pode navegar pelas categorias, pesquisar grupos, acessar links e entrar em qualquer comunidade sem precisar pagar nada e sem necessidade de cadastro para navegar."
+    },
+    {
+      question: "Como funciona o Grupos do Telegram?",
+      answer: "É simples: escolha uma categoria de interesse (como Amizade, Investimentos, Estudos, Games), navegue pelos grupos disponíveis, leia a descrição e o número de membros e clique em 'Entrar no Grupo'. Você é redirecionado direto para o Telegram, onde confirma sua entrada na comunidade em segundos."
+    },
+    {
+      question: "Os grupos listados são oficiais do Telegram?",
+      answer: "Não. Os grupos listados não são oficiais de nenhuma marca, empresa ou do próprio Telegram. Todos são criados e administrados por usuários independentes que optaram por divulgá-los aqui. Atuamos exclusivamente como um diretório de indexação, sem qualquer vínculo ou afiliação com o Telegram ou com os administradores dos grupos cadastrados."
+    },
+    {
+      question: "Como adicionar meu grupo do Telegram no diretório?",
+      answer: "Para adicionar seu grupo, basta criar uma conta gratuita, acessar o painel e clicar em 'Anunciar Grupo'. Informe o nome, uma descrição detalhada, selecione a categoria adequada e cole o link de convite do Telegram. Após o envio, nossa equipe analisa as informações e, estando tudo correto, o grupo é publicado e fica visível para milhares de usuários."
+    },
+    {
+      question: "O Grupos do Telegram é seguro?",
+      answer: "Sim. Todos os grupos passam por um processo de moderação humana antes de serem publicados, e links suspeitos, conteúdos ilegais ou que violem nossas diretrizes são removidos. Oferecemos também um sistema de denúncia para que os próprios usuários reportem grupos impróprios. Ainda assim, mantenha sempre cautela e nunca compartilhe dados pessoais sensíveis dentro dos grupos."
+    },
+    {
+      question: "Posso denunciar um grupo do Telegram?",
+      answer: "Sim. Em cada página de grupo existe um botão de denúncia. Se você encontrar um grupo com conteúdo impróprio, ilegal, spam ou que viole nossas políticas, basta clicar e informar o motivo. Nossa equipe de moderação analisa cada denúncia e toma as providências cabíveis, incluindo a remoção do grupo da plataforma."
+    },
+    {
+      question: "Com que frequência os grupos são atualizados?",
+      answer: "Nossa base é atualizada constantemente. Novos grupos são adicionados continuamente por usuários de todo o Brasil, e nossa equipe realiza verificações periódicas para remover links expirados, grupos inativos ou conteúdos que violem as diretrizes. Isso garante que você sempre encontre comunidades ativas e relevantes."
+    },
+    {
+      question: "Preciso criar conta para entrar nos grupos do Telegram?",
+      answer: "Não. Você não precisa criar conta para navegar pelo site nem para entrar nos grupos listados. Qualquer pessoa pode acessar o diretório, explorar as categorias e clicar nos links de forma totalmente gratuita. A criação de conta é necessária apenas para quem deseja adicionar um novo grupo ou utilizar o painel de controle."
+    },
+    {
+      question: "Por que alguns links de grupos do Telegram não funcionam?",
+      answer: "Existem algumas razões: o administrador pode ter revogado o link de convite, o grupo pode ter sido excluído, ou pode ter sido removido pelo próprio Telegram por violar políticas. Embora façamos verificações periódicas para remover links expirados, devido ao volume de grupos pode haver um intervalo até a atualização. Se encontrar um link quebrado, use o botão de denúncia para nos avisar."
+    },
+    {
+      question: "Quantos membros cabem em um grupo do Telegram?",
+      answer: "O Telegram permite até 200.000 membros em um único grupo — muito mais do que outras plataformas. Comunidades menores (de 50 a 500 pessoas) costumam ser mais interativas, enquanto grupos gigantes oferecem mais variedade de conteúdo. Escolha conforme o tipo de conexão que você busca."
+    },
+    {
+      question: "É possível usar o Telegram sem expor meu número de telefone?",
+      answer: "Sim. O Telegram permite definir um nome de usuário (@username) e configurar a privacidade para que seu número não seja visível para outros membros do grupo. Acesse Configurações > Privacidade e Segurança > Número de Telefone e selecione 'Ninguém' para ocultar seu contato dos demais."
+    }
   ];
 
   const { data: groups = [], isLoading: loading } = useQuery({
@@ -47,18 +98,75 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-subtle">
       <SEOHead
-        title="Grupos do Telegram - Encontre os Melhores Grupos em 2025"
-        description="Descubra e participe dos melhores grupos do Telegram. Milhares de grupos verificados em diversas categorias. Conecte-se com pessoas que compartilham seus interesses de forma segura."
+        title="Grupos do Telegram 2026 - O Maior Diretório do Brasil"
+        description="O maior diretório de Grupos do Telegram do Brasil em 2026. Encontre os melhores grupos verificados em 27 categorias: amizade, namoro, investimentos, estudos, games, esportes e muito mais. 100% gratuito e atualizado diariamente."
         canonical="/"
       />
       <OrganizationSchema />
       <WebSiteSchema />
+      <FAQSchema items={faqItems} />
       <BreadcrumbSchema items={[
         { name: "Início", url: "https://gruposdotelegram.org/" }
       ]} />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* SEO Hero — H1 + intro keyword-dense + trust badges */}
+        <section
+          aria-label="O Maior Diretório de Grupos do Telegram do Brasil em 2026"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-telegram-blue/10 via-background to-purple-500/10 border border-telegram-blue/20 p-6 sm:p-10 mb-10"
+        >
+          <div className="absolute top-0 right-0 w-72 h-72 bg-telegram-blue/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="relative">
+            <div className="flex flex-wrap gap-2 mb-5 text-xs sm:text-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/20 font-medium">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                Atualizado diariamente
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-telegram-blue/10 text-telegram-blue border border-telegram-blue/20 font-medium">
+                <Zap className="w-3.5 h-3.5" />
+                Centenas de grupos ativos
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20 font-medium">
+                <CheckCircle className="w-3.5 h-3.5" />
+                Links verificados
+              </span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight mb-4">
+              O Maior Diretório de Grupos do Telegram do Brasil em 2026
+            </h1>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl mb-6">
+              Descubra e entre nos melhores <strong className="text-foreground">grupos do Telegram</strong> em 27 categorias cuidadosamente curadas — como <strong className="text-foreground">amizade, namoro, investimentos, promoções, estudos, tecnologia, esportes, games, figurinhas, oportunidades, redes sociais, livros, viagens, pets</strong> e muito mais. Comunidades verificadas, atualizadas constantemente e 100% gratuitas — sem cadastro para entrar.
+            </p>
+            <form
+              role="search"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const fd = new FormData(e.currentTarget);
+                const q = String(fd.get("q") || "").trim();
+                navigate(q ? `/all-groups?q=${encodeURIComponent(q)}` : "/all-groups");
+              }}
+              className="flex flex-col sm:flex-row gap-2 max-w-2xl"
+            >
+              <label htmlFor="hero-search" className="sr-only">Buscar grupos do Telegram</label>
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input
+                  id="hero-search"
+                  name="q"
+                  type="search"
+                  required
+                  placeholder="Qual grupo você procura? Ex: investimentos, amizade, games..."
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-telegram-blue/40"
+                />
+              </div>
+              <Button type="submit" size="lg" className="bg-telegram-blue hover:bg-telegram-light-blue text-white font-semibold">
+                <Search className="w-4 h-4 mr-2" /> Pesquisar
+              </Button>
+            </form>
+          </div>
+        </section>
+
         {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {stats.map((stat, index) => (
@@ -352,7 +460,71 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              {/* FAQ Section */}
+              {/* What is + How it works (long-form SEO content) */}
+              <Card className="bg-gradient-to-br from-background to-telegram-blue/5 border-telegram-blue/10">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 bg-telegram-blue/10 rounded-xl">
+                      <Compass className="w-7 h-7 text-telegram-blue" />
+                    </div>
+                    <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
+                      O que é o Grupos do Telegram?
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    O <strong className="text-foreground">Grupos do Telegram</strong> é a maior e mais completa plataforma brasileira 100% dedicada a reunir, organizar e divulgar <strong className="text-foreground">grupos do Telegram</strong> de todo o Brasil. Com 27 categorias cuidadosamente curadas — incluindo amizade, namoro, promoções, oportunidades, estudos, tecnologia, esportes, games, investimentos, livros, receitas, viagens, pets e muitas outras — conectamos diariamente milhares de pessoas a comunidades ativas e relevantes.
+                  </p>
+                  <p>
+                    Nossa missão é ser o ponto de encontro definitivo para quem busca <strong className="text-foreground">novos grupos do Telegram</strong> em qualquer nicho ou interesse. Todos os grupos são revisados por nossa equipe de moderação humana, garantindo uma experiência mais segura e confiável. Seja você um usuário buscando fazer novas amizades, encontrar oportunidades de emprego, aprender um novo idioma, descobrir promoções imperdíveis ou simplesmente se divertir, este é o lugar certo.
+                  </p>
+                  <p>
+                    A plataforma é <strong className="text-foreground">100% gratuita</strong>, não exige cadastro para navegar e acessar os grupos, e funciona perfeitamente em qualquer dispositivo — computadores, tablets e smartphones. Nosso acervo é atualizado constantemente com novos links enviados por usuários de todas as regiões do Brasil, tornando o site o diretório mais completo e atualizado de grupos do Telegram do país.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* How it works — 3 steps */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 bg-purple-500/10 rounded-xl">
+                      <Sparkles className="w-7 h-7 text-purple-600" />
+                    </div>
+                    <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
+                      Como funciona em 3 passos simples
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid sm:grid-cols-3 gap-6">
+                    <div className="relative p-5 rounded-2xl bg-telegram-blue/5 border border-telegram-blue/10">
+                      <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-telegram-blue text-white font-bold flex items-center justify-center text-lg shadow-md">1</div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 mt-2">Escolha uma categoria</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Navegue pelas 27 categorias disponíveis ou use a barra de busca para encontrar grupos sobre o assunto que mais lhe interessa — de Amizade a Tecnologia, de Investimentos a Games.
+                      </p>
+                    </div>
+                    <div className="relative p-5 rounded-2xl bg-purple-500/5 border border-purple-500/10">
+                      <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center text-lg shadow-md">2</div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 mt-2">Encontre o grupo ideal</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Explore os grupos disponíveis, leia suas descrições, confira o número de membros e visualizações. Grupos verificados possuem selo especial de confiabilidade.
+                      </p>
+                    </div>
+                    <div className="relative p-5 rounded-2xl bg-green-500/5 border border-green-500/10">
+                      <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-green-600 text-white font-bold flex items-center justify-center text-lg shadow-md">3</div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 mt-2">Entre no grupo</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Ao encontrar o grupo desejado, clique em "Entrar no Grupo". Você será redirecionado direto para o Telegram, onde confirma sua entrada na comunidade em segundos.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* FAQ Section — expanded for FAQPage rich snippets */}
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-3">
@@ -360,44 +532,22 @@ const Index = () => {
                       <HelpCircle className="w-7 h-7 text-telegram-blue" />
                     </div>
                     <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
-                      Perguntas Frequentes
+                      Perguntas Frequentes sobre Grupos do Telegram
                     </CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="item-1">
-                      <AccordionTrigger className="text-left font-medium">
-                        Onde posso encontrar grupos confiáveis?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Navegue pelas categorias acima ou use nossa busca. Todos os grupos são verificados por humanos antes da publicação.
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-2">
-                      <AccordionTrigger className="text-left font-medium">
-                        Como entro em um grupo?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Clique no grupo desejado, leia a descrição e as regras, depois toque em "Entrar no Grupo". Você será redirecionado automaticamente para o Telegram.
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                      <AccordionTrigger className="text-left font-medium">
-                        É seguro participar dos grupos listados?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Sim. Todos são pré-aprovados e monitorados. Ainda assim, mantenha o bom senso: nunca compartilhe dados sensíveis (CPF, senhas, comprovantes, etc.) em grupos, mesmo os verificados.
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-4">
-                      <AccordionTrigger className="text-left font-medium">
-                        Posso cadastrar meu próprio grupo?
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        Com certeza! Clique em "Anunciar Grupo" no menu, preencha as informações e aguarde a análise. O cadastro é 100% gratuito, e seu grupo pode alcançar milhares de pessoas em busca de comunidades reais.
-                      </AccordionContent>
-                    </AccordionItem>
+                    {faqItems.map((item, idx) => (
+                      <AccordionItem key={idx} value={`faq-${idx}`}>
+                        <AccordionTrigger className="text-left font-medium">
+                          {item.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground leading-relaxed">
+                          {item.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
                   </Accordion>
                 </CardContent>
               </Card>
