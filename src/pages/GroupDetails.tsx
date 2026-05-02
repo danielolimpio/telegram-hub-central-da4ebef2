@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import ShadowHTML from "@/components/ShadowHTML";
 import GroupCard from "@/components/GroupCard";
+import CategorySidebar from "@/components/CategorySidebar";
 import {
   Carousel,
   CarouselContent,
@@ -201,7 +202,7 @@ const GroupDetails = () => {
   }, [slug, group]);
 
   useEffect(() => {
-    if (!group?.category || !group?.id) {
+    if (!group?.id) {
       setRelatedGroups([]);
       return;
     }
@@ -209,22 +210,42 @@ const GroupDetails = () => {
     let cancelled = false;
 
     const fetchRelated = async () => {
-      const { data, error } = await supabase
-        .from("groups")
-        .select("id, title, description, members, views, thumbnail_url, category, telegram_link, slug, created_at")
-        .eq("status", "approved")
-        .eq("category", group.category)
-        .neq("id", group.id)
-        .order("created_at", { ascending: false })
-        .limit(20);
+      // Try same-category first
+      let results: Group[] = [];
+      if (group.category) {
+        const { data, error } = await supabase
+          .from("groups")
+          .select("id, title, description, members, views, thumbnail_url, category, telegram_link, slug, created_at")
+          .eq("status", "approved")
+          .eq("category", group.category)
+          .neq("id", group.id)
+          .order("created_at", { ascending: false })
+          .limit(20);
+        if (error) {
+          console.error("Error loading related groups:", error);
+        } else {
+          results = (data ?? []) as Group[];
+        }
+      }
 
-      if (error) {
-        console.error("Error loading related groups:", error);
-        return;
+      // Fallback: if no same-category groups, show other approved groups
+      if (results.length === 0) {
+        const { data, error } = await supabase
+          .from("groups")
+          .select("id, title, description, members, views, thumbnail_url, category, telegram_link, slug, created_at")
+          .eq("status", "approved")
+          .neq("id", group.id)
+          .order("created_at", { ascending: false })
+          .limit(20);
+        if (error) {
+          console.error("Error loading fallback related groups:", error);
+        } else {
+          results = (data ?? []) as Group[];
+        }
       }
 
       if (!cancelled) {
-        setRelatedGroups((data ?? []) as Group[]);
+        setRelatedGroups(results);
       }
     };
 
@@ -337,7 +358,9 @@ const GroupDetails = () => {
     <div className="min-h-screen bg-gradient-subtle">
       <Header />
       
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+          <div className="flex-1 min-w-0">
         {/* Main Card */}
         <Card className="border-border/50 mb-6">
           <CardContent className="p-6 sm:p-8">
@@ -502,17 +525,18 @@ const GroupDetails = () => {
             </p>
           </CardContent>
         </Card>
-      </main>
 
-      {relatedGroups.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        {relatedGroups.length > 0 && (
+        <section className="pb-4">
           <div className="mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-              Grupos recomendados
+              {group.category ? "Grupos recomendados" : "Outros grupos"}
             </h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              Outros grupos da categoria <span className="font-medium">{group.category}</span>
-            </p>
+            {group.category && (
+              <p className="text-sm text-muted-foreground mt-1">
+                Outros grupos da categoria <span className="font-medium">{group.category}</span>
+              </p>
+            )}
           </div>
 
           <Carousel
@@ -523,7 +547,7 @@ const GroupDetails = () => {
               {relatedGroups.map((rg) => (
                 <CarouselItem
                   key={rg.id}
-                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/2 xl:basis-1/3"
                 >
                   <GroupCard
                     id={rg.id}
@@ -543,7 +567,15 @@ const GroupDetails = () => {
             <CarouselNext className="hidden sm:flex -right-4 lg:-right-12" />
           </Carousel>
         </section>
-      )}
+        )}
+          </div>
+
+          {/* Sidebar */}
+          <aside className="w-full lg:w-80 lg:flex-shrink-0">
+            <CategorySidebar />
+          </aside>
+        </div>
+      </main>
 
       <Footer />
     </div>
