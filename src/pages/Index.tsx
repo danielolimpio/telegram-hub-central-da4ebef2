@@ -5,7 +5,7 @@ import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { OrganizationSchema, WebSiteSchema, BreadcrumbSchema, FAQSchema } from "@/components/JsonLd";
-import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle, Search, Sparkles, Zap, Compass } from "lucide-react";
+import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle, Sparkles, Zap, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -111,59 +111,16 @@ const Index = () => {
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* SEO Hero — H1 + intro keyword-dense + trust badges */}
+        {/* SEO Hero — compact, centered title; intro/keywords moved near cards and into long-form sections below */}
         <section
           aria-label="O Maior Diretório de Grupos do Telegram do Brasil em 2026"
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-telegram-blue/10 via-background to-purple-500/10 border border-telegram-blue/20 p-6 sm:p-10 mb-10"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-telegram-blue/10 via-background to-purple-500/10 border border-telegram-blue/20 p-6 sm:p-8 mb-8 text-center"
         >
           <div className="absolute top-0 right-0 w-72 h-72 bg-telegram-blue/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="relative">
-            <div className="flex flex-wrap gap-2 mb-5 text-xs sm:text-sm">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/20 font-medium">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                Atualizado diariamente
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-telegram-blue/10 text-telegram-blue border border-telegram-blue/20 font-medium">
-                <Zap className="w-3.5 h-3.5" />
-                Centenas de grupos ativos
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20 font-medium">
-                <CheckCircle className="w-3.5 h-3.5" />
-                Links verificados
-              </span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight mb-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight uppercase tracking-tight">
               O Maior Diretório de Grupos do Telegram do Brasil em 2026
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl mb-6">
-              Descubra e entre nos melhores <strong className="text-foreground">grupos do Telegram</strong> em 27 categorias cuidadosamente curadas — como <strong className="text-foreground">amizade, namoro, investimentos, promoções, estudos, tecnologia, esportes, games, figurinhas, oportunidades, redes sociais, livros, viagens, pets</strong> e muito mais. Comunidades verificadas, atualizadas constantemente e 100% gratuitas — sem cadastro para entrar.
-            </p>
-            <form
-              role="search"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const fd = new FormData(e.currentTarget);
-                const q = String(fd.get("q") || "").trim();
-                navigate(q ? `/all-groups?q=${encodeURIComponent(q)}` : "/all-groups");
-              }}
-              className="flex flex-col sm:flex-row gap-2 max-w-2xl"
-            >
-              <label htmlFor="hero-search" className="sr-only">Buscar grupos do Telegram</label>
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <input
-                  id="hero-search"
-                  name="q"
-                  type="search"
-                  required
-                  placeholder="Qual grupo você procura? Ex: investimentos, amizade, games..."
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-telegram-blue/40"
-                />
-              </div>
-              <Button type="submit" size="lg" className="bg-telegram-blue hover:bg-telegram-light-blue text-white font-semibold">
-                <Search className="w-4 h-4 mr-2" /> Pesquisar
-              </Button>
-            </form>
           </div>
         </section>
 
@@ -199,6 +156,27 @@ const Index = () => {
                   Ver todos
                   <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
                 </Button>
+              </div>
+
+              {/* Short SEO description below section title */}
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 max-w-3xl">
+                Comunidades verificadas em 27 categorias — <strong className="text-foreground">amizade, namoro, investimentos, promoções, estudos, tecnologia, esportes, games</strong> e muito mais. 100% gratuito, sem cadastro para entrar.
+              </p>
+
+              {/* Trust badges integrated above the cards */}
+              <div className="flex flex-wrap gap-2 mb-5 text-xs sm:text-sm">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/20 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  Atualizado diariamente
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-telegram-blue/10 text-telegram-blue border border-telegram-blue/20 font-medium">
+                  <Zap className="w-3.5 h-3.5" />
+                  Centenas de grupos ativos
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20 font-medium">
+                  <CheckCircle className="w-3.5 h-3.5" />
+                  Links verificados
+                </span>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
