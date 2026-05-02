@@ -1,4 +1,4 @@
-import { Users, Heart, ExternalLink } from "lucide-react";
+import { Users, Heart, ExternalLink, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,7 @@ interface GroupCardProps {
   title: string;
   description: string;
   members: number;
+  views?: number;
   avatar: string;
   isNew?: boolean;
   category: string;
@@ -20,7 +21,7 @@ interface GroupCardProps {
   telegramLink?: string;
 }
 
-const GroupCard = ({ id, title, description, members, avatar, isNew, category, slug, telegramLink }: GroupCardProps) => {
+const GroupCard = ({ id, title, description, members, views, avatar, isNew, category, slug, telegramLink }: GroupCardProps) => {
   const { isFavorite, toggleFavorite, isLoggedIn } = useFavorites();
   const navigate = useNavigate();
 
@@ -104,9 +105,17 @@ const GroupCard = ({ id, title, description, members, avatar, isNew, category, s
             </p>
             <div className="text-xs text-muted-foreground mb-3 truncate">{category}</div>
             
-            <div className="flex items-center justify-center text-sm text-muted-foreground mb-4">
-              <Users className="w-4 h-4 mr-1" />
-              <span className="text-xs sm:text-sm">{formatMembers(members)} membros</span>
+            <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground mb-4">
+              <span className="inline-flex items-center">
+                <Users className="w-4 h-4 mr-1" />
+                <span className="text-xs sm:text-sm">{formatMembers(members)}</span>
+              </span>
+              {typeof views === "number" && views > 0 && (
+                <span className="inline-flex items-center" title="Acessos">
+                  <Eye className="w-4 h-4 mr-1" />
+                  <span className="text-xs sm:text-sm">{formatMembers(views)}</span>
+                </span>
+              )}
             </div>
             
             {/* Buttons */}
