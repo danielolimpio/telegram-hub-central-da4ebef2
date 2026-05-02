@@ -45,7 +45,9 @@ const AdminDashboard = () => {
     category: "",
     description: "",
     telegram_link: "",
-    thumbnail_url: ""
+    thumbnail_url: "",
+    members: "",
+    views: ""
   });
 
   useEffect(() => {
@@ -193,7 +195,9 @@ const AdminDashboard = () => {
       category: group.category,
       description: group.description,
       telegram_link: group.telegram_link,
-      thumbnail_url: group.thumbnail_url || ""
+      thumbnail_url: group.thumbnail_url || "",
+      members: group.members != null ? String(group.members) : "",
+      views: group.views != null ? String(group.views) : "0"
     });
   };
 
@@ -205,7 +209,7 @@ const AdminDashboard = () => {
       title: editForm.title,
       description: editForm.description,
       telegram_link: editForm.telegram_link,
-      members: null,
+      members: editForm.members,
       category: editForm.category
     });
 
@@ -255,6 +259,8 @@ const AdminDashboard = () => {
           description: editForm.description,
           telegram_link: editForm.telegram_link,
           thumbnail_url: editForm.thumbnail_url,
+          members: validation.data.members,
+          views: editForm.views === "" ? 0 : Math.max(0, parseInt(editForm.views.replace(/[.\s]/g, ""), 10) || 0),
           slug: newSlug
         })
         .eq("id", editingGroup.id);
