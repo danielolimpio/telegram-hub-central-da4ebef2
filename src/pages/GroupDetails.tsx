@@ -18,6 +18,14 @@ import {
   Eye
 } from "lucide-react";
 import ShadowHTML from "@/components/ShadowHTML";
+import GroupCard from "@/components/GroupCard";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
 import { toast } from "sonner";
@@ -107,6 +115,7 @@ const GroupDetails = () => {
   const [group, setGroup] = useState<Group | null>(loaderGroup);
   const [loading, setLoading] = useState(Boolean(slug && !loaderGroup));
   const [acceptedRules, setAcceptedRules] = useState(false);
+  const [relatedGroups, setRelatedGroups] = useState<Group[]>([]);
   const trackedSlugRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -190,6 +199,41 @@ const GroupDetails = () => {
 
     incrementViews();
   }, [slug, group]);
+
+  useEffect(() => {
+    if (!group?.category || !group?.id) {
+      setRelatedGroups([]);
+      return;
+    }
+
+    let cancelled = false;
+
+    const fetchRelated = async () => {
+      const { data, error } = await supabase
+        .from("groups")
+        .select("id, title, description, members, views, thumbnail_url, category, telegram_link, slug, created_at")
+        .eq("status", "approved")
+        .eq("category", group.category)
+        .neq("id", group.id)
+        .order("created_at", { ascending: false })
+        .limit(20);
+
+      if (error) {
+        console.error("Error loading related groups:", error);
+        return;
+      }
+
+      if (!cancelled) {
+        setRelatedGroups((data ?? []) as Group[]);
+      }
+    };
+
+    fetchRelated();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [group?.category, group?.id]);
 
   const handleJoinGroup = () => {
     if (!group || !acceptedRules) {
@@ -459,7 +503,48 @@ const GroupDetails = () => {
           </CardContent>
         </Card>
       </main>
-      
+
+      {relatedGroups.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+          <div className="mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+              Grupos recomendados
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Outros grupos da categoria <span className="font-medium">{group.category}</span>
+            </p>
+          </div>
+
+          <Carousel
+            opts={{ align: "start", loop: false, slidesToScroll: 1 }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {relatedGroups.map((rg) => (
+                <CarouselItem
+                  key={rg.id}
+                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                >
+                  <GroupCard
+                    id={rg.id}
+                    title={rg.title}
+                    description={rg.description}
+                    members={rg.members ?? 0}
+                    views={rg.views ?? 0}
+                    avatar={rg.thumbnail_url || ""}
+                    category={rg.category}
+                    slug={rg.slug}
+                    telegramLink={rg.telegram_link}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden sm:flex -left-4 lg:-left-12" />
+            <CarouselNext className="hidden sm:flex -right-4 lg:-right-12" />
+          </Carousel>
+        </section>
+      )}
+
       <Footer />
     </div>
   );
