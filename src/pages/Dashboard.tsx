@@ -588,8 +588,9 @@ const Dashboard = () => {
                     <Label htmlFor="members">Número de Membros</Label>
                     <Input
                       id="members"
-                      type="number"
-                      placeholder="Ex: 150"
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="Ex: 92.707"
                       value={groupMembers}
                       onChange={(e) => setGroupMembers(e.target.value)}
                     />
