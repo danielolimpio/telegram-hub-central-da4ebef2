@@ -555,6 +555,30 @@ const AdminDashboard = () => {
               <Input value={editForm.telegram_link} onChange={(e) => setEditForm(prev => ({ ...prev, telegram_link: e.target.value }))} />
             </div>
 
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-2 block">Número de Membros</label>
+                <Input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="Ex: 92.707"
+                  value={editForm.members}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, members: e.target.value }))}
+                />
+                <p className="text-xs text-muted-foreground mt-1">Aceita formato com pontos (ex: 92.707)</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-2 block">Acessos (visualizações)</label>
+                <Input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="Ex: 8742"
+                  value={editForm.views}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, views: e.target.value }))}
+                />
+              </div>
+            </div>
+
             <div>
               <label className="text-sm font-medium mb-2 block">Imagem do Grupo</label>
               {editForm.thumbnail_url && (
