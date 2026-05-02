@@ -447,70 +447,54 @@ const AdminDashboard = () => {
             </div>
           ) : (
             filteredGroups.map((group) => (
-              <div key={group.id} className="bg-card border rounded-lg p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-semibold">{group.title}</h3>
-                      <Badge 
-                        variant={group.status === "approved" ? "default" : "secondary"}
-                        className={group.status === "approved" ? "bg-green-500/10 text-green-500" : ""}
-                      >
-                        {group.status === "approved" ? (
-                          <><CheckCircle className="w-3 h-3 mr-1" />Aprovado</>
-                        ) : group.status === "pending" ? (
-                          <><Clock className="w-3 h-3 mr-1" />Pendente</>
-                        ) : (
-                          <><XCircle className="w-3 h-3 mr-1" />Rejeitado</>
-                        )}
-                      </Badge>
-                    </div>
-                    
-                    <div className="space-y-1 text-sm text-muted-foreground mb-3">
-                      <p><strong>Categoria:</strong> {group.category}</p>
-                      <p><strong>ID do Usuário:</strong> {group.user_id}</p>
-                      <p><strong>Criado em:</strong> {new Date(group.created_at).toLocaleDateString('pt-BR', { 
-                        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
-                      })}</p>
-                    </div>
+              <div key={group.id} className="bg-card border rounded-lg p-3 flex items-center gap-3">
+                <Avatar className="w-12 h-12 rounded shrink-0">
+                  <AvatarImage src={group.thumbnail_url || ""} alt={group.title} />
+                  <AvatarFallback className="rounded text-xs">
+                    {group.title.substring(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
 
-                    <div 
-                      className="prose prose-sm max-w-none mb-3"
-                      dangerouslySetInnerHTML={{ __html: sanitizeHTML(group.description) }}
-                    />
-                    <p className="text-sm text-muted-foreground">Acessos: 0</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-semibold truncate">{group.title}</h3>
+                    <Badge
+                      variant={group.status === "approved" ? "default" : "secondary"}
+                      className={`text-xs ${group.status === "approved" ? "bg-green-500/10 text-green-500" : ""}`}
+                    >
+                      {group.status === "approved" ? (
+                        <><CheckCircle className="w-3 h-3 mr-1" />Aprovado</>
+                      ) : group.status === "pending" ? (
+                        <><Clock className="w-3 h-3 mr-1" />Pendente</>
+                      ) : (
+                        <><XCircle className="w-3 h-3 mr-1" />Rejeitado</>
+                      )}
+                    </Badge>
                   </div>
-
-                  <div className="flex gap-2 ml-4">
-                    {group.status === "pending" && (
-                      <>
-                        <Button size="sm" className="bg-green-500 hover:bg-green-600" onClick={() => handleApproveGroup(group.id)}>
-                          <CheckCircle className="w-4 h-4 mr-1" />Aprovar
-                        </Button>
-                        <Button size="sm" variant="destructive" onClick={() => handleRejectGroup(group.id)}>
-                          <XCircle className="w-4 h-4 mr-1" />Rejeitar
-                        </Button>
-                      </>
-                    )}
-                    <Button size="sm" variant="outline" onClick={() => handleEditGroup(group)}>
-                      <Edit className="w-4 h-4 mr-1" />Editar
-                    </Button>
-                    <Button size="sm" variant="outline" className="text-destructive" onClick={() => handleDeleteGroup(group.id)}>
-                      <Trash2 className="w-4 h-4 mr-1" />Excluir
-                    </Button>
+                  <div className="text-xs text-muted-foreground truncate">
+                    {group.category} · {new Date(group.created_at).toLocaleDateString('pt-BR')} · {group.members ?? 0} membros · {group.views ?? 0} acessos
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <Avatar className="w-16 h-16 rounded">
-                    <AvatarImage src={group.thumbnail_url || ""} alt={group.title} />
-                    <AvatarFallback className="rounded text-xs">
-                      {group.title.substring(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <Button variant="outline" size="sm" className="gap-2" onClick={() => window.open(group.telegram_link, '_blank')}>
-                    Ver Link do Telegram
+                <div className="flex gap-1 shrink-0">
+                  {group.status === "pending" && (
+                    <>
+                      <Button size="sm" className="bg-green-500 hover:bg-green-600 h-8 px-2" onClick={() => handleApproveGroup(group.id)}>
+                        <CheckCircle className="w-4 h-4" />
+                      </Button>
+                      <Button size="sm" variant="destructive" className="h-8 px-2" onClick={() => handleRejectGroup(group.id)}>
+                        <XCircle className="w-4 h-4" />
+                      </Button>
+                    </>
+                  )}
+                  <Button size="sm" variant="outline" className="h-8 px-2" onClick={() => window.open(group.telegram_link, '_blank')} title="Abrir Telegram">
                     <ExternalLink className="w-4 h-4" />
+                  </Button>
+                  <Button size="sm" variant="outline" className="h-8 px-2" onClick={() => handleEditGroup(group)}>
+                    <Edit className="w-4 h-4" />
+                  </Button>
+                  <Button size="sm" variant="outline" className="h-8 px-2 text-destructive" onClick={() => handleDeleteGroup(group.id)}>
+                    <Trash2 className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
