@@ -10,7 +10,7 @@ const corsHeaders = {
 // Static pages always present in the sitemap
 const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/", changefreq: "daily", priority: "1.0" },
-  { path: "/all-groups/", changefreq: "daily", priority: "0.9" },
+  { path: "/todos-grupos/", changefreq: "daily", priority: "0.9" },
   { path: "/blog/", changefreq: "weekly", priority: "0.8" },
   { path: "/como-funciona/", changefreq: "monthly", priority: "0.7" },
   { path: "/faq/", changefreq: "monthly", priority: "0.7" },

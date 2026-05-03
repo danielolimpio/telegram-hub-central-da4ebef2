@@ -231,6 +231,19 @@ const Index = () => {
                   ))
                 )}
               </div>
+
+              {/* CTA: Ver todos os grupos */}
+              <div className="flex justify-center mt-8">
+                <Button
+                  variant="telegram"
+                  size="lg"
+                  onClick={() => navigate('/todos-grupos')}
+                  className="font-semibold"
+                >
+                  Todos os Grupos
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             </div>
 
             {/* Premium Content Section */}
