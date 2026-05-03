@@ -43,6 +43,11 @@
   RewriteEngine On
   RewriteBase /
 
+  # Dynamic sitemap — proxy /sitemap.xml to the Supabase Edge Function so
+  # newly approved groups appear immediately without a redeploy. Uses an
+  # external 302 redirect (mod_proxy is usually unavailable on shared hosting).
+  RewriteRule ^sitemap\.xml$ https://fsfrpjsuakhkpbmqgibf.supabase.co/functions/v1/sitemap [R=302,L]
+
   # Do not rewrite real files (JS chunks, images, sitemap.xml, etc.)
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
