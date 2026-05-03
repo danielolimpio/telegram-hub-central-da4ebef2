@@ -43,6 +43,9 @@
   RewriteEngine On
   RewriteBase /
 
+  # 301 redirect from old /all-groups URL to new /todos-grupos (preserves SEO)
+  RewriteRule ^all-groups/?$ /todos-grupos/ [R=301,L]
+
   # Dynamic sitemap — proxy /sitemap.xml to the Supabase Edge Function so
   # newly approved groups appear immediately without a redeploy. Uses an
   # external 302 redirect (mod_proxy is usually unavailable on shared hosting).

@@ -492,7 +492,7 @@ const Dashboard = () => {
                     <p className="text-sm text-muted-foreground mt-2">
                       Clique no ❤️ nos cards de grupos para salvá-los aqui.
                     </p>
-                    <Button variant="outline" className="mt-4" onClick={() => navigate("/all-groups")}>
+                    <Button variant="outline" className="mt-4" onClick={() => navigate("/todos-grupos")}>
                       Explorar Grupos
                     </Button>
                   </div>

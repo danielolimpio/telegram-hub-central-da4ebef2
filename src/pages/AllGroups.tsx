@@ -49,7 +49,7 @@ const AllGroups = () => {
       />
       <BreadcrumbSchema items={[
         { name: "Início", url: "https://gruposdotelegram.org/" },
-        { name: "Todos os Grupos", url: "https://gruposdotelegram.org/all-groups/" }
+        { name: "Todos os Grupos", url: "https://gruposdotelegram.org/todos-grupos/" }
       ]} />
       <Header />
       

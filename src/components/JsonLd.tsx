@@ -115,7 +115,7 @@ export const WebSiteSchema = ({
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${url}/all-groups?q={search_term_string}`
+        urlTemplate: `${url}/todos-grupos?q={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     }

@@ -167,7 +167,7 @@ const Index = () => {
                   variant="ghost" 
                   size="sm"
                   className="text-telegram-blue hover:text-telegram-light-blue self-start sm:self-auto"
-                  onClick={() => navigate('/all-groups')}
+                  onClick={() => navigate('/todos-grupos')}
                 >
                   Ver todos
                   <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
@@ -230,6 +230,19 @@ const Index = () => {
                     />
                   ))
                 )}
+              </div>
+
+              {/* CTA: Ver todos os grupos */}
+              <div className="flex justify-center mt-8">
+                <Button
+                  variant="telegram"
+                  size="lg"
+                  onClick={() => navigate('/todos-grupos')}
+                  className="font-semibold"
+                >
+                  Todos os Grupos
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
               </div>
             </div>
 
