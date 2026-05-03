@@ -147,7 +147,7 @@ export const mainPagesSEO: Record<string, { title: string; description: string; 
   allGroups: {
     title: "Todos os Grupos do Telegram - Diretório Completo",
     description: "Explore todos os grupos do Telegram disponíveis. Filtros por categoria, pesquisa avançada e grupos verificados pela nossa curadoria.",
-    canonical: "/all-groups"
+    canonical: "/todos-grupos"
   },
   blog: {
     title: "Blog - Dicas e Guias para Telegram",

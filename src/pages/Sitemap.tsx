@@ -47,7 +47,7 @@ import {
 const Sitemap = () => {
   const mainPages = [
     { name: "Página Inicial", url: "/", icon: Home },
-    { name: "Todos os Grupos", url: "/all-groups", icon: Users },
+    { name: "Todos os Grupos", url: "/todos-grupos", icon: Users },
     { name: "Como Funciona", url: "/como-funciona", icon: HelpCircle },
     { name: "Regras da Comunidade", url: "/regras", icon: Shield },
     { name: "Dicas de Segurança", url: "/seguranca", icon: Lock },

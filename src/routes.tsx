@@ -62,6 +62,7 @@ export const routes: RouteRecord[] = [
     element: <App />,
     children: [
       { index: true, element: <Index /> },
+      { path: 'todos-grupos', element: <AllGroups /> },
       { path: 'all-groups', element: <AllGroups /> },
       { path: 'como-funciona', element: <ComoFunciona /> },
       { path: 'regras', element: <RegrasComunidade /> },

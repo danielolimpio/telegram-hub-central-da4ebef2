@@ -43,7 +43,7 @@ const NotFound = () => {
             variant="outline" 
             size="lg" 
             className="w-full"
-            onClick={() => window.location.href = '/all-groups'}
+            onClick={() => window.location.href = '/todos-grupos'}
           >
             <Search className="w-5 h-5 mr-2" />
             Buscar Grupos
@@ -54,7 +54,7 @@ const NotFound = () => {
         <div className="mt-8 text-sm text-muted-foreground">
           <p>Você também pode:</p>
           <div className="flex justify-center space-x-4 mt-2">
-            <a href="/all-groups" className="hover:text-telegram-blue transition-colors">
+            <a href="/todos-grupos" className="hover:text-telegram-blue transition-colors">
               Ver todos os grupos
             </a>
             <span>•</span>
