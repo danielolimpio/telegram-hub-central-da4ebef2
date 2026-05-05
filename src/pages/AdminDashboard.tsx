@@ -19,7 +19,9 @@ import {
   RefreshCw,
   Users,
   ExternalLink,
-  MessageSquare
+  MessageSquare,
+  Pin,
+  PinOff
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -153,6 +155,30 @@ const AdminDashboard = () => {
       toast({
         title: "Erro",
         description: "Não foi possível excluir o grupo.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleTogglePin = async (group: Group) => {
+    try {
+      const { error } = await supabase
+        .from("groups")
+        .update({ pinned: !group.pinned })
+        .eq("id", group.id);
+      if (error) throw error;
+      toast({
+        title: !group.pinned ? "Grupo fixado" : "Grupo desafixado",
+        description: !group.pinned
+          ? "O grupo agora aparece fixo no topo."
+          : "O grupo voltou à ordenação normal.",
+      });
+      fetchGroups();
+    } catch (error) {
+      console.error("Error toggling pin:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível atualizar o status de fixado.",
         variant: "destructive",
       });
     }
@@ -486,6 +512,17 @@ const AdminDashboard = () => {
                         <XCircle className="w-4 h-4" />
                       </Button>
                     </>
+                  )}
+                  {group.status === "approved" && (
+                    <Button
+                      size="sm"
+                      variant={group.pinned ? "default" : "outline"}
+                      className={`h-8 px-2 ${group.pinned ? "bg-telegram-blue hover:bg-telegram-light-blue text-white" : ""}`}
+                      onClick={() => handleTogglePin(group)}
+                      title={group.pinned ? "Desafixar do topo" : "Fixar no topo"}
+                    >
+                      {group.pinned ? <PinOff className="w-4 h-4" /> : <Pin className="w-4 h-4" />}
+                    </Button>
                   )}
                   <Button size="sm" variant="outline" className="h-8 px-2" onClick={() => window.open(group.telegram_link, '_blank')} title="Abrir Telegram">
                     <ExternalLink className="w-4 h-4" />

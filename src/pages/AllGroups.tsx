@@ -26,6 +26,7 @@ const AllGroups = () => {
           .from("groups")
           .select("*")
           .eq("status", "approved")
+          .order("pinned", { ascending: false })
           .order("created_at", { ascending: false });
         
         if (error) throw error;
