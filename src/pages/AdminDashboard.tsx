@@ -214,6 +214,37 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleUploadThumbnail = async (file: File) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast({ title: "Arquivo inválido", description: "Selecione uma imagem.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "Imagem muito grande", description: "Máximo 5MB.", variant: "destructive" });
+      return;
+    }
+    try {
+      toast({ title: "Enviando imagem..." });
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const path = `groups/${editingGroup?.id || "temp"}-${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("group-thumbnails")
+        .upload(path, file, { upsert: true, contentType: file.type, cacheControl: "3600" });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from("group-thumbnails").getPublicUrl(path);
+      setEditForm(prev => ({ ...prev, thumbnail_url: data.publicUrl }));
+      toast({ title: "Imagem enviada!", description: "Lembre-se de salvar as alterações." });
+    } catch (err) {
+      console.error("Upload error:", err);
+      toast({
+        title: "Erro no upload",
+        description: err instanceof Error ? err.message : "Não foi possível enviar a imagem.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleEditGroup = (group: Group) => {
     setEditingGroup(group);
     setEditForm({
