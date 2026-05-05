@@ -35,8 +35,11 @@ function checkRateLimit(key: string): boolean {
 }
 
 function isValidTelegramUsername(username: string): boolean {
-  // Telegram usernames: 5-32 characters, alphanumeric and underscores
-  return /^[a-zA-Z0-9_]{5,32}$/.test(username);
+  // Public usernames: 5-32 alphanumeric + underscores
+  // Private invites: start with "+" followed by base64-url chars
+  if (/^[a-zA-Z0-9_]{5,32}$/.test(username)) return true;
+  if (/^\+[a-zA-Z0-9_-]{8,64}$/.test(username)) return true;
+  return false;
 }
 
 async function uploadToStorage(username: string, imageUrl: string): Promise<string | null> {
@@ -54,7 +57,8 @@ async function uploadToStorage(username: string, imageUrl: string): Promise<stri
     const ext = contentType.includes("png") ? "png" : "jpg";
     const bytes = new Uint8Array(await imgRes.arrayBuffer());
 
-    const path = `telegram/${username}-${Date.now()}.${ext}`;
+    const safeName = username.replace(/[^a-zA-Z0-9_-]/g, "_");
+    const path = `telegram/${safeName}-${Date.now()}.${ext}`;
     const { error: upErr } = await supabase.storage.from("avatars").upload(path, bytes, {
       contentType,
       upsert: true,
@@ -96,7 +100,12 @@ serve(async (req) => {
       );
     }
 
-    const username = telegramLink.split("t.me/")[1]?.replace(/^@/, "").split("/")[0];
+    let username = telegramLink.split("t.me/")[1]?.replace(/^@/, "").split("/")[0];
+    // joinchat/XXX legacy format -> +XXX
+    if (username === "joinchat") {
+      const rest = telegramLink.split("t.me/joinchat/")[1]?.split("/")[0];
+      if (rest) username = "+" + rest;
+    }
     if (!username) {
       return new Response(
         JSON.stringify({ error: "Could not extract username" }),
