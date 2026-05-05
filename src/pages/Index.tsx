@@ -99,8 +99,9 @@ const Index = () => {
       }
       const { data, error } = await supabase
         .from("groups")
-        .select("id,title,description,members,thumbnail_url,category,telegram_link,slug,created_at,views")
+        .select("id,title,description,members,thumbnail_url,category,telegram_link,slug,created_at,views,pinned")
         .eq("status", "approved")
+        .order("pinned", { ascending: false })
         .order("created_at", { ascending: false })
         .limit(12);
       if (error) throw error;
