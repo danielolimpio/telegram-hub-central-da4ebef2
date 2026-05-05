@@ -82,6 +82,7 @@ export type Database = {
           description: string
           id: string
           members: number | null
+          pinned: boolean
           slug: string
           status: string
           telegram_link: string
@@ -97,6 +98,7 @@ export type Database = {
           description: string
           id?: string
           members?: number | null
+          pinned?: boolean
           slug: string
           status?: string
           telegram_link: string
@@ -112,6 +114,7 @@ export type Database = {
           description?: string
           id?: string
           members?: number | null
+          pinned?: boolean
           slug?: string
           status?: string
           telegram_link?: string
