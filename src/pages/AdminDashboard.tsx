@@ -647,7 +647,17 @@ const AdminDashboard = () => {
                 <Button type="button" variant="outline" size="sm" onClick={() => document.getElementById('file-upload')?.click()}>
                   Escolher arquivo
                 </Button>
-                <input id="file-upload" type="file" accept="image/*" className="hidden" />
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) handleUploadThumbnail(f);
+                    e.target.value = "";
+                  }}
+                />
                 <Button type="button" variant="outline" size="sm" onClick={() => handleRefreshThumbnail(editForm.telegram_link)} className="gap-2">
                   <RefreshCw className="w-4 h-4" />Atualizar do Telegram
                 </Button>
