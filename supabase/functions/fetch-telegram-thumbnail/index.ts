@@ -57,7 +57,8 @@ async function uploadToStorage(username: string, imageUrl: string): Promise<stri
     const ext = contentType.includes("png") ? "png" : "jpg";
     const bytes = new Uint8Array(await imgRes.arrayBuffer());
 
-    const path = `telegram/${username}-${Date.now()}.${ext}`;
+    const safeName = username.replace(/[^a-zA-Z0-9_-]/g, "_");
+    const path = `telegram/${safeName}-${Date.now()}.${ext}`;
     const { error: upErr } = await supabase.storage.from("avatars").upload(path, bytes, {
       contentType,
       upsert: true,
