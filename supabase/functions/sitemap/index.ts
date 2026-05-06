@@ -56,6 +56,20 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/grupos-telegram-estilo/", changefreq: "daily", priority: "0.8" },
   { path: "/grupos-telegram-zoeira/", changefreq: "daily", priority: "0.8" },
   { path: "/grupos-telegram-lgbtqia/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-carros/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-cidades/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-concursos/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-empregos/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-eventos/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-fas/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-financas/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-frases/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-humor/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-imobiliaria/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-memes/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-negocios/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-profissoes/", changefreq: "daily", priority: "0.8" },
+  { path: "/grupos-telegram-religiao/", changefreq: "daily", priority: "0.8" },
 ];
 
 function escapeXml(s: string): string {

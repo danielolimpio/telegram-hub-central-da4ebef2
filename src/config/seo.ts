@@ -134,6 +134,76 @@ export const categorySEO: Record<string, { title: string; description: string; c
     title: "Grupos do Telegram LGBTQIA+ - Comunidade e Apoio",
     description: "Grupos LGBTQIA+ no Telegram. Espaços seguros, apoio, amizades e comunidade inclusiva e acolhedora.",
     canonical: "/grupos-telegram-lgbtqia"
+  },
+  "carros": {
+    title: "Grupos do Telegram de Carros - Automóveis e Tuning",
+    description: "Grupos de carros no Telegram. Discussões sobre automóveis, mecânica, tuning, lançamentos e a comunidade automotiva.",
+    canonical: "/grupos-telegram-carros"
+  },
+  "cidades": {
+    title: "Grupos do Telegram de Cidades - Moradores e Comunidades",
+    description: "Grupos do Telegram por cidade. Conecte-se com moradores da sua região, eventos locais e notícias da sua cidade.",
+    canonical: "/grupos-telegram-cidades"
+  },
+  "concursos": {
+    title: "Grupos do Telegram de Concursos Públicos - Editais e Estudos",
+    description: "Grupos de concursos públicos no Telegram. Editais, materiais de estudo, dicas de aprovados e simulados.",
+    canonical: "/grupos-telegram-concursos"
+  },
+  "empregos": {
+    title: "Grupos do Telegram de Empregos - Vagas em Tempo Real",
+    description: "Grupos de empregos no Telegram. Vagas CLT, PJ, home office e oportunidades de trabalho atualizadas diariamente.",
+    canonical: "/grupos-telegram-empregos"
+  },
+  "eventos": {
+    title: "Grupos do Telegram de Eventos - Festas, Shows e Congressos",
+    description: "Grupos de eventos no Telegram. Descubra festas, shows, congressos, meetups e eventos perto de você.",
+    canonical: "/grupos-telegram-eventos"
+  },
+  "fas": {
+    title: "Grupos do Telegram de Fãs - Fandoms e Comunidades",
+    description: "Grupos de fãs no Telegram. Fandoms de K-pop, séries, animes, artistas e personagens favoritos.",
+    canonical: "/grupos-telegram-fas"
+  },
+  "financas": {
+    title: "Grupos do Telegram de Finanças - Educação Financeira",
+    description: "Grupos de finanças pessoais no Telegram. Educação financeira, controle de gastos, renda extra e dicas de economia.",
+    canonical: "/grupos-telegram-financas"
+  },
+  "frases": {
+    title: "Grupos do Telegram de Frases - Reflexões e Motivação",
+    description: "Grupos de frases no Telegram. Mensagens motivacionais, reflexões diárias, indiretas e textos inspiradores.",
+    canonical: "/grupos-telegram-frases"
+  },
+  "humor": {
+    title: "Grupos do Telegram de Humor - Piadas e Diversão",
+    description: "Grupos de humor no Telegram. Piadas, vídeos engraçados, comédia e muita diversão pra alegrar o seu dia.",
+    canonical: "/grupos-telegram-humor"
+  },
+  "imobiliaria": {
+    title: "Grupos do Telegram de Imóveis - Aluguel, Compra e Venda",
+    description: "Grupos de imóveis no Telegram. Aluguel, compra e venda de casas, apartamentos e terrenos diretamente com proprietários.",
+    canonical: "/grupos-telegram-imobiliaria"
+  },
+  "memes": {
+    title: "Grupos do Telegram de Memes - Os Melhores da Internet",
+    description: "Grupos de memes no Telegram. Os melhores memes virais da internet brasileira atualizados diariamente.",
+    canonical: "/grupos-telegram-memes"
+  },
+  "negocios": {
+    title: "Grupos do Telegram de Negócios - Empreendedorismo e Networking",
+    description: "Grupos de negócios no Telegram. Empreendedorismo, networking, parcerias e oportunidades pra empreender.",
+    canonical: "/grupos-telegram-negocios"
+  },
+  "profissoes": {
+    title: "Grupos do Telegram de Profissões - Comunidades Profissionais",
+    description: "Grupos por profissão no Telegram. Médicos, advogados, engenheiros, designers e outras categorias profissionais.",
+    canonical: "/grupos-telegram-profissoes"
+  },
+  "religiao": {
+    title: "Grupos do Telegram de Religião - Fé, Oração e Estudos",
+    description: "Grupos de religião no Telegram. Orações diárias, estudos bíblicos, comunidades de fé e palavras edificantes.",
+    canonical: "/grupos-telegram-religiao"
   }
 };
 
