@@ -38,6 +38,38 @@ const CategorySidebar = () => {
 
   return (
     <aside className="space-y-4 sm:space-y-6">
+      {/* WhatsApp Groups CTA */}
+      <a
+        href="https://gruposdewhats.com.br"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative block overflow-hidden rounded-xl p-[2px] shadow-lg hover:shadow-2xl transition-all duration-300 animate-fade-in"
+        style={{
+          background: "linear-gradient(135deg, #25D366, #128C7E)",
+        }}
+      >
+        <div
+          className="relative flex items-center justify-center gap-3 rounded-[10px] px-4 py-3.5 sm:py-4 text-white font-semibold transition-transform duration-300 group-hover:scale-[1.02]"
+          style={{
+            background: "linear-gradient(135deg, #25D366 0%, #1EBE5D 50%, #128C7E 100%)",
+          }}
+        >
+          <span
+            className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-out"
+            aria-hidden="true"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 32 32"
+            className="w-6 h-6 sm:w-7 sm:h-7 fill-white drop-shadow-sm animate-pulse-soft"
+            aria-hidden="true"
+          >
+            <path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.687.244-1.05 0-.43-1.766-.99-2.063-1.146 zM16.151 0C7.467 0 .326 7.146.326 15.831c0 2.95.832 5.85 2.4 8.342L0 32l8.058-2.575a15.832 15.832 0 0 0 7.534 1.92c8.69 0 15.833-7.146 15.833-15.83C31.425 7.146 24.282 0 16.151 0zm0 28.255c-2.45 0-4.842-.66-6.93-1.892l-.487-.288-5 1.61 1.625-4.87-.32-.5a13.155 13.155 0 0 1-2.064-7.087c0-7.262 5.92-13.18 13.176-13.18 7.257 0 13.176 5.918 13.176 13.18 0 7.262-5.92 13.027-13.176 13.027z"/>
+          </svg>
+          <span className="text-sm sm:text-base tracking-wide">Grupos de WhatsApp</span>
+        </div>
+      </a>
+
       {/* Categories */}
       <div className="bg-card rounded-lg p-4 sm:p-6 border border-border/50">
         <h3 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4 flex items-center">
