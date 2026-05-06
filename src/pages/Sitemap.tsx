@@ -41,7 +41,20 @@ import {
   Rainbow,
   Wrench,
   Building,
-  Lock
+  Lock,
+  Car,
+  MapPin,
+  ClipboardList,
+  HardHat,
+  CalendarDays,
+  Crown,
+  Coins,
+  Quote,
+  SmilePlus,
+  Building2,
+  Camera,
+  Handshake,
+  Church
 } from "lucide-react";
 
 const Sitemap = () => {
@@ -94,6 +107,20 @@ const Sitemap = () => {
     { name: "Grupos de Estilo", url: "/grupos-telegram-estilo", icon: Shirt },
     { name: "Grupos de Zoeira", url: "/grupos-telegram-zoeira", icon: Laugh },
     { name: "Grupos LGBTQIA+", url: "/grupos-telegram-lgbtqia", icon: Rainbow },
+    { name: "Grupos de Carros", url: "/grupos-telegram-carros", icon: Car },
+    { name: "Grupos de Cidades", url: "/grupos-telegram-cidades", icon: MapPin },
+    { name: "Grupos de Concursos", url: "/grupos-telegram-concursos", icon: ClipboardList },
+    { name: "Grupos de Empregos", url: "/grupos-telegram-empregos", icon: HardHat },
+    { name: "Grupos de Eventos", url: "/grupos-telegram-eventos", icon: CalendarDays },
+    { name: "Grupos de Fãs", url: "/grupos-telegram-fas", icon: Crown },
+    { name: "Grupos de Finanças", url: "/grupos-telegram-financas", icon: Coins },
+    { name: "Grupos de Frases", url: "/grupos-telegram-frases", icon: Quote },
+    { name: "Grupos de Humor", url: "/grupos-telegram-humor", icon: SmilePlus },
+    { name: "Grupos de Imobiliária", url: "/grupos-telegram-imobiliaria", icon: Building2 },
+    { name: "Grupos de Memes", url: "/grupos-telegram-memes", icon: Camera },
+    { name: "Grupos de Negócios", url: "/grupos-telegram-negocios", icon: Handshake },
+    { name: "Grupos de Profissões", url: "/grupos-telegram-profissoes", icon: Wrench },
+    { name: "Grupos de Religião", url: "/grupos-telegram-religiao", icon: Church },
   ];
 
   const blogCategories = [

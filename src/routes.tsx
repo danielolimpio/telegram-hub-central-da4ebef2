@@ -47,6 +47,20 @@ const GruposPets = lazy(() => import('./pages/categories/GruposPets'));
 const GruposEstilo = lazy(() => import('./pages/categories/GruposEstilo'));
 const GruposZoeira = lazy(() => import('./pages/categories/GruposZoeira'));
 const GruposLGBTQIA = lazy(() => import('./pages/categories/GruposLGBTQIA'));
+const GruposCarros = lazy(() => import('./pages/categories/GruposCarros'));
+const GruposCidades = lazy(() => import('./pages/categories/GruposCidades'));
+const GruposConcursos = lazy(() => import('./pages/categories/GruposConcursos'));
+const GruposEmpregos = lazy(() => import('./pages/categories/GruposEmpregos'));
+const GruposEventos = lazy(() => import('./pages/categories/GruposEventos'));
+const GruposFas = lazy(() => import('./pages/categories/GruposFas'));
+const GruposFinancas = lazy(() => import('./pages/categories/GruposFinancas'));
+const GruposFrases = lazy(() => import('./pages/categories/GruposFrases'));
+const GruposHumor = lazy(() => import('./pages/categories/GruposHumor'));
+const GruposImobiliaria = lazy(() => import('./pages/categories/GruposImobiliaria'));
+const GruposMemes = lazy(() => import('./pages/categories/GruposMemes'));
+const GruposNegocios = lazy(() => import('./pages/categories/GruposNegocios'));
+const GruposProfissoes = lazy(() => import('./pages/categories/GruposProfissoes'));
+const GruposReligiao = lazy(() => import('./pages/categories/GruposReligiao'));
 
 // Auth and dashboard pages (not pre-rendered)
 const Auth = lazy(() => import('./pages/Auth'));
@@ -109,6 +123,20 @@ export const routes: RouteRecord[] = [
       { path: 'grupos-telegram-estilo', element: <GruposEstilo /> },
       { path: 'grupos-telegram-zoeira', element: <GruposZoeira /> },
       { path: 'grupos-telegram-lgbtqia', element: <GruposLGBTQIA /> },
+      { path: 'grupos-telegram-carros', element: <GruposCarros /> },
+      { path: 'grupos-telegram-cidades', element: <GruposCidades /> },
+      { path: 'grupos-telegram-concursos', element: <GruposConcursos /> },
+      { path: 'grupos-telegram-empregos', element: <GruposEmpregos /> },
+      { path: 'grupos-telegram-eventos', element: <GruposEventos /> },
+      { path: 'grupos-telegram-fas', element: <GruposFas /> },
+      { path: 'grupos-telegram-financas', element: <GruposFinancas /> },
+      { path: 'grupos-telegram-frases', element: <GruposFrases /> },
+      { path: 'grupos-telegram-humor', element: <GruposHumor /> },
+      { path: 'grupos-telegram-imobiliaria', element: <GruposImobiliaria /> },
+      { path: 'grupos-telegram-memes', element: <GruposMemes /> },
+      { path: 'grupos-telegram-negocios', element: <GruposNegocios /> },
+      { path: 'grupos-telegram-profissoes', element: <GruposProfissoes /> },
+      { path: 'grupos-telegram-religiao', element: <GruposReligiao /> },
       
       // Dynamic pages - excluded from SSG
       { path: 'auth', element: <Auth /> },
