@@ -1,5 +1,6 @@
 import { Send, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+import batepapoBanner from "@/assets/batepapo-banner.jpeg";
 
 const CategorySidebar = () => {
   const [showAllCategories, setShowAllCategories] = useState(false);
@@ -163,6 +164,38 @@ const CategorySidebar = () => {
           </div>
         </div>
       </div>
+
+      {/* Bate Papo Grátis Banner */}
+      <a
+        href="https://batepapogratis.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative block w-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 animate-fade-in"
+      >
+        <img
+          src={batepapoBanner}
+          alt="Bate Papo Grátis"
+          loading="lazy"
+          className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
+        />
+        <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+          <div
+            className="relative overflow-hidden rounded-lg p-[2px]"
+            style={{ background: "linear-gradient(135deg, #1E90FF, #0A4FB8)" }}
+          >
+            <div
+              className="relative flex items-center justify-center rounded-[7px] px-4 py-2.5 text-white font-semibold tracking-wide text-sm sm:text-base transition-transform duration-300 group-hover:scale-[1.02]"
+              style={{ background: "linear-gradient(135deg, #3BA9FF 0%, #1E73E8 50%, #0A4FB8 100%)" }}
+            >
+              <span
+                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-out"
+                aria-hidden="true"
+              />
+              ENTRAR
+            </div>
+          </div>
+        </div>
+      </a>
     </aside>
   );
 };
