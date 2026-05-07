@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
-import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
@@ -16,13 +15,6 @@ type Group = Tables<"groups">;
 const GruposNegocios = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const stats = [
-    { icon: Users, value: "+12.500", label: "Grupos Ativos", color: "blue" as const },
-    { icon: TrendingUp, value: "8.742", label: "Acessos Hoje", color: "green" as const },
-    { icon: Star, value: "156", label: "Grupos Premium", color: "orange" as const },
-    { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
-  ];
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -56,12 +48,6 @@ const GruposNegocios = () => {
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {stats.map((stat, index) => (
-            <StatsCard key={index} icon={stat.icon} value={stat.value} label={stat.label} color={stat.color} />
-          ))}
-        </div>
-
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           <div className="flex-1">
             <div className="mb-8">
