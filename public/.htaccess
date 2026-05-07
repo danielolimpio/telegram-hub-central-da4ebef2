@@ -43,22 +43,53 @@
   RewriteEngine On
   RewriteBase /
 
-  # 301 redirect from old /all-groups URL to new /todos-grupos (preserves SEO)
-  RewriteRule ^all-groups/?$ /todos-grupos/ [R=301,L]
+  # ============================================================
+  # SEO canonicalization — fix Google Search Console issues
+  # ============================================================
 
-  # Dynamic sitemap — proxy /sitemap.xml to the Supabase Edge Function so
-  # newly approved groups appear immediately without a redeploy. Uses an
-  # external 302 redirect (mod_proxy is usually unavailable on shared hosting).
+  # 1) Force HTTPS + non-www (single hop) — fixes "Página com redirecionamento"
+  #    for http://gruposdotelegram.org/, http://www.gruposdotelegram.org/,
+  #    https://www.gruposdotelegram.org/
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://gruposdotelegram.org%{REQUEST_URI} [R=301,L,NE]
+
+  # 2) Remove trailing slash (except root) — canonicalizes /blog/ → /blog,
+  #    /grupos-telegram-cinema/ → /grupos-telegram-cinema, etc.
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # 3) Legacy WordPress URLs — author archives no longer exist
+  RewriteRule ^author(/.*)?$ / [R=301,L]
+
+  # 4) Legacy /contato (and /contato?erro_grupo=...) → home
+  #    The trailing "?" drops any query string from the redirect target.
+  RewriteRule ^contato/?$ /? [R=301,L]
+
+  # 5) Old /all-groups → /todos-grupos (no trailing slash, canonical form)
+  RewriteRule ^all-groups/?$ /todos-grupos [R=301,L]
+
+  # 6) Dynamic sitemap — proxy /sitemap.xml to the Supabase Edge Function
   RewriteRule ^sitemap\.xml$ https://fsfrpjsuakhkpbmqgibf.supabase.co/functions/v1/sitemap [R=302,L]
 
-  # Do not rewrite real files (JS chunks, images, sitemap.xml, etc.)
+  # 7) Do not rewrite real files (JS chunks, images, etc.)
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Do not rewrite asset-like requests so missing assets still 404 properly
+  # 8) Skip asset-like requests so missing assets still 404 properly
   RewriteRule \.(js|mjs|css|map|json|xml|txt|ico|png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm|pdf)$ - [L]
 
-  # Everything else falls back to the SPA entry point
+  # 9) Preserve known top-level app routes (don't treat them as group slugs)
+  RewriteRule ^(blog|ajuda|faq|reportar|regras|seguranca|como-funciona|privacidade|termos|cookies|sitemap|todos-grupos|auth|dashboard|admin|grupo|favoritos|enviar-grupo|submit-group)(/.*)?$ - [L]
+  RewriteRule ^grupos-telegram-[a-z0-9-]+$ - [L]
+
+  # 10) Legacy root-level group slugs (WordPress-era URLs like
+  #     /sobrenatural-books, /fx-trade-club, /amizades-renovadas, etc.)
+  #     redirect to the new /grupo/<slug> location to preserve SEO/traffic.
+  RewriteRule ^([a-z0-9][a-z0-9-]*)$ /grupo/$1 [R=301,L]
+
+  # 11) Everything else falls back to the SPA entry point
   RewriteRule ^ /index.html [L]
 </IfModule>

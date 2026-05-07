@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Head } from "vite-react-ssg";
 import { Button } from "@/components/ui/button";
 import { Home, Search, Send } from "lucide-react";
 
@@ -12,6 +13,10 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle flex items-center justify-center px-4">
+      <Head>
+        <title>Página não encontrada (404) - Grupos do Telegram</title>
+        <meta name="robots" content="noindex, follow" />
+      </Head>
       <div className="text-center max-w-md">
         {/* Telegram Icon */}
         <div className="w-24 h-24 bg-gradient-telegram rounded-full flex items-center justify-center mx-auto mb-6">
