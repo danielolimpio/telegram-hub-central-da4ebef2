@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import StatsCard from "@/components/StatsCard";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
@@ -25,13 +24,6 @@ declare global {
 
 const Index = () => {
   const navigate = useNavigate();
-
-  const stats = [
-    { icon: Users, value: "+12.500", label: "Grupos Ativos", color: "blue" as const },
-    { icon: TrendingUp, value: "8.742", label: "Acessos Hoje", color: "green" as const },
-    { icon: Star, value: "156", label: "Grupos Premium", color: "orange" as const },
-    { icon: Clock, value: "23", label: "Novos Hoje", color: "gray" as const },
-  ];
 
   const faqItems = [
     {
@@ -142,18 +134,6 @@ const Index = () => {
         </section>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {stats.map((stat, index) => (
-            <StatsCard
-              key={index}
-              icon={stat.icon}
-              value={stat.value}
-              label={stat.label}
-              color={stat.color}
-            />
-          ))}
-        </div>
-
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {/* Main Content */}
           <div className="flex-1">
