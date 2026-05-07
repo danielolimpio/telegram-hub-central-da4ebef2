@@ -1,4 +1,12 @@
-import { Send, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Send, BookOpen, ChevronDown, ChevronUp,
+  Heart, Car, MapPin, Film, Trophy, GraduationCap, Megaphone, Briefcase,
+  Coffee, Dumbbell, Shirt, BookOpenCheck, CalendarDays, Star, Sticker,
+  Wallet, Quote, Gamepad2, Laugh, Home, TrendingUp, Rainbow, Sparkles,
+  Library, Smile, Music, HeartHandshake, Building2, Newspaper, Gift,
+  PawPrint, Hammer, Tag, ChefHat, Share2, Church, Cpu, ShoppingCart,
+  Plane, Video, PartyPopper,
+} from "lucide-react";
 import { useState } from "react";
 import batepapoBanner from "@/assets/batepapo-banner.jpeg";
 
@@ -6,47 +14,47 @@ const CategorySidebar = () => {
   const [showAllCategories, setShowAllCategories] = useState(false);
   
   const allCategories = [
-    { name: "Grupos Telegram Amizades", path: "/grupos-telegram-amizades" },
-    { name: "Grupos Telegram Carros", path: "/grupos-telegram-carros" },
-    { name: "Grupos Telegram Cidades", path: "/grupos-telegram-cidades" },
-    { name: "Grupos Telegram Cinema", path: "/grupos-telegram-cinema" },
-    { name: "Grupos Telegram Concursos", path: "/grupos-telegram-concursos" },
-    { name: "Grupos Telegram Cursos", path: "/grupos-telegram-cursos" },
-    { name: "Grupos Telegram Divulgação", path: "/grupos-telegram-divulgacao" },
-    { name: "Grupos Telegram Empregos", path: "/grupos-telegram-empregos" },
-    { name: "Grupos Telegram Encontros", path: "/grupos-telegram-encontros" },
-    { name: "Grupos Telegram Esportes", path: "/grupos-telegram-esportes" },
-    { name: "Grupos Telegram Estilo", path: "/grupos-telegram-estilo" },
-    { name: "Grupos Telegram Estudos", path: "/grupos-telegram-estudos" },
-    { name: "Grupos Telegram Eventos", path: "/grupos-telegram-eventos" },
-    { name: "Grupos Telegram Fãs", path: "/grupos-telegram-fas" },
-    { name: "Grupos Telegram Figurinhas", path: "/grupos-telegram-figurinhas" },
-    { name: "Grupos Telegram Finanças", path: "/grupos-telegram-financas" },
-    { name: "Grupos Telegram Frases", path: "/grupos-telegram-frases" },
-    { name: "Grupos Telegram Games", path: "/grupos-telegram-games" },
-    { name: "Grupos Telegram Humor", path: "/grupos-telegram-humor" },
-    { name: "Grupos Telegram Imobiliária", path: "/grupos-telegram-imobiliaria" },
-    { name: "Grupos Telegram Investimentos", path: "/grupos-telegram-investimentos" },
-    { name: "Grupos Telegram LGBTQIA", path: "/grupos-telegram-lgbtqia" },
-    { name: "Grupos Telegram Liberais", path: "/grupos-telegram-liberais" },
-    { name: "Grupos Telegram Livros", path: "/grupos-telegram-livros" },
-    { name: "Grupos Telegram Memes", path: "/grupos-telegram-memes" },
-    { name: "Grupos Telegram Músicas", path: "/grupos-telegram-musicas" },
-    { name: "Grupos Telegram Namoros", path: "/grupos-telegram-namoros" },
-    { name: "Grupos Telegram Negócios", path: "/grupos-telegram-negocios" },
-    { name: "Grupos Telegram Notícias", path: "/grupos-telegram-noticias" },
-    { name: "Grupos Telegram Oportunidades", path: "/grupos-telegram-oportunidades" },
-    { name: "Grupos Telegram Pets", path: "/grupos-telegram-pets" },
-    { name: "Grupos Telegram Profissões", path: "/grupos-telegram-profissoes" },
-    { name: "Grupos Telegram Promoções", path: "/grupos-telegram-promocoes" },
-    { name: "Grupos Telegram Receitas", path: "/grupos-telegram-receitas" },
-    { name: "Grupos Telegram Redes Sociais", path: "/grupos-telegram-redes-sociais" },
-    { name: "Grupos Telegram Religião", path: "/grupos-telegram-religiao" },
-    { name: "Grupos Telegram Tecnologia", path: "/grupos-telegram-tecnologia" },
-    { name: "Grupos Telegram Vendas", path: "/grupos-telegram-vendas" },
-    { name: "Grupos Telegram Viagens", path: "/grupos-telegram-viagens" },
-    { name: "Grupos Telegram Vídeos", path: "/grupos-telegram-videos" },
-    { name: "Grupos Telegram Zoeira", path: "/grupos-telegram-zoeira" }
+    { name: "Grupos Telegram Amizades", path: "/grupos-telegram-amizades", icon: Heart },
+    { name: "Grupos Telegram Carros", path: "/grupos-telegram-carros", icon: Car },
+    { name: "Grupos Telegram Cidades", path: "/grupos-telegram-cidades", icon: MapPin },
+    { name: "Grupos Telegram Cinema", path: "/grupos-telegram-cinema", icon: Film },
+    { name: "Grupos Telegram Concursos", path: "/grupos-telegram-concursos", icon: Trophy },
+    { name: "Grupos Telegram Cursos", path: "/grupos-telegram-cursos", icon: GraduationCap },
+    { name: "Grupos Telegram Divulgação", path: "/grupos-telegram-divulgacao", icon: Megaphone },
+    { name: "Grupos Telegram Empregos", path: "/grupos-telegram-empregos", icon: Briefcase },
+    { name: "Grupos Telegram Encontros", path: "/grupos-telegram-encontros", icon: Coffee },
+    { name: "Grupos Telegram Esportes", path: "/grupos-telegram-esportes", icon: Dumbbell },
+    { name: "Grupos Telegram Estilo", path: "/grupos-telegram-estilo", icon: Shirt },
+    { name: "Grupos Telegram Estudos", path: "/grupos-telegram-estudos", icon: BookOpenCheck },
+    { name: "Grupos Telegram Eventos", path: "/grupos-telegram-eventos", icon: CalendarDays },
+    { name: "Grupos Telegram Fãs", path: "/grupos-telegram-fas", icon: Star },
+    { name: "Grupos Telegram Figurinhas", path: "/grupos-telegram-figurinhas", icon: Sticker },
+    { name: "Grupos Telegram Finanças", path: "/grupos-telegram-financas", icon: Wallet },
+    { name: "Grupos Telegram Frases", path: "/grupos-telegram-frases", icon: Quote },
+    { name: "Grupos Telegram Games", path: "/grupos-telegram-games", icon: Gamepad2 },
+    { name: "Grupos Telegram Humor", path: "/grupos-telegram-humor", icon: Laugh },
+    { name: "Grupos Telegram Imobiliária", path: "/grupos-telegram-imobiliaria", icon: Home },
+    { name: "Grupos Telegram Investimentos", path: "/grupos-telegram-investimentos", icon: TrendingUp },
+    { name: "Grupos Telegram LGBTQIA", path: "/grupos-telegram-lgbtqia", icon: Rainbow },
+    { name: "Grupos Telegram Liberais", path: "/grupos-telegram-liberais", icon: Sparkles },
+    { name: "Grupos Telegram Livros", path: "/grupos-telegram-livros", icon: Library },
+    { name: "Grupos Telegram Memes", path: "/grupos-telegram-memes", icon: Smile },
+    { name: "Grupos Telegram Músicas", path: "/grupos-telegram-musicas", icon: Music },
+    { name: "Grupos Telegram Namoros", path: "/grupos-telegram-namoros", icon: HeartHandshake },
+    { name: "Grupos Telegram Negócios", path: "/grupos-telegram-negocios", icon: Building2 },
+    { name: "Grupos Telegram Notícias", path: "/grupos-telegram-noticias", icon: Newspaper },
+    { name: "Grupos Telegram Oportunidades", path: "/grupos-telegram-oportunidades", icon: Gift },
+    { name: "Grupos Telegram Pets", path: "/grupos-telegram-pets", icon: PawPrint },
+    { name: "Grupos Telegram Profissões", path: "/grupos-telegram-profissoes", icon: Hammer },
+    { name: "Grupos Telegram Promoções", path: "/grupos-telegram-promocoes", icon: Tag },
+    { name: "Grupos Telegram Receitas", path: "/grupos-telegram-receitas", icon: ChefHat },
+    { name: "Grupos Telegram Redes Sociais", path: "/grupos-telegram-redes-sociais", icon: Share2 },
+    { name: "Grupos Telegram Religião", path: "/grupos-telegram-religiao", icon: Church },
+    { name: "Grupos Telegram Tecnologia", path: "/grupos-telegram-tecnologia", icon: Cpu },
+    { name: "Grupos Telegram Vendas", path: "/grupos-telegram-vendas", icon: ShoppingCart },
+    { name: "Grupos Telegram Viagens", path: "/grupos-telegram-viagens", icon: Plane },
+    { name: "Grupos Telegram Vídeos", path: "/grupos-telegram-videos", icon: Video },
+    { name: "Grupos Telegram Zoeira", path: "/grupos-telegram-zoeira", icon: PartyPopper },
   ];
 
   const displayedCategories = showAllCategories ? allCategories : allCategories.slice(0, 8);
@@ -96,10 +104,11 @@ const CategorySidebar = () => {
             <a
               key={category.name}
               href={category.path}
-              className="block py-2 px-2 sm:px-3 text-xs sm:text-sm text-muted-foreground hover:text-telegram-blue hover:bg-muted/50 rounded transition-colors truncate"
+              className="flex items-center gap-2 py-2 px-2 sm:px-3 text-xs sm:text-sm text-muted-foreground hover:text-telegram-blue hover:bg-muted/50 rounded transition-colors"
               title={category.name}
             >
-              {category.name}
+              <category.icon className="w-4 h-4 shrink-0 text-telegram-blue" />
+              <span className="truncate">{category.name}</span>
             </a>
           ))}
           <button
