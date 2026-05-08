@@ -210,8 +210,8 @@ export const categorySEO: Record<string, { title: string; description: string; c
 // SEO for main pages
 export const mainPagesSEO: Record<string, { title: string; description: string; canonical: string }> = {
   home: {
-    title: "Grupos do Telegram 2026 - O Maior Diretório do Brasil",
-    description: "O maior diretório de Grupos do Telegram do Brasil em 2026. Encontre os melhores grupos verificados em 27 categorias: amizade, namoro, investimentos, estudos, games, esportes e muito mais. 100% gratuito e atualizado diariamente.",
+    title: "Grupos do Telegram | Canais Verificados e Links Ativos 2026",
+    description: "Encontre grupos e canais do Telegram confiáveis em 2026. Telegrupos verificados, links testados, categorias organizadas e dicas de segurança para usar o Telegram app, Telegram Web e Telegram Desktop.",
     canonical: "/"
   },
   allGroups: {
@@ -220,13 +220,13 @@ export const mainPagesSEO: Record<string, { title: string; description: string; 
     canonical: "/todos-grupos"
   },
   blog: {
-    title: "Blog - Dicas e Guias para Telegram",
-    description: "Artigos, dicas e guias completos sobre Telegram. Aprenda a usar recursos avançados, proteger sua privacidade e encontrar as melhores comunidades.",
+    title: "Blog Telegram | Guias, Tutoriais e Dicas para Telegrupos",
+    description: "Artigos e guias sobre Telegram: como baixar Telegram para PC, criar canal do Telegram, usar Telegram Web, Telegram Desktop e encontrar grupos do Telegram seguros.",
     canonical: "/blog"
   },
   comoFunciona: {
-    title: "Como Funciona - Grupos do Telegram",
-    description: "Entenda como encontrar e participar dos melhores grupos do Telegram. Guia completo com passo a passo e dicas de segurança.",
+    title: "Como Funciona | Encontrar e Entrar em Grupos do Telegram",
+    description: "Saiba como entrar em grupos do Telegram, baixar o Telegram app para Android, iOS, PC e Mac, e participar de canais do Telegram com segurança.",
     canonical: "/como-funciona"
   },
   regras: {
@@ -235,18 +235,18 @@ export const mainPagesSEO: Record<string, { title: string; description: string; 
     canonical: "/regras"
   },
   seguranca: {
-    title: "Dicas de Segurança - Grupos do Telegram",
-    description: "Aprenda a se proteger no Telegram. Dicas essenciais de privacidade, como evitar golpes e manter sua segurança digital.",
+    title: "Grupos de Telegram Seguros | Dicas de Segurança e Privacidade",
+    description: "Como participar de grupos de telegram seguros, proteger seus dados no Telegram app, evitar golpes em canais do Telegram e configurar privacidade no Telegram Web e Desktop.",
     canonical: "/seguranca"
   },
   ajuda: {
-    title: "Central de Ajuda - Grupos do Telegram",
-    description: "Precisa de ajuda? Encontre respostas para suas dúvidas sobre grupos, cadastro e uso da plataforma.",
+    title: "Central de Ajuda Telegram | Suporte e Soluções",
+    description: "Suporte e respostas para Telegram: telegram não conecta solução, telegram download for pc windows 10, telegram app download for android e como entrar em grupos do Telegram.",
     canonical: "/ajuda"
   },
   faq: {
-    title: "Perguntas Frequentes (FAQ) - Grupos do Telegram",
-    description: "Respostas para as perguntas mais comuns sobre grupos do Telegram, cadastro, segurança e uso da plataforma.",
+    title: "Perguntas Frequentes sobre Telegram | Suporte Grupos do Telegram",
+    description: "Tire suas dúvidas sobre como baixar, usar e encontrar grupos seguros no Telegram. Telegram para PC, Android, iOS, Mac, Telegram Web e diferenças entre Telegram x WhatsApp.",
     canonical: "/faq"
   },
   reportar: {
