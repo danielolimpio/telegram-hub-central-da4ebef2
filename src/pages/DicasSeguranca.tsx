@@ -122,7 +122,7 @@ const DicasSeguranca = () => {
           </div>
           <h1 className="text-4xl font-bold text-foreground mb-4">Dicas de Segurança</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Mantenha-se seguro ao participar de grupos do Telegram com nossas dicas essenciais de segurança
+            Mantenha-se seguro ao participar de grupos do Telegram e canais do Telegram com nossas dicas essenciais de privacidade, segurança e proteção contra golpes no Telegram app, Telegram Web e Telegram Desktop.
           </p>
         </div>
 

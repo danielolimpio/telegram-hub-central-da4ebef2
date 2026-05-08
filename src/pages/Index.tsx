@@ -108,8 +108,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-subtle">
       <SEOHead
-        title="Grupos do Telegram 2026 - O Maior Diretório do Brasil"
-        description="O maior diretório de Grupos do Telegram do Brasil em 2026. Encontre os melhores grupos verificados em 27 categorias: amizade, namoro, investimentos, estudos, games, esportes e muito mais. 100% gratuito e atualizado diariamente."
+        title="Grupos do Telegram | Canais Verificados e Links Ativos 2026"
+        description="Encontre grupos e canais do Telegram confiáveis em 2026. Telegrupos verificados, links testados, categorias organizadas e dicas de segurança para usar o Telegram app, Telegram Web e Telegram Desktop."
         canonical="/"
       />
       <OrganizationSchema />
@@ -157,7 +157,7 @@ const Index = () => {
 
               {/* Short SEO description below section title */}
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 max-w-3xl">
-                Comunidades verificadas em 27 categorias — <strong className="text-foreground">amizade, namoro, investimentos, promoções, estudos, tecnologia, esportes, games</strong> e muito mais. 100% gratuito, sem cadastro para entrar.
+                Diretório de <strong className="text-foreground">grupos do Telegram</strong> e <strong className="text-foreground">canais do Telegram</strong> verificados em 27 categorias — amizade, namoro, investimentos, promoções, estudos, tecnologia, esportes e games. Acesse direto pelo Telegram app, Telegram Web ou Telegram Desktop, 100% gratuito e sem cadastro.
               </p>
 
               {/* Trust badges integrated above the cards */}

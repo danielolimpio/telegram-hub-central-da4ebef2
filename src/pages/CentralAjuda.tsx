@@ -88,19 +88,19 @@ const CentralAjuda = () => {
   const quickAnswers = [
     {
       question: "Como encontrar grupos específicos?",
-      answer: "Use a barra de pesquisa ou navegue pelas categorias na sidebar. Você pode filtrar por popularidade, novos grupos ou buscar por palavras-chave."
+      answer: "Use a barra de pesquisa ou navegue pelas categorias na sidebar para encontrar grupos do Telegram e canais do Telegram brasileiros. É possível filtrar por popularidade, novos telegrupos ou buscar por palavras-chave diretamente do Telegram Web ou Telegram Desktop."
     },
     {
       question: "Meu grupo foi rejeitado, o que fazer?",
       answer: "Verifique se seu grupo atende às regras da comunidade. Você pode reenviar após fazer os ajustes necessários ou entrar em contato conosco."
     },
     {
-      question: "Como impulsionar meu grupo?",
-      answer: "Acesse a página 'Impulsionar Grupos' para ver os planos disponíveis e dar destaque ao seu grupo na plataforma."
+      question: "Telegram não conecta, o que fazer?",
+      answer: "Se o telegram não conecta, atualize o Telegram app, verifique a internet, limpe o cache e tente o telegram web em web.telegram.org. Em casos de 'too many attempts', aguarde alguns minutos antes de tentar novamente. Para PC, o telegram download for pc windows 10 está disponível em desktop.telegram.org."
     },
     {
-      question: "A plataforma é gratuita?",
-      answer: "Sim, encontrar e enviar grupos é totalmente gratuito. Cobramos apenas pelos serviços premium de destaque."
+      question: "Como baixar o Telegram para PC, Android, iOS e Mac?",
+      answer: "O telegram free download está disponível para todas as plataformas: telegram for pc (Windows), telegram mac, telegram android (Google Play) e telegram for iphone (App Store). Use o telegram website oficial telegram.org para acessar todos os instaladores ou o telegram online via navegador."
     }
   ];
 

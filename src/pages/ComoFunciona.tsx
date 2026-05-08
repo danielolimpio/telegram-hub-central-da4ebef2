@@ -87,7 +87,7 @@ const ComoFunciona = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">Como Funciona</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Descubra como nossa plataforma conecta pessoas através de grupos do Telegram organizados e seguros
+            Descubra como nossa plataforma conecta pessoas através de grupos do Telegram e canais do Telegram organizados e seguros — acessíveis pelo Telegram app, Telegram Web e Telegram Desktop em qualquer dispositivo (Android, iOS, PC e Mac).
           </p>
         </div>
 
