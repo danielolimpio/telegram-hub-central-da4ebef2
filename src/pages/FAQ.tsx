@@ -119,6 +119,50 @@ const FAQ = () => {
         {
           question: "Como denunciar um grupo no Telegram?",
           answer: "No grupo, toque no nome, depois nos três pontos (...) e selecione 'Denunciar'. Escolha o motivo e envie. Você também pode nos denunciar através da nossa página 'Reportar Problema'."
+        },
+        {
+          question: "Como baixar o Telegram para PC (Windows 10 e 11)?",
+          answer: "Para fazer o telegram download for pc windows 10 ou 11, acesse desktop.telegram.org e baixe o Telegram Desktop oficial. Também é possível usar o telegram web em web.telegram.org diretamente pelo navegador, sem instalação. O telegram for pc é gratuito e sincroniza automaticamente com o Telegram app do seu celular."
+        },
+        {
+          question: "Como fazer o Telegram app download for Android?",
+          answer: "O telegram app download for android está disponível gratuitamente na Google Play Store. Pesquise por 'Telegram' e instale o aplicativo oficial. Existem também versões alternativas como Telegram X, Telegram Lite e Nicegram, todas compatíveis com a mesma conta."
+        },
+        {
+          question: "Como instalar o Telegram for iPhone (iOS)?",
+          answer: "Para usar o telegram for iphone, acesse a App Store, busque por 'Telegram Messenger' e baixe gratuitamente. O telegram ios funciona em iPhone e iPad, com suporte a notificações, chamadas e Telegram Business para empresas."
+        },
+        {
+          question: "Telegram para Mac: como instalar?",
+          answer: "O telegram mac pode ser instalado pela Mac App Store ou pelo site oficial macos.telegram.org. O aplicativo é leve, gratuito e mantém todos os seus chats sincronizados com Android, iOS, Windows e telegram online."
+        },
+        {
+          question: "Como entrar em grupos do Telegram com segurança?",
+          answer: "Para encontrar grupos de telegram seguros, prefira diretórios com curadoria humana como o nosso, verifique a descrição, número de membros e administradores. Nunca compartilhe dados pessoais e desconfie de promessas de dinheiro fácil em qualquer canal do Telegram."
+        },
+        {
+          question: "Quais são os melhores canais de telegram brasileiros?",
+          answer: "Os canais de telegram brasileiros mais populares cobrem notícias, promoções, investimentos, estudos e entretenimento. Você encontra os principais organizados por categoria em nossa página de Todos os Grupos, todos com links ativos."
+        },
+        {
+          question: "Como criar canal no Telegram?",
+          answer: "Para criar canal no telegram, abra o app, toque no ícone de lápis e escolha 'Novo Canal'. Defina nome, descrição e foto, e configure se será público (com @username) ou privado (apenas por convite). Depois divulgue seu canal do telegram em diretórios como o nosso."
+        },
+        {
+          question: "Telegram não conecta: qual a solução?",
+          answer: "Se o telegram não conecta, tente: 1) verificar sua conexão de internet; 2) atualizar o Telegram app para a última versão; 3) limpar o cache; 4) trocar entre Wi-Fi e 4G/5G; 5) usar um proxy ou VPN se houver bloqueio regional. Em PCs, o telegram desktop web em web.telegram.org pode funcionar como alternativa."
+        },
+        {
+          question: "Telegram é seguro para menores de idade?",
+          answer: "O Telegram exige idade mínima de 16 anos (ou conforme legislação local). Para que o telegram seja seguro para menores, recomendamos supervisão parental, ativar privacidade do número, evitar grupos públicos desconhecidos e nunca compartilhar dados pessoais."
+        },
+        {
+          question: "Qual a diferença entre Telegram x WhatsApp?",
+          answer: "A diferença telegram x whatsapp envolve: o Telegram suporta grupos com até 200 mil membros, canais de broadcast ilimitados, bots, pastas, mensagens auto-destrutivas e Telegram Business; o WhatsApp tem foco em chats privados e Status. O Telegram também oferece Telegram Web, Telegram Desktop e múltiplos dispositivos sem depender do celular."
+        },
+        {
+          question: "Existe o Telegram online sem instalar nada?",
+          answer: "Sim. O telegram online funciona via telegram website em web.telegram.org. Basta logar com seu número e usar o telegram app diretamente no navegador, sem precisar fazer install telegram no computador."
         }
       ]
     },
