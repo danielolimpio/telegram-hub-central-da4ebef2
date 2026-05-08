@@ -78,7 +78,7 @@ const Blog = () => {
           </div>
           <h1 className="text-4xl font-bold text-foreground mb-4">Blog Grupos do Telegram</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Dicas, tutoriais e estratégias para criar, gerenciar e fazer crescer seus grupos do Telegram
+            Dicas, tutoriais e estratégias para Telegram: como baixar Telegram para PC, criar canal do Telegram, usar Telegram Web e Telegram Desktop, e gerenciar telegrupos com segurança.
           </p>
         </div>
 
