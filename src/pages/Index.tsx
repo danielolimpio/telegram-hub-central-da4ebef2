@@ -3,7 +3,7 @@ import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { OrganizationSchema, WebSiteSchema, BreadcrumbSchema, FAQSchema } from "@/components/JsonLd";
+import { OrganizationSchema, WebSiteSchema, BreadcrumbSchema, FAQSchema, SiteNavigationSchema } from "@/components/JsonLd";
 import { Users, TrendingUp, Star, Clock, ArrowRight, Shield, CheckCircle, XCircle, MessageCircle, UserCheck, AlertTriangle, Lock, BookOpen, HelpCircle, Sparkles, Zap, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
@@ -117,6 +117,20 @@ const Index = () => {
       <FAQSchema items={faqItems} />
       <BreadcrumbSchema items={[
         { name: "Início", url: "https://gruposdotelegram.org/" }
+      ]} />
+      <SiteNavigationSchema items={[
+        { name: "Início", url: "https://gruposdotelegram.org/", description: "Diretório de grupos e canais do Telegram verificados" },
+        { name: "Todos os Grupos", url: "https://gruposdotelegram.org/todos-grupos/", description: "Catálogo completo de grupos do Telegram" },
+        { name: "Blog", url: "https://gruposdotelegram.org/blog/", description: "Guias, tutoriais e dicas sobre Telegram" },
+        { name: "Como Funciona", url: "https://gruposdotelegram.org/como-funciona/", description: "Entenda como participar dos grupos" },
+        { name: "Central de Ajuda", url: "https://gruposdotelegram.org/ajuda/", description: "Suporte e respostas para Telegram" },
+        { name: "FAQ", url: "https://gruposdotelegram.org/faq/", description: "Perguntas frequentes sobre Telegram" },
+        { name: "Dicas de Segurança", url: "https://gruposdotelegram.org/seguranca/", description: "Como usar o Telegram com segurança" },
+        { name: "Regras da Comunidade", url: "https://gruposdotelegram.org/regras/", description: "Diretrizes da plataforma" },
+        { name: "Reportar Problema", url: "https://gruposdotelegram.org/reportar/", description: "Denunciar grupos ou conteúdo" },
+        { name: "Política de Privacidade", url: "https://gruposdotelegram.org/privacidade/", description: "Como tratamos seus dados" },
+        { name: "Termos de Uso", url: "https://gruposdotelegram.org/termos/", description: "Termos e condições" },
+        { name: "Mapa do Site", url: "https://gruposdotelegram.org/sitemap/", description: "Todas as páginas do site" }
       ]} />
       <Header />
       
