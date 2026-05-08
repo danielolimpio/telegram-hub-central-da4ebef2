@@ -62,6 +62,41 @@ export const BreadcrumbSchema = ({ items }: BreadcrumbSchemaProps) => {
   );
 };
 
+interface SiteNavigationItem {
+  name: string;
+  url: string;
+  description?: string;
+}
+
+interface SiteNavigationSchemaProps {
+  items: SiteNavigationItem[];
+}
+
+export const SiteNavigationSchema = ({ items }: SiteNavigationSchemaProps) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Navegação principal - Grupos do Telegram",
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      "@type": "SiteNavigationElement",
+      position: index + 1,
+      name: item.name,
+      url: item.url,
+      ...(item.description ? { description: item.description } : {})
+    }))
+  };
+
+  return (
+    <Head>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Head>
+  );
+};
+
 interface FAQItem {
   question: string;
   answer: string;
