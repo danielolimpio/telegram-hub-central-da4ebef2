@@ -20,6 +20,7 @@ import {
 import ShadowHTML from "@/components/ShadowHTML";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
+import SEOHead from "@/components/SEOHead";
 import {
   Carousel,
   CarouselContent,
