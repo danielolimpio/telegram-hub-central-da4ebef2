@@ -357,6 +357,17 @@ const GroupDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <SEOHead
+        title={`${group.title} | Grupo do Telegram${group.category ? ` de ${group.category}` : ""}`.slice(0, 60)}
+        description={(() => {
+          const raw = (group.description || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+          const fallback = `Entre no grupo ${group.title} no Telegram${group.category ? ` (${group.category})` : ""}. Link ativo e verificado.`;
+          const base = raw || fallback;
+          return base.length > 157 ? base.slice(0, 157).trimEnd() + "..." : base;
+        })()}
+        canonical={`/grupo/${group.slug}`}
+        ogImage={group.thumbnail_url || undefined}
+      />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
