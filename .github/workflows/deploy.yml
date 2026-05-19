@@ -38,3 +38,8 @@ jobs:
           dangerous-clean-slate: true
           dry-run: false
           log-level: verbose
+          exclude: |
+            **/.vite/**
+            **/.vite
+            **/.DS_Store
+            **/node_modules/**
