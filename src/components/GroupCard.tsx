@@ -125,11 +125,12 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
                 <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 Entrar
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 className={`hover:bg-accent hover:text-accent-foreground sm:w-auto ${isFav ? 'text-red-500 border-red-500/50' : ''}`}
                 onClick={handleFavorite}
+                aria-label={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
               >
                 <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isFav ? 'fill-current' : ''}`} />
               </Button>
