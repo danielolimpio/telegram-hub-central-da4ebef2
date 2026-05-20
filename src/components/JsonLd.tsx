@@ -193,3 +193,48 @@ export const CategorySchema = ({ name, description, url }: CategorySchemaProps) 
     </Head>
   );
 };
+
+interface ItemPageSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  image?: string;
+  category?: string;
+}
+
+export const ItemPageSchema = ({
+  name,
+  description,
+  url,
+  image,
+  category
+}: ItemPageSchemaProps) => {
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "ItemPage",
+    name,
+    description,
+    url,
+    ...(image ? { image } : {}),
+    mainEntity: {
+      "@type": "Organization",
+      name,
+      description,
+      ...(image ? { image } : {}),
+      ...(category ? { category } : {})
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Grupos do Telegram",
+      url: "https://gruposdotelegram.org"
+    }
+  };
+
+  return (
+    <Head>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Head>
+  );
+};
