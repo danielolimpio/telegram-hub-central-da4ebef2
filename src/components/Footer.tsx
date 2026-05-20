@@ -70,7 +70,7 @@ const Footer = () => {
                   placeholder="Seu e-mail"
                   className="text-sm"
                 />
-                <Button variant="telegram" size="sm">
+                <Button variant="telegram" size="sm" aria-label="Inscrever-se na newsletter">
                   <Mail className="w-4 h-4" />
                 </Button>
               </div>
