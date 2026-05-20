@@ -192,6 +192,8 @@ export const CategorySchema = ({ name, description, url }: CategorySchemaProps) 
       </script>
     </Head>
   );
+};
+
 interface ItemPageSchemaProps {
   name: string;
   description: string;
