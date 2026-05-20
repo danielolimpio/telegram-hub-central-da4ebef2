@@ -356,18 +356,36 @@ const GroupDetails = () => {
     );
   }
 
+  const plainDescription = (() => {
+    const raw = (group.description || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    const fallback = `Entre no grupo ${group.title} no Telegram${group.category ? ` (${group.category})` : ""}. Link ativo e verificado.`;
+    const base = raw || fallback;
+    return base.length > 157 ? base.slice(0, 157).trimEnd() + "..." : base;
+  })();
+
+  const pageUrl = `https://gruposdotelegram.org/grupo/${group.slug}`;
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
       <SEOHead
         title={`${group.title} | Grupo do Telegram${group.category ? ` de ${group.category}` : ""}`.slice(0, 60)}
-        description={(() => {
-          const raw = (group.description || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-          const fallback = `Entre no grupo ${group.title} no Telegram${group.category ? ` (${group.category})` : ""}. Link ativo e verificado.`;
-          const base = raw || fallback;
-          return base.length > 157 ? base.slice(0, 157).trimEnd() + "..." : base;
-        })()}
+        description={plainDescription}
         canonical={`/grupo/${group.slug}`}
         ogImage={group.thumbnail_url || undefined}
+      />
+      <ItemPageSchema
+        name={group.title}
+        description={plainDescription}
+        url={pageUrl}
+        image={group.thumbnail_url || undefined}
+        category={group.category || undefined}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Início", url: "https://gruposdotelegram.org/" },
+          { name: "Todos os Grupos", url: "https://gruposdotelegram.org/todos-grupos" },
+          { name: group.title, url: pageUrl }
+        ]}
       />
       <Header />
       
