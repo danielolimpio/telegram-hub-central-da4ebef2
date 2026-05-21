@@ -85,6 +85,26 @@
   RewriteRule ^(blog|ajuda|faq|reportar|regras|seguranca|como-funciona|privacidade|termos|cookies|sitemap|todos-grupos|auth|dashboard|admin|grupo|favoritos|enviar-grupo|submit-group)(/.*)?$ - [L]
   RewriteRule ^grupos-telegram-[a-z0-9-]+$ - [L]
 
+  # 9.1) Legacy WordPress URL patterns — 301 to canonical equivalents
+  #      (avoids soft-404s in Search Console for old WP-era URLs)
+  RewriteRule ^category/.*$ / [R=301,L]
+  RewriteRule ^tag/.*$ / [R=301,L]
+  RewriteRule ^page/[0-9]+/?.*$ / [R=301,L]
+  RewriteRule ^blog/page/.*$ /blog [R=301,L]
+  RewriteRule ^.*/feed/?$ / [R=301,L]
+  RewriteRule ^(minha-conta|entrar|cadastro)(/.*)?$ / [R=301,L]
+  RewriteRule ^categorias/?$ /todos-grupos [R=301,L]
+  RewriteRule ^quem-somos/?$ /como-funciona [R=301,L]
+  RewriteRule ^politica-de-privacidade/?$ /privacidade [R=301,L]
+  RewriteRule ^termos-de-uso/?$ /termos [R=301,L]
+  RewriteRule ^all-groups/?$ /todos-grupos [R=301,L]
+
+  # 9.2) Dead group slugs — groups whose Telegram invite link no longer works.
+  #      Tracked in /mnt/documents/urls-404-controle.xlsx. To recover a group,
+  #      remove its slug from the alternation list below and republish the
+  #      group entry. List is alphabetised; keep it that way for easy diffs.
+  RewriteRule ^(academia-do-multinvel-marcio-angelo|acervo-de-cursos-free|acervo-de-livros-sammlung|acervo-de-wallpapers|achadinhos|achadinhos-da-bia|afiliados-shopee|aid-mut-coin-mundial|aletheia-clone|alexandria-lex-energia-solar|amizade-e-romance|amizades|amizades-br|amizades-do-amanh|amizades-do-telegram|amizades-e-conversas|amizades-e-namoro|amizades-online|amor-doramas|amor-por-leitura|apostilas-e-materiais-para-concursos|arqueiro-fx-indicadores-e-robs-de-forex|as-mais-belas-torcedoras|babybeebud-of|bate-papo-brasil|blombard-ai-crypto-signals|brasileirinhas|canal-hinode-play-oficial|canal-solar-energia-solar-fv|cantinho-secreto|cantinho-secreto-2|central-vazados|cm-capital-trader|conexes-discretas|convite-especial-para-investidores|copytradefx|corn0s-e-flagras|cornos-e-flagras|cripto-fcil|criptomoedas-brasil|criptomoedas-forex|cursos-do-el-rato|cursos-do-pirata|cursos-filmes-e-sries|cursos-grtis-2|cursos-grtis-marketing-digital|dco-org-cursos-grtis|desire-club|destrave-seu-ingls-de-vez-com-a-wise-up|dropmailme|eduzz-transforme-ideias-em-realidade-digital|empiricus-crypto|energia-solar|energia-solar-e-elica-ufv|energia-solar-economia-fcil-e-sem-investimentos|energia-solar-fotovoltaica-brasil|energia-solar-no-seu-lar|entire-apple|es-criptomoedas|exrcito-brasileiro|flagras-hd|forma-de-ganhar-dinheiro|fortune-tiger|frases-especiais|frases-roubadas|futebol-news|fx-trade-club|ganhar-dinheiro-rapido-agora|ganhar-dinheiro-rpido-agora|gold-mining-news|google-adsense-grupo-vip|gostosas-v4zados-chat-aberto|green-7-aviator-7x|gringas-no-br|grupinho-legal|guia-do-investidor|hinode-comsticos-e-perfumaria|hot-girls-club|hotmart-oficial|hotmoney-grupo-gobells|imveis-e-leilo-oportunidades-imperdveis-no-mercado-imobilirio|iptv-completo-por-apenas-r1990|jair-m-bolsonaro|kaisser-canal-oficial|karol-rosalin|language-c|leitinho-na-casada|lex-alexandria-economize-na-sua-conta-de-energia|lindas-mulheres|lista-do-vip-premium-40|livros-universe-oficial|luxury-girl|mano-das-promoes|markphormy-afiliados|marmita-da-favela|materiais-de-idiomas-grtis|material-idiomas-grtis|mega-drive-downloads-download-de-cursos-games-livros-e-filmes-de-graa|mega-maker-comunidade|megasex|melhores-jogadores-bianca-slots|mentoria-marca-milionria|meus-romances-em-pdf|milionrio-com-nicho-adulto|milionrio-digital|moneta-markets|monetizze-vendas-de-alta-converso-no-mercado-digital|mulheres-da-bblia-ensinando-mulheres|multinvel-news|my-bland-updates|nosso-concurso|o-melhor-da-put4ri4-brasileira|o-melhor-streaming-do-brasil|o-pior-ano-da-sua-vida-2022-pablo-maral|o-primo-rico-podcast|ofertas-shopee|ol-ess-grupo-de-namoro-com-homens-gays-respeita-os-integrantes-e-a-comunidade|ometv-br|onlychats|onlyfans|onlyfans-free|pablo-maral-fpv|pep-robot-investments|pezinho-sujo|pirocudas|pode-tudo-2|pornhub|portal-multinvel|promos-da-fabi|put4ri4-24-hrs|putaria-24-hrs|putaria-pura|rede-py|rei-dos-cursos|renda-extra-aplicativo-e-sites|rico-rocha-galera-raiz|rj-hot-milhas-e-max-milhas|rodadas-e-bnus|romances-em-ebooks|romances-histricos|royal-q-milionrios|royalq-olho-de-guia|safadas-e-corn0s|safadas-e-cornos|saga-memecoins|sanduk-fx-free-rob-forex|scalper-take-fx|sexo-virtual|sexshop|shopee-brasil-achados-online|shopee-brasil-vendedores|show-beleza-garotas-pintadas|snel-11-fii-suno-energia-limpa|software-scalper-fx-ia|stikers|stikers-telegram-contedo-adulto|stikers-telegram-contedo-quente|sugar-baby-brasil-sugar-daddy|suno-research|take-m7-fintech|talo-agncia|telegram-stickers|telescopy-bot|terapia-do-amor-templo-de-salomo|the-elite-cursos|tigre-sortudo-jonbet|trechos-de-livros|tweet-bot|uti-adulto-waves-med-terapia-intensiva|valentina-bossa|vantage-fx-sinal-grtis|vazados-br|venda-de-vdeospode-tudo|viciados-em-memecoins|videos-p0rn0|viso-do-touro|vitrine-de-criptomoedas|voleibol-para-voc-vleif|welix-uber-bot|xvideos-porno|xvideos-red|zdmflixcom)/?$ /? [R=301,L]
+
   # 10) Legacy root-level group slugs (WordPress-era URLs like
   #     /sobrenatural-books, /fx-trade-club, /amizades-renovadas, etc.)
   #     redirect to the new /grupo/<slug> location to preserve SEO/traffic.
