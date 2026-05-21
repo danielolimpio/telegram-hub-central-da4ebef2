@@ -1,0 +1,68 @@
+# Grupos do Telegram
+
+> Diretório brasileiro de grupos e canais do Telegram com links ativos, categorias organizadas e curadoria de comunidades seguras.
+
+Grupos do Telegram é um hub brasileiro para descobrir grupos e canais do Telegram por categoria. Oferece links verificados, dicas de segurança, guias sobre como usar o Telegram em diferentes plataformas (Android, iOS, PC, Mac e Web) e artigos sobre comunidades no Telegram.
+
+## Pages
+
+- [Início](/): Diretório principal com grupos organizados por categoria.
+- [Todos os Grupos](/todos-grupos): Explore todos os grupos disponíveis com filtros e busca.
+- [Como Funciona](/como-funciona): Guia sobre como entrar em grupos, baixar o app e participar com segurança.
+- [Segurança](/seguranca): Dicas de privacidade, proteção de dados e como evitar golpes.
+- [Central de Ajuda](/ajuda): Suporte e respostas sobre conexão, download e uso do Telegram.
+- [FAQ](/faq): Perguntas frequentes sobre Telegram para PC, Android, iOS, Mac e Web.
+- [Blog](/blog): Artigos sobre ferramentas, negócios, comunidades, grupos e privacidade no Telegram.
+- [Regras da Comunidade](/regras): Diretrizes de participação e conduta nos grupos listados.
+- [Reportar Problema](/reportar): Canal para denunciar grupos irregulares ou reportar problemas.
+- [Mapa do Site](/sitemap): Índice de todas as páginas e seções do site.
+- [Grupo](/grupo/exemplo): Página de detalhes de um grupo específico do Telegram.
+
+## Categories
+
+- [Divulgação](/grupos-telegram-divulgacao): Grupos para promover produtos, serviços e conteúdo.
+- [Vendas](/grupos-telegram-vendas): Compra, venda e negociação de produtos.
+- [Promoções](/grupos-telegram-promocoes): Ofertas, descontos e cupons exclusivos.
+- [Oportunidades](/grupos-telegram-oportunidades): Vagas de emprego, freelance e renda extra.
+- [Investimentos](/grupos-telegram-investimentos): Ações, criptomoedas, trading e educação financeira.
+- [Redes Sociais](/grupos-telegram-redes-sociais): Crescimento digital, Instagram, TikTok e YouTube.
+- [Livros](/grupos-telegram-livros): Clubes de leitura, recomendações e literatura.
+- [Estudos](/grupos-telegram-estudos): Vestibulares, concursos e ENEM.
+- [Cursos](/grupos-telegram-cursos): Aprendizado online, idiomas e desenvolvimento profissional.
+- [Vídeos](/grupos-telegram-videos): Conteúdo audiovisual e comunidades de vídeo.
+- [Músicas](/grupos-telegram-musicas): Novos artistas, playlists e gêneros musicais.
+- [Amizades](/grupos-telegram-amizades): Conheça pessoas e faça novos amigos.
+- [Namoros](/grupos-telegram-namoros): Relacionamentos e encontros.
+- [Liberais](/grupos-telegram-liberais): Comunidades adultas e maduras.
+- [Notícias](/grupos-telegram-noticias): Informação em tempo real.
+- [Esportes](/grupos-telegram-esportes): Futebol, basquete, MMA e mais.
+- [Figurinhas](/grupos-telegram-figurinhas): Stickers, memes e pacotes criativos.
+- [Receitas](/grupos-telegram-receitas): Culinária, gastronomia e dicas de cozinha.
+- [Viagens](/grupos-telegram-viagens): Turismo, destinos, roteiros e promoções.
+- [Tecnologia](/grupos-telegram-tecnologia): Novidades tech, programação e gadgets.
+- [Games](/grupos-telegram-games): Jogos, comunidade gamer e torneios.
+- [Cinema](/grupos-telegram-cinema): Filmes, séries e recomendações.
+- [Pets](/grupos-telegram-pets): Animais, cuidados e adoção.
+- [Estilo](/grupos-telegram-estilo): Moda, tendências e beleza.
+- [Zoeira](/grupos-telegram-zoeira): Memes, humor e entretenimento.
+- [LGBTQIA+](/grupos-telegram-lgbtqia): Comunidade inclusiva e espaços seguros.
+- [Carros](/grupos-telegram-carros): Automóveis, mecânica e tuning.
+- [Cidades](/grupos-telegram-cidades): Conecte-se com moradores da sua região.
+- [Concursos](/grupos-telegram-concursos): Editais, materiais de estudo e dicas de aprovados.
+- [Empregos](/grupos-telegram-empregos): Vagas CLT, PJ e home office.
+- [Eventos](/grupos-telegram-eventos): Festas, shows, congressos e meetups.
+- [Fãs](/grupos-telegram-fas): Fandoms, K-pop, animes e séries.
+- [Finanças](/grupos-telegram-financas): Educação financeira e controle de gastos.
+- [Frases](/grupos-telegram-frases): Reflexões, motivação e mensagens inspiradoras.
+- [Humor](/grupos-telegram-humor): Piadas, comédia e diversão.
+- [Imobiliária](/grupos-telegram-imobiliaria): Aluguel, compra e venda de imóveis.
+- [Memes](/grupos-telegram-memes): Os melhores memes virais da internet brasileira.
+- [Negócios](/grupos-telegram-negocios): Empreendedorismo e networking.
+- [Profissões](/grupos-telegram-profissoes): Comunidades por área profissional.
+- [Religião](/grupos-telegram-religiao): Orações, estudos bíblicos e comunidades de fé.
+
+## Legal
+
+- [Privacidade](/privacidade): Política de privacidade e proteção de dados.
+- [Termos de Uso](/termos): Condições de uso da plataforma.
+- [Cookies](/cookies): Informações sobre uso de cookies e tecnologias similares.
