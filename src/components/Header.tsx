@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/logo-telegram.webp";
 import TopBar from "@/components/TopBar";
+const logo = "/logo-telegram.webp";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -56,6 +56,9 @@ const Header = () => {
               alt="Grupos do Telegram"
               width={32}
               height={32}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="w-8 h-8 object-contain"
             />
             <div className="text-xl font-bold">
