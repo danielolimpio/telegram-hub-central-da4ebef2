@@ -210,7 +210,7 @@ const Index = () => {
                     <p className="text-muted-foreground">Nenhum grupo disponível.</p>
                   </div>
                 ) : (
-                  groups.slice(0, 12).map((group) => (
+                  groups.slice(0, 12).map((group, idx) => (
                     <GroupCard
                       key={group.id}
                       id={group.id}
@@ -222,6 +222,7 @@ const Index = () => {
                       category={group.category}
                       telegramLink={group.telegram_link}
                       slug={group.slug}
+                      priority={idx < 8}
                     />
                   ))
                 )}
