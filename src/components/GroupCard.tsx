@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Heart, ExternalLink, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,11 +20,13 @@ interface GroupCardProps {
   category: string;
   slug?: string;
   telegramLink?: string;
+  priority?: boolean;
 }
 
-const GroupCard = ({ id, title, description, members, views, avatar, isNew, category, slug, telegramLink }: GroupCardProps) => {
+const GroupCard = ({ id, title, description, members, views, avatar, isNew, category, slug, telegramLink, priority }: GroupCardProps) => {
   const { isFavorite, toggleFavorite, isLoggedIn } = useFavorites();
   const navigate = useNavigate();
+  const [imgError, setImgError] = useState(false);
 
   const formatMembers = (count: number) => {
     return count.toLocaleString('pt-BR');
@@ -79,16 +82,36 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
           {/* Avatar at the top center */}
           <div className="flex justify-center pt-6 pb-4">
             <div className="relative">
-              <Avatar className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-telegram-blue/20">
-                <AvatarImage 
-                  src={avatar || ""} 
-                  alt={title}
-                  className="object-cover"
-                />
-                <AvatarFallback className="bg-telegram-blue text-white text-2xl font-bold">
-                  {title.substring(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
+              {priority ? (
+                avatar && !imgError ? (
+                  <img
+                    src={avatar}
+                    alt={title}
+                    width={80}
+                    height={80}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    onError={() => setImgError(true)}
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-telegram-blue/20"
+                  />
+                ) : (
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-telegram-blue text-white text-2xl font-bold flex items-center justify-center border-2 border-telegram-blue/20">
+                    {title.substring(0, 2).toUpperCase()}
+                  </div>
+                )
+              ) : (
+                <Avatar className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-telegram-blue/20">
+                  <AvatarImage
+                    src={avatar || ""}
+                    alt={title}
+                    className="object-cover"
+                  />
+                  <AvatarFallback className="bg-telegram-blue text-white text-2xl font-bold">
+                    {title.substring(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              )}
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full border-2 border-background flex items-center justify-center">
                 <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
