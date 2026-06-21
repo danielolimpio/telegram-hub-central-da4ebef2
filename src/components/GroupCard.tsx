@@ -142,7 +142,7 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
               <Button 
                 variant="telegram" 
                 size="sm" 
-                className="flex-1 text-xs sm:text-sm"
+                className="flex-1 text-xs sm:text-sm h-10 sm:h-9"
                 onClick={() => window.location.href = `/grupo/${groupSlug}`}
               >
                 <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
@@ -151,7 +151,7 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
               <Button
                 variant="outline"
                 size="sm"
-                className={`hover:bg-accent hover:text-accent-foreground sm:w-auto ${isFav ? 'text-red-500 border-red-500/50' : ''}`}
+                className={`hover:bg-accent hover:text-accent-foreground sm:w-auto h-10 sm:h-9 ${isFav ? 'text-red-500 border-red-500/50' : ''}`}
                 onClick={handleFavorite}
                 aria-label={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
               >
