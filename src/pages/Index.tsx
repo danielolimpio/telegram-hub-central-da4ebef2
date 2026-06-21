@@ -539,6 +539,117 @@ const Index = () => {
                 </CardContent>
               </Card>
 
+              {/* Termos mais buscados — long-tail SEO content for Google */}
+              <Card className="bg-gradient-to-br from-background to-purple-500/5 border-purple-500/10">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 bg-purple-500/10 rounded-xl">
+                      <Compass className="w-7 h-7 text-purple-600" />
+                    </div>
+                    <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
+                      Termos mais buscados sobre Grupos do Telegram
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-6 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  <p>
+                    Reunimos abaixo os principais termos que as pessoas pesquisam no Google, Bing e Yandex para encontrar <strong className="text-foreground">grupos do Telegram</strong>, <strong className="text-foreground">canais do Telegram</strong>, <strong className="text-foreground">links de grupos telegram 2026</strong>, <strong className="text-foreground">telegrupos</strong> e comunidades de todos os nichos. Use essa lista como um mapa para descobrir novos grupos e explorar todo o conteúdo do <strong className="text-foreground">gruposdotelegram.org</strong>.
+                  </p>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Buscas gerais por grupos do Telegram</h3>
+                    <p>
+                      grupos do telegram, grupos telegram, grupos de telegram, grupo do telegram, grupo de telegram, grupo telegram, telegram grupos, telegram grupo, telegrupos, gruposdotelegram, gruposdotelegram.org, gruposdotelegram.com.br, gruposdotelegram br, www.gruposdotelegram, grupos do telegram 2026, grupos telegram 2026, grupos de telegram 2026, grupo telegram 2026, melhores grupos do telegram, melhores grupos telegram 2026, melhores grupos de telegram, melhores grupos telegram brasil 2026, os melhores grupos do telegram, grupos telegram brasil, grupos no telegram, grupos para telegram, grupos do telegram links, grupos e links telegram, links de grupos do telegram, links de grupos de telegram, links grupos telegram, links de grupos telegram 2026, links de grupos do telegram 2026, links de grupo telegram 2026, link de grupos telegram 2026, link grupos telegram 2026, link grupo do telegram, links telegram 2026, telegram links grupos, telegram grupos 🔥, grupos telegram 🔥.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Categorias mais procuradas</h3>
+                    <p>
+                      <Link to="/grupos-telegram-amizades" className="text-telegram-blue hover:underline">grupos do telegram de amizades</Link>, grupo telegram amizade, amizade telegram grupo, grupo de amizade telegram 2026, grupos para fazer amizade telegram,{" "}
+                      <Link to="/grupos-telegram-namoros" className="text-telegram-blue hover:underline">grupos do telegram de namoro</Link>, grupos telegram namoro, grupo telegram namoro, grupos de relacionamento telegram,{" "}
+                      <Link to="/grupos-telegram-encontros" className="text-telegram-blue hover:underline">grupos do telegram de encontros</Link>, encontros telegram, grupos telegram encontros, grupos para encontros telegram,{" "}
+                      <Link to="/grupos-telegram-estudos" className="text-telegram-blue hover:underline">grupos do telegram de estudos</Link>, grupo de estudos telegram, grupos de estudos telegram,{" "}
+                      <Link to="/grupos-telegram-concursos" className="text-telegram-blue hover:underline">grupos do telegram de concursos</Link>, grupo telegram concursos, grupos telegram concursos públicos, grupos concurseiros telegram,{" "}
+                      <Link to="/grupos-telegram-cursos" className="text-telegram-blue hover:underline">grupos do telegram de cursos</Link>, grupo telegram cursos, grupos telegram cursos, grupo telegram cursos drive, grupos de cursos telegram, grupo de cursos telegram, telegram grupo de cursos, grupo cursos telegram, cursos telegram 2026,{" "}
+                      <Link to="/grupos-telegram-investimentos" className="text-telegram-blue hover:underline">grupos do telegram de investimentos</Link>, grupo telegram investimentos, grupos telegram criptomoedas, grupos telegram bitcoin, grupos telegram trader, grupos telegram day trade,{" "}
+                      <Link to="/grupos-telegram-financas" className="text-telegram-blue hover:underline">grupos do telegram de finanças pessoais</Link>, grupos telegram educação financeira,{" "}
+                      <Link to="/grupos-telegram-promocoes" className="text-telegram-blue hover:underline">grupos do telegram de promoções</Link>, grupos telegram promoções, grupos telegram cupons, grupos telegram ofertas, grupos telegram achadinhos shopee, grupos telegram amazon promoções, grupos telegram mercado livre promoções,{" "}
+                      <Link to="/grupos-telegram-oportunidades" className="text-telegram-blue hover:underline">grupos do telegram de oportunidades</Link>, grupos telegram renda extra, grupos telegram ganhar dinheiro, grupos de telegram ganhar dinheiro,{" "}
+                      <Link to="/grupos-telegram-empregos" className="text-telegram-blue hover:underline">grupos do telegram de empregos</Link>, grupos telegram vagas, grupos telegram emprego clt, grupos telegram home office, grupos telegram vagas ti,{" "}
+                      <Link to="/grupos-telegram-vendas" className="text-telegram-blue hover:underline">grupos do telegram de vendas</Link>, grupos telegram revenda, grupos telegram dropshipping,{" "}
+                      <Link to="/grupos-telegram-negocios" className="text-telegram-blue hover:underline">grupos do telegram de negócios</Link>, grupos telegram empreendedorismo, grupos telegram networking,{" "}
+                      <Link to="/grupos-telegram-tecnologia" className="text-telegram-blue hover:underline">grupos do telegram de tecnologia</Link>, grupos telegram programação, grupos telegram desenvolvedores, grupos telegram javascript, grupos telegram python, grupos telegram inteligência artificial, grupos telegram chatgpt, grupos telegram ia,{" "}
+                      <Link to="/grupos-telegram-games" className="text-telegram-blue hover:underline">grupos do telegram de games</Link>, grupos telegram free fire, grupos telegram fortnite, grupos telegram valorant, grupos telegram lol, grupos telegram cs2, grupos telegram dota, grupos telegram minecraft, grupos telegram roblox, grupos telegram gta, grupos telegram pubg, grupos telegram clash royale, grupos telegram mobile legends,{" "}
+                      <Link to="/grupos-telegram-cinema" className="text-telegram-blue hover:underline">grupos do telegram de filmes e séries</Link>, grupos telegram filmes, grupos telegram séries, grupos telegram animes, grupos telegram dorama, grupos telegram netflix, grupos telegram prime video, grupos telegram disney plus, grupos telegram hbo, grupos telegram lançamentos,{" "}
+                      <Link to="/grupos-telegram-musicas" className="text-telegram-blue hover:underline">grupos do telegram de músicas</Link>, grupos telegram funk, grupos telegram sertanejo, grupos telegram rock, grupos telegram pagode, grupos telegram k-pop, grupos telegram bts, grupos telegram rap, grupos telegram trap, grupos telegram eletrônica,{" "}
+                      <Link to="/grupos-telegram-livros" className="text-telegram-blue hover:underline">grupos do telegram de livros</Link>, grupos no telegram de livros, grupos telegram pdf, grupos telegram ebooks, grupos telegram literatura, grupos telegram leitura,{" "}
+                      <Link to="/grupos-telegram-esportes" className="text-telegram-blue hover:underline">grupos do telegram de esportes</Link>, grupos telegram futebol, grupos telegram flamengo, grupos telegram corinthians, grupos telegram palmeiras, grupos telegram são paulo, grupos telegram brasileirão, grupos telegram libertadores, grupos telegram champions, grupos telegram mma, grupos telegram ufc, grupos telegram nba, grupos telegram basquete,{" "}
+                      <Link to="/grupos-telegram-noticias" className="text-telegram-blue hover:underline">grupos do telegram de notícias</Link>, grupos telegram política, grupos telegram jornalismo,{" "}
+                      <Link to="/grupos-telegram-religiao" className="text-telegram-blue hover:underline">grupos do telegram de religião</Link>, grupos telegram evangélicos, grupos telegram católicos, grupos telegram orações, grupos telegram bíblicos, grupos telegram espiritismo, grupos telegram umbanda,{" "}
+                      <Link to="/grupos-telegram-receitas" className="text-telegram-blue hover:underline">grupos do telegram de receitas</Link>, grupos telegram culinária, grupos telegram confeitaria, grupos telegram low carb, grupos telegram fit,{" "}
+                      <Link to="/grupos-telegram-viagens" className="text-telegram-blue hover:underline">grupos do telegram de viagens</Link>, grupos telegram milhas, grupos telegram passagens promocionais, grupos telegram intercâmbio,{" "}
+                      <Link to="/grupos-telegram-pets" className="text-telegram-blue hover:underline">grupos do telegram de pets</Link>, grupos telegram cachorros, grupos telegram gatos, grupos telegram adoção pets,{" "}
+                      <Link to="/grupos-telegram-estilo" className="text-telegram-blue hover:underline">grupos do telegram de estilo e moda</Link>, grupos telegram moda, grupos telegram beleza, grupos telegram maquiagem,{" "}
+                      <Link to="/grupos-telegram-humor" className="text-telegram-blue hover:underline">grupos do telegram de humor</Link>,{" "}
+                      <Link to="/grupos-telegram-memes" className="text-telegram-blue hover:underline">grupos do telegram de memes</Link>, melhores memes telegram,{" "}
+                      <Link to="/grupos-telegram-zoeira" className="text-telegram-blue hover:underline">grupos do telegram de zoeira</Link>,{" "}
+                      <Link to="/grupos-telegram-figurinhas" className="text-telegram-blue hover:underline">grupos do telegram de figurinhas</Link>, grupos telegram stickers, grupos telegram figurinhas whatsapp,{" "}
+                      <Link to="/grupos-telegram-frases" className="text-telegram-blue hover:underline">grupos do telegram de frases</Link>, grupos telegram motivacionais, grupos telegram reflexões,{" "}
+                      <Link to="/grupos-telegram-redes-sociais" className="text-telegram-blue hover:underline">grupos do telegram de redes sociais</Link>, grupos telegram instagram, grupos telegram tiktok, grupos telegram youtube, grupos telegram seguidores,{" "}
+                      <Link to="/grupos-telegram-divulgacao" className="text-telegram-blue hover:underline">grupos do telegram de divulgação</Link>, grupos telegram divulgação, divulgação telegram, divulgar telegram, divulgar grupo telegram, divulga telegram, grupo divulgação telegram, grupo de divulgação telegram, grupos de divulgação telegram, grupos telegram divulgação de links, grupo telegram divulgação, grupo telegram divulgação de links, grupo de divulgação de links telegram, grupos de divulgação de links telegram, grupos no telegram de divulgação, grupo de divulgação no telegram, divulgação de grupos telegram, telegram divulgação, telegram divulgação total, grupo de divulgação telegram aberto, liga dos links telegram, grupos para divulgar telegram,{" "}
+                      <Link to="/grupos-telegram-imobiliaria" className="text-telegram-blue hover:underline">grupos do telegram de imóveis</Link>, grupos telegram aluguel, grupos telegram comprar casa,{" "}
+                      <Link to="/grupos-telegram-carros" className="text-telegram-blue hover:underline">grupos do telegram de carros</Link>, grupos telegram automóveis, grupos telegram tuning, grupos telegram motos,{" "}
+                      <Link to="/grupos-telegram-cidades" className="text-telegram-blue hover:underline">grupos do telegram de cidades</Link>, grupos telegram são paulo, grupos telegram rio de janeiro, grupos telegram belo horizonte, grupos telegram brasília, grupos telegram curitiba, grupos telegram porto alegre, grupos telegram salvador, grupos telegram recife, grupos telegram fortaleza, grupos telegram manaus, grupos telegram belém, grupos telegram goiânia, grupos telegram natal rn, grupos telegram serra es, telegram recife,{" "}
+                      <Link to="/grupos-telegram-eventos" className="text-telegram-blue hover:underline">grupos do telegram de eventos</Link>, telegram festas, festas telegram, festinhas telegram, telegram para eventos,{" "}
+                      <Link to="/grupos-telegram-fas" className="text-telegram-blue hover:underline">grupos do telegram de fãs e fandoms</Link>, grupos telegram bts, grupos telegram blackpink, grupos telegram taylor swift, grupos telegram kpop, grupos telegram anime,{" "}
+                      <Link to="/grupos-telegram-profissoes" className="text-telegram-blue hover:underline">grupos do telegram de profissões</Link>, grupos telegram médicos, grupos telegram advogados, grupos telegram engenheiros, grupos telegram designers, grupos telegram professores, grupos telegram enfermagem,{" "}
+                      <Link to="/grupos-telegram-videos" className="text-telegram-blue hover:underline">grupos do telegram de vídeos</Link>,{" "}
+                      <Link to="/grupos-telegram-lgbtqia" className="text-telegram-blue hover:underline">grupos do telegram LGBTQIA+</Link>, grupos telegram gays, grupos telegram lésbicas, grupos telegram bi, grupos telegram trans,{" "}
+                      <Link to="/grupos-telegram-liberais" className="text-telegram-blue hover:underline">grupos do telegram liberais</Link>, grupos telegram +18, grupos telegram adultos, grupos liberais telegram.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Como usar e baixar o Telegram</h3>
+                    <p>
+                      telegram web, telegram desktop, telegram app, telegram para pc, telegram para windows, telegram para mac, telegram para linux, telegram para android, telegram para ios, telegram para iphone, baixar telegram, baixar telegram para pc, baixar telegram windows, baixar telegram para android, baixar telegram para iphone, instalar telegram, atualizar telegram, telegram apk, telegram x, como usar telegram, como entrar no telegram, como criar conta telegram, telegram cadastro, telegram login, telegram entrar, telegram fazer login, telegram web entrar, telegram código, telegram sem número, telegram com número virtual, telegram premium, telegram premium grátis, telegram stories,{" "}
+                      <Link to="/blog/como-baixar-telegram-pc" className="text-telegram-blue hover:underline">como baixar telegram para pc</Link>,{" "}
+                      <Link to="/como-funciona" className="text-telegram-blue hover:underline">como funciona o telegram</Link>,{" "}
+                      <Link to="/ajuda" className="text-telegram-blue hover:underline">suporte telegram</Link>, telegram suporte, suporte telegram brasil, perguntas frequentes telegram.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Criar, divulgar e gerenciar grupos no Telegram</h3>
+                    <p>
+                      como criar grupo no telegram, como criar canal no telegram, como criar grupo telegram pelo celular, como criar grupo telegram pelo pc, como adicionar bot no telegram, como divulgar grupo telegram, como divulgar canal telegram, onde divulgar grupo telegram, sites para divulgar grupo telegram, divulgar telegram grátis, divulgar canal telegram grátis, como crescer grupo telegram, como atrair membros telegram, comprar membros telegram, ganhar membros telegram, como ganhar membros no telegram, como administrar grupo telegram, bot telegram, melhores bots telegram, bot anti spam telegram, bot de música telegram, como criar bot no telegram, telegram api, telegram open source, telegram com link, link de convite telegram, como gerar link de convite telegram, telegram qr code.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Segurança, privacidade e dicas no Telegram</h3>
+                    <p>
+                      <Link to="/seguranca" className="text-telegram-blue hover:underline">grupos de telegram seguros</Link>, telegram seguro, telegram é seguro, dicas de segurança telegram, golpes no telegram, como evitar golpes telegram, telegram esconder número, telegram sem expor número, configurar privacidade telegram, telegram autodestruição, mensagens secretas telegram, chat secreto telegram, telegram criptografia, telegram dados pessoais, telegram bloquear usuário, telegram denunciar grupo,{" "}
+                      <Link to="/reportar" className="text-telegram-blue hover:underline">reportar grupo telegram</Link>,{" "}
+                      <Link to="/regras" className="text-telegram-blue hover:underline">regras grupos telegram</Link>,{" "}
+                      <Link to="/faq" className="text-telegram-blue hover:underline">perguntas frequentes telegram</Link>.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">Variações de busca, erros de digitação e termos relacionados</h3>
+                    <p>
+                      gruposdetelegram, gruposdotelegram.com, gruposdotelegram.com.br, gruposdotelegram com br, gruposdotelegram br com, gruposdotelegrambr, gruposdotelegram br, gruposdotelegram.combr, gruposdotelegram.com.b, gruposdotelegram.com.b4, gruposdotelegram.com.vr, gruposdotelegram com.br, gruposdotelegram. com, gruposdotelegram. br, gruposdotelegram.br.com, gruposdotelegram.c, gruposdotelegram.ckm, gruposdotelegram links, gruposdostelegram, grupodotelegram, grupodostelegram, grouposdotelegram, grupoadotelegram, grupostelegram, grupos do.telegram, grupos do telegrama, grupos do telegam, grupos do telegam, grupos no telegram, grupos para telegram, grupos tele, grupos telegra, grupos telegra., grupos telegram brasil, grupos telegram links, grupos telegram secretos, grupos telegram privados, grupos privados telegram, grupos vip telegram, grupos telegram gratis, telegram grupos gratis, telegram grupo gratis, grupo gratis telegram, grupo gratuito telegram, grupo telegram gratuito, grupo telegram free, grupo free telegram, grupo link telegram, link grupo telegram, link grupos telegram, links grupos telegram, links telegran, telegramgrupo, telegramgrupos, tegram grupos, telegram grupos secretos, telegram grupos secretos 2026, previas telegram 2026, prévias telegram 2026, telegram previas 2026, melhores sites para encontrar grupos telegram 2026, melhores grupos telegram, melhores grupos telegram 2025, grupos de telegram 2026, novos grupos telegram, grupos atualizados telegram, lista de grupos telegram, catálogo de grupos telegram, diretório de grupos telegram, indexador de grupos telegram, buscador de grupos telegram, encontrar grupos telegram, achar grupos telegram, descobrir grupos telegram, melhores comunidades telegram, comunidades telegram brasil.
+                    </p>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-muted-foreground/80 italic">
+                    A relação acima é constantemente expandida com base nas buscas reais dos usuários no Google Search Console, ajudando você a navegar pelo nosso diretório e descobrir <strong>novos grupos do Telegram</strong> todos os dias.
+                  </p>
+                </CardContent>
+              </Card>
+
               {/* FAQ Section — expanded for FAQPage rich snippets */}
               <Card>
                 <CardHeader>
