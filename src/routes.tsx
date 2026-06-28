@@ -19,6 +19,9 @@ const TermosUso = lazy(() => import('./pages/TermosUso'));
 const PoliticaCookies = lazy(() => import('./pages/PoliticaCookies'));
 const Sitemap = lazy(() => import('./pages/Sitemap'));
 
+// Blog articles
+const TelegramNovidades2026 = lazy(() => import('./pages/blog/TelegramNovidades2026'));
+
 // Category pages
 const GruposDivulgacao = lazy(() => import('./pages/categories/GruposDivulgacao'));
 const GruposVendas = lazy(() => import('./pages/categories/GruposVendas'));

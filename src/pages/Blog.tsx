@@ -10,20 +10,26 @@ import BlogSidebar from "@/components/BlogSidebar";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/JsonLd";
 import { mainPagesSEO, blogCategoriesSEO } from "@/config/seo";
+import { articles as allArticles, getArticlesByCategory } from "@/data/articles";
+import { CalendarDays, Clock, ArrowRight } from "lucide-react";
 
 const Blog = () => {
   const { categoria } = useParams();
   
   const categories = [
-    { name: "Todos", slug: "", count: 0 },
-    { name: "Ferramentas", slug: "ferramentas", count: 0 },
-    { name: "Negócios", slug: "negocios", count: 0 },
-    { name: "Comunidade", slug: "comunidade", count: 0 },
-    { name: "Grupos", slug: "grupos", count: 0 },
-    { name: "Privacidade", slug: "privacidade", count: 0 }
+    { name: "Todos", slug: "", count: allArticles.length },
+    { name: "Ferramentas", slug: "ferramentas", count: getArticlesByCategory("ferramentas").length },
+    { name: "Negócios", slug: "negocios", count: getArticlesByCategory("negocios").length },
+    { name: "Comunidade", slug: "comunidade", count: getArticlesByCategory("comunidade").length },
+    { name: "Grupos", slug: "grupos", count: getArticlesByCategory("grupos").length },
+    { name: "Privacidade", slug: "privacidade", count: getArticlesByCategory("privacidade").length },
   ];
   
   const activeCategory = categoria || "";
+
+  const visibleArticles = activeCategory
+    ? getArticlesByCategory(activeCategory)
+    : allArticles;
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -105,17 +111,61 @@ const Blog = () => {
               ))}
             </div>
 
-            {/* Empty State */}
+            {/* Articles Grid */}
             <div className="mb-16">
-              <Card className="text-center py-16">
-                <CardContent>
-                  <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                  <h2 className="text-2xl font-bold text-foreground mb-2">Nenhum artigo publicado</h2>
-                  <p className="text-muted-foreground">
-                    Em breve teremos conteúdos incríveis sobre Telegram para você!
-                  </p>
-                </CardContent>
-              </Card>
+              {visibleArticles.length === 0 ? (
+                <Card className="text-center py-16">
+                  <CardContent>
+                    <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                    <h2 className="text-2xl font-bold text-foreground mb-2">Nenhum artigo nesta categoria</h2>
+                    <p className="text-muted-foreground">
+                      Em breve traremos novos conteúdos sobre Telegram para você!
+                    </p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-6">
+                  {visibleArticles.map((article) => (
+                    <Link key={article.slug} to={article.path} className="group">
+                      <Card className="overflow-hidden h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div className="aspect-video overflow-hidden bg-muted">
+                          <img
+                            src={article.cover}
+                            alt={article.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <CardContent className="pt-5">
+                          <Badge className={`${getCategoryColor(article.category)} mb-3`}>
+                            {getCategoryIcon(article.category)}
+                            <span className="ml-1">{article.category}</span>
+                          </Badge>
+                          <h2 className="text-xl font-bold text-foreground leading-snug mb-2 group-hover:text-telegram-blue transition-colors line-clamp-3">
+                            {article.title}
+                          </h2>
+                          <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
+                            {article.excerpt}
+                          </p>
+                          <div className="flex items-center justify-between text-xs text-muted-foreground">
+                            <div className="flex items-center gap-3">
+                              <span className="flex items-center gap-1">
+                                <CalendarDays className="w-3.5 h-3.5" />
+                                {article.publishedLabel}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5" />
+                                {article.readingTime}
+                              </span>
+                            </div>
+                            <ArrowRight className="w-4 h-4 text-telegram-blue group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Newsletter */}
