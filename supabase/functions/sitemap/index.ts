@@ -28,6 +28,7 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/blog/comunidade/", changefreq: "weekly", priority: "0.7" },
   { path: "/blog/grupos/", changefreq: "weekly", priority: "0.7" },
   { path: "/blog/privacidade/", changefreq: "weekly", priority: "0.7" },
+  { path: "/blog/telegram-novidades-2026-recursos-canais-pagamentos/", changefreq: "monthly", priority: "0.8" },
   // Group category pages
   { path: "/grupos-telegram-divulgacao/", changefreq: "daily", priority: "0.8" },
   { path: "/grupos-telegram-vendas/", changefreq: "daily", priority: "0.8" },
