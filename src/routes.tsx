@@ -90,6 +90,7 @@ export const routes: RouteRecord[] = [
       { path: 'blog/comunidade', element: <Blog /> },
       { path: 'blog/grupos', element: <Blog /> },
       { path: 'blog/privacidade', element: <Blog /> },
+      { path: 'blog/telegram-novidades-2026-recursos-canais-pagamentos', element: <TelegramNovidades2026 /> },
       { path: 'privacidade', element: <PoliticaPrivacidade /> },
       { path: 'termos', element: <TermosUso /> },
       { path: 'cookies', element: <PoliticaCookies /> },
