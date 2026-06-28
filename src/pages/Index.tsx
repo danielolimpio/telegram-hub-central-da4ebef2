@@ -13,6 +13,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
+import { getRecentArticles } from "@/data/articles";
 
 type Group = Tables<"groups">;
 
@@ -24,6 +26,7 @@ declare global {
 
 const Index = () => {
   const navigate = useNavigate();
+  const recentArticles = getRecentArticles(3);
 
   const faqItems = [
     {
