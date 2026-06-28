@@ -19,6 +19,9 @@ const TermosUso = lazy(() => import('./pages/TermosUso'));
 const PoliticaCookies = lazy(() => import('./pages/PoliticaCookies'));
 const Sitemap = lazy(() => import('./pages/Sitemap'));
 
+// Blog articles
+const TelegramNovidades2026 = lazy(() => import('./pages/blog/TelegramNovidades2026'));
+
 // Category pages
 const GruposDivulgacao = lazy(() => import('./pages/categories/GruposDivulgacao'));
 const GruposVendas = lazy(() => import('./pages/categories/GruposVendas'));
@@ -90,6 +93,7 @@ export const routes: RouteRecord[] = [
       { path: 'blog/comunidade', element: <Blog /> },
       { path: 'blog/grupos', element: <Blog /> },
       { path: 'blog/privacidade', element: <Blog /> },
+      { path: 'blog/telegram-novidades-2026-recursos-canais-pagamentos', element: <TelegramNovidades2026 /> },
       { path: 'privacidade', element: <PoliticaPrivacidade /> },
       { path: 'termos', element: <TermosUso /> },
       { path: 'cookies', element: <PoliticaCookies /> },

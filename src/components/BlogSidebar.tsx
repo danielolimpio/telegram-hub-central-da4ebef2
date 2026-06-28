@@ -1,15 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { getRecentArticles, getArticlesByCategory } from "@/data/articles";
 
 const BlogSidebar = () => {
   const blogCategories = [
-    { name: "Ferramentas", count: 0, path: "/blog/ferramentas" },
-    { name: "Negócios", count: 0, path: "/blog/negocios" },
-    { name: "Comunidade", count: 0, path: "/blog/comunidade" },
-    { name: "Grupos", count: 0, path: "/blog/grupos" },
-    { name: "Privacidade", count: 0, path: "/blog/privacidade" }
-  ];
+    { name: "Ferramentas", slug: "ferramentas", path: "/blog/ferramentas" },
+    { name: "Negócios", slug: "negocios", path: "/blog/negocios" },
+    { name: "Comunidade", slug: "comunidade", path: "/blog/comunidade" },
+    { name: "Grupos", slug: "grupos", path: "/blog/grupos" },
+    { name: "Privacidade", slug: "privacidade", path: "/blog/privacidade" }
+  ].map((c) => ({ ...c, count: getArticlesByCategory(c.slug).length }));
+  const recent = getRecentArticles(3);
 
   return (
     <div className="space-y-6">
@@ -50,9 +52,30 @@ const BlogSidebar = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">
-            Nenhum artigo publicado ainda.
-          </p>
+          {recent.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Nenhum artigo publicado ainda.</p>
+          ) : (
+            <ul className="space-y-4">
+              {recent.map((a) => (
+                <li key={a.slug}>
+                  <Link to={a.path} className="flex gap-3 group">
+                    <img
+                      src={a.cover}
+                      alt={a.title}
+                      loading="lazy"
+                      className="w-16 h-16 rounded-lg object-cover flex-shrink-0 ring-1 ring-border"
+                    />
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium leading-snug line-clamp-3 group-hover:text-telegram-blue transition-colors">
+                        {a.title}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">{a.publishedLabel}</p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </CardContent>
       </Card>
     </div>
