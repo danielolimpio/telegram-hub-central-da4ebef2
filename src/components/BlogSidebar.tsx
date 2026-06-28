@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-import { articles, getRecentArticles, getArticlesByCategory } from "@/data/articles";
+import { getRecentArticles, getArticlesByCategory } from "@/data/articles";
 
 const BlogSidebar = () => {
   const blogCategories = [
