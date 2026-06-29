@@ -21,6 +21,8 @@ const Sitemap = lazy(() => import('./pages/Sitemap'));
 
 // Blog articles
 const TelegramNovidades2026 = lazy(() => import('./pages/blog/TelegramNovidades2026'));
+const TelegramCriarCanal2026 = lazy(() => import('./pages/blog/TelegramCriarCanal2026'));
+const Sobre = lazy(() => import('./pages/Sobre'));
 
 // Category pages
 const GruposDivulgacao = lazy(() => import('./pages/categories/GruposDivulgacao'));
@@ -94,6 +96,8 @@ export const routes: RouteRecord[] = [
       { path: 'blog/grupos', element: <Blog /> },
       { path: 'blog/privacidade', element: <Blog /> },
       { path: 'blog/telegram-novidades-2026-recursos-canais-pagamentos', element: <TelegramNovidades2026 /> },
+      { path: 'blog/como-criar-canal-no-telegram-2026-monetizar-inscritos', element: <TelegramCriarCanal2026 /> },
+      { path: 'sobre', element: <Sobre /> },
       { path: 'privacidade', element: <PoliticaPrivacidade /> },
       { path: 'termos', element: <TermosUso /> },
       { path: 'cookies', element: <PoliticaCookies /> },

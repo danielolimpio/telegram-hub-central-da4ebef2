@@ -29,6 +29,8 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/blog/grupos/", changefreq: "weekly", priority: "0.7" },
   { path: "/blog/privacidade/", changefreq: "weekly", priority: "0.7" },
   { path: "/blog/telegram-novidades-2026-recursos-canais-pagamentos/", changefreq: "monthly", priority: "0.8" },
+  { path: "/blog/como-criar-canal-no-telegram-2026-monetizar-inscritos/", changefreq: "monthly", priority: "0.9" },
+  { path: "/sobre/", changefreq: "monthly", priority: "0.6" },
   // Group category pages
   { path: "/grupos-telegram-divulgacao/", changefreq: "daily", priority: "0.8" },
   { path: "/grupos-telegram-vendas/", changefreq: "daily", priority: "0.8" },

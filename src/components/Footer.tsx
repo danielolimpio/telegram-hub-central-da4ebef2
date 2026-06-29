@@ -40,6 +40,7 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">Navegação</h3>
             <ul className="space-y-2 text-sm">
               <li><a href="/" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Info className="w-3 h-3 mr-1" />Início</a></li>
+              <li><a href="/sobre" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Info className="w-3 h-3 mr-1" />Sobre</a></li>
               <li><a href="/como-funciona" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><HelpCircle className="w-3 h-3 mr-1" />Como funciona</a></li>
               <li><a href="/regras" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Shield className="w-3 h-3 mr-1" />Regras da comunidade</a></li>
               <li><a href="/seguranca" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Lock className="w-3 h-3 mr-1" />Dicas de segurança</a></li>
