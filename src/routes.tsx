@@ -21,6 +21,8 @@ const Sitemap = lazy(() => import('./pages/Sitemap'));
 
 // Blog articles
 const TelegramNovidades2026 = lazy(() => import('./pages/blog/TelegramNovidades2026'));
+const TelegramCriarCanal2026 = lazy(() => import('./pages/blog/TelegramCriarCanal2026'));
+const Sobre = lazy(() => import('./pages/Sobre'));
 
 // Category pages
 const GruposDivulgacao = lazy(() => import('./pages/categories/GruposDivulgacao'));
