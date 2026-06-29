@@ -96,6 +96,8 @@ export const routes: RouteRecord[] = [
       { path: 'blog/grupos', element: <Blog /> },
       { path: 'blog/privacidade', element: <Blog /> },
       { path: 'blog/telegram-novidades-2026-recursos-canais-pagamentos', element: <TelegramNovidades2026 /> },
+      { path: 'blog/como-criar-canal-no-telegram-2026-monetizar-inscritos', element: <TelegramCriarCanal2026 /> },
+      { path: 'sobre', element: <Sobre /> },
       { path: 'privacidade', element: <PoliticaPrivacidade /> },
       { path: 'termos', element: <TermosUso /> },
       { path: 'cookies', element: <PoliticaCookies /> },
