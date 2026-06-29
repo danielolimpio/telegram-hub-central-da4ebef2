@@ -7,7 +7,7 @@ import { Head } from "vite-react-ssg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Accordion,
   AccordionContent,
@@ -147,6 +147,9 @@ const TelegramNovidades2026 = () => {
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <Avatar className="h-8 w-8">
+                {article.author.avatar && (
+                  <AvatarImage src={article.author.avatar} alt={article.author.name} />
+                )}
                 <AvatarFallback className="bg-telegram-blue text-white text-xs">
                   {article.author.initials}
                 </AvatarFallback>
@@ -413,6 +416,9 @@ const TelegramNovidades2026 = () => {
         <Card className="my-10">
           <CardContent className="pt-6 flex flex-col sm:flex-row gap-5 items-start">
             <Avatar className="h-16 w-16 ring-2 ring-telegram-blue/30">
+              {article.author.avatar && (
+                <AvatarImage src={article.author.avatar} alt={article.author.name} />
+              )}
               <AvatarFallback className="bg-gradient-to-br from-telegram-blue to-purple-500 text-white text-lg font-semibold">
                 {article.author.initials}
               </AvatarFallback>
@@ -423,9 +429,7 @@ const TelegramNovidades2026 = () => {
               </div>
               <div className="text-lg font-semibold text-foreground">{article.author.name}</div>
               <p className="text-sm text-muted-foreground leading-relaxed mt-1">
-                {article.author.role}. Já passou por canais de finanças, tecnologia e curadoria cultural,
-                somando mais de 400 mil inscritos. Escreve no Grupos do Telegram sobre o que realmente funciona
-                — sem hype e sem fórmulas mágicas.
+                {article.author.bio ?? article.author.role}
               </p>
               <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
                 <Share2 className="w-3.5 h-3.5" />
