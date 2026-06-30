@@ -1,5 +1,7 @@
 import capaTelegramNovidades from "@/assets/blog/telegram-novidades-2026-capa.jpg";
 import capaCriarCanal from "@/assets/blog/telegram-criar-canal-2026-capa.jpg";
+import capaGanharDinheiro from "@/assets/blog/telegram-ganhar-dinheiro-2026-capa.jpg";
+import capaMiniApps from "@/assets/blog/telegram-mini-apps-2026-capa.jpg";
 import avatarDanielOlimpio from "@/assets/autor-daniel-olimpio.jpg";
 
 export interface Article {
@@ -33,6 +35,40 @@ const danielOlimpio = {
 };
 
 export const articles: Article[] = [
+  {
+    slug: "como-ganhar-dinheiro-telegram-2026-stars-ton",
+    title:
+      "Como Ganhar Dinheiro no Telegram em 2026: Stars, TON e o Guia Definitivo da Monetização",
+    excerpt:
+      "Stars, Toncoin, posts pagos, assinaturas, afiliados e Mini Apps: tudo o que funciona de verdade para monetizar no Telegram em 2026, com números, exemplos reais e os erros que ainda esvaziam contas todos os dias.",
+    description:
+      "Guia completo para ganhar dinheiro no Telegram em 2026: como usar Stars, TON, posts pagos, assinaturas e afiliados, quanto dá para faturar e como sacar com segurança.",
+    cover: capaGanharDinheiro,
+    category: "Negócios",
+    categorySlug: "negocios",
+    author: danielOlimpio,
+    publishedAt: "2026-06-30",
+    publishedLabel: "30 de junho de 2026",
+    readingTime: "13 min de leitura",
+    path: "/blog/como-ganhar-dinheiro-telegram-2026-stars-ton",
+  },
+  {
+    slug: "telegram-mini-apps-2026-guia-completo",
+    title:
+      "Telegram Mini Apps em 2026: o Guia Completo para Usar, Criar e Faturar com a Nova Loja de Apps Dentro do Chat",
+    excerpt:
+      "Os Mini Apps viraram a maior revolução do Telegram desde os canais. Veja como eles funcionam, quais usar agora, como criar o seu e por que viraram o caminho mais curto para ganhar dinheiro com TON em 2026.",
+    description:
+      "Mini Apps do Telegram em 2026 explicados: o que são, quais valem a pena, como criar o seu, integração com TON, monetização, segurança e tendências para o próximo ano.",
+    cover: capaMiniApps,
+    category: "Ferramentas",
+    categorySlug: "ferramentas",
+    author: danielOlimpio,
+    publishedAt: "2026-06-30",
+    publishedLabel: "30 de junho de 2026",
+    readingTime: "14 min de leitura",
+    path: "/blog/telegram-mini-apps-2026-guia-completo",
+  },
   {
     slug: "como-criar-canal-no-telegram-2026-monetizar-inscritos",
     title:
