@@ -94,7 +94,7 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
                   height={80}
                   loading={priority ? "eager" : "lazy"}
                   decoding="async"
-                  {...(priority ? { fetchpriority: "high" } : {})}
+                  {...(priority ? ({ fetchpriority: "high" } as any) : {})}
                   onError={() => setImgError(true)}
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-telegram-blue/20 bg-secondary"
                 />
