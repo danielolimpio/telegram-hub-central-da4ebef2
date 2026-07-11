@@ -3,11 +3,11 @@ import { Heart, ExternalLink, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { sanitizeHTML } from "@/lib/sanitize";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { toWebp } from "@/lib/imageUrl";
 
 interface GroupCardProps {
   id?: string;
@@ -27,6 +27,8 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
   const { isFavorite, toggleFavorite, isLoggedIn } = useFavorites();
   const navigate = useNavigate();
   const [imgError, setImgError] = useState(false);
+  const webpAvatar = toWebp(avatar, { width: 160, height: 160, quality: 80 });
+  const showImg = !!webpAvatar && !imgError;
 
   const formatMembers = (count: number) => {
     return count.toLocaleString('pt-BR');
@@ -79,38 +81,27 @@ const GroupCard = ({ id, title, description, members, views, avatar, isNew, cate
             </Badge>
           )}
           
-          {/* Avatar at the top center */}
+          {/* Avatar at the top center — native <img> so the browser paints as
+              soon as bytes arrive, avoiding Radix Avatar's loading dance that
+              was leaving the blue fallback on first-time visits. */}
           <div className="flex justify-center pt-6 pb-4">
             <div className="relative">
-              {priority ? (
-                avatar && !imgError ? (
-                  <img
-                    src={avatar}
-                    alt={title}
-                    width={80}
-                    height={80}
-                    loading="eager"
-                    fetchPriority="high"
-                    decoding="async"
-                    onError={() => setImgError(true)}
-                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-telegram-blue/20"
-                  />
-                ) : (
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-telegram-blue text-white text-2xl font-bold flex items-center justify-center border-2 border-telegram-blue/20">
-                    {title.substring(0, 2).toUpperCase()}
-                  </div>
-                )
+              {showImg ? (
+                <img
+                  src={webpAvatar}
+                  alt={title}
+                  width={80}
+                  height={80}
+                  loading={priority ? "eager" : "lazy"}
+                  decoding="async"
+                  {...(priority ? { fetchpriority: "high" } : {})}
+                  onError={() => setImgError(true)}
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-telegram-blue/20 bg-secondary"
+                />
               ) : (
-                <Avatar className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-telegram-blue/20">
-                  <AvatarImage
-                    src={avatar || ""}
-                    alt={title}
-                    className="object-cover"
-                  />
-                  <AvatarFallback className="bg-telegram-blue text-white text-2xl font-bold">
-                    {title.substring(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-telegram-blue text-white text-2xl font-bold flex items-center justify-center border-2 border-telegram-blue/20">
+                  {title.substring(0, 2).toUpperCase()}
+                </div>
               )}
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full border-2 border-background flex items-center justify-center">
                 <div className="w-2 h-2 bg-white rounded-full"></div>
