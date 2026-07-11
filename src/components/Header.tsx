@@ -57,8 +57,8 @@ const Header = () => {
               width={32}
               height={32}
               loading="eager"
-              fetchPriority="high"
               decoding="async"
+              {...({ fetchpriority: "high" } as any)}
               className="w-8 h-8 object-contain"
             />
             <div className="text-xl font-bold">
