@@ -24,6 +24,8 @@ const TelegramNovidades2026 = lazy(() => import('./pages/blog/TelegramNovidades2
 const TelegramCriarCanal2026 = lazy(() => import('./pages/blog/TelegramCriarCanal2026'));
 const TelegramGanharDinheiro2026 = lazy(() => import('./pages/blog/TelegramGanharDinheiro2026'));
 const TelegramMiniApps2026 = lazy(() => import('./pages/blog/TelegramMiniApps2026'));
+const TelegramBusiness2026 = lazy(() => import('./pages/blog/TelegramBusiness2026'));
+const TelegramBots2026 = lazy(() => import('./pages/blog/TelegramBots2026'));
 const Sobre = lazy(() => import('./pages/Sobre'));
 
 // Category pages
@@ -101,6 +103,8 @@ export const routes: RouteRecord[] = [
       { path: 'blog/como-criar-canal-no-telegram-2026-monetizar-inscritos', element: <TelegramCriarCanal2026 /> },
       { path: 'blog/como-ganhar-dinheiro-telegram-2026-stars-ton', element: <TelegramGanharDinheiro2026 /> },
       { path: 'blog/telegram-mini-apps-2026-guia-completo', element: <TelegramMiniApps2026 /> },
+      { path: 'blog/telegram-para-empresas-2026-business-atendimento-automacao', element: <TelegramBusiness2026 /> },
+      { path: 'blog/bots-telegram-2026-como-criar-usar-escalar', element: <TelegramBots2026 /> },
       { path: 'sobre', element: <Sobre /> },
       { path: 'privacidade', element: <PoliticaPrivacidade /> },
       { path: 'termos', element: <TermosUso /> },
