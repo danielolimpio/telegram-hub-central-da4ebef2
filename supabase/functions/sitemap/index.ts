@@ -32,6 +32,8 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/blog/como-criar-canal-no-telegram-2026-monetizar-inscritos/", changefreq: "monthly", priority: "0.9" },
   { path: "/blog/como-ganhar-dinheiro-telegram-2026-stars-ton/", changefreq: "monthly", priority: "0.9" },
   { path: "/blog/telegram-mini-apps-2026-guia-completo/", changefreq: "monthly", priority: "0.9" },
+  { path: "/blog/telegram-para-empresas-2026-business-atendimento-automacao/", changefreq: "monthly", priority: "0.9" },
+  { path: "/blog/bots-telegram-2026-como-criar-usar-escalar/", changefreq: "monthly", priority: "0.9" },
   { path: "/sobre/", changefreq: "monthly", priority: "0.6" },
   // Group category pages
   { path: "/grupos-telegram-divulgacao/", changefreq: "daily", priority: "0.8" },
