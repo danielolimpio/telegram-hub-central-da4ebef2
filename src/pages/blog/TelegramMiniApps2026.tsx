@@ -180,8 +180,8 @@ const TelegramMiniApps2026 = () => {
         <figure className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-border mb-10">
           <img
             src={article.cover}
-            alt="Smartphone exibindo ícones holográficos de Mini Apps emergindo da tela em ambiente moderno e iluminado"
-            title="Telegram Mini Apps em 2026: o ecossistema dentro do chat"
+            alt="Smartphone com pasta de aplicativos coloridos aberta, ilustrando a lógica dos Mini Apps que rodam dentro do Telegram"
+            title="Telegram Mini Apps em 2026: aplicativos completos dentro do chat"
             width={1600}
             height={912}
             className="w-full h-auto object-cover"
@@ -304,8 +304,8 @@ const TelegramMiniApps2026 = () => {
           <figure className="my-10 rounded-2xl overflow-hidden shadow-xl ring-1 ring-border">
             <img
               src={imagemMeio}
-              alt="Desenvolvedor em home office com dois monitores exibindo código e celular com interface de Mini App"
-              title="Desenvolvimento de Telegram Mini App em ambiente profissional em 2026"
+              alt="Tela inicial de smartphone com ícones de mensagens, Telegram e outros apps, mostrando onde os Mini Apps se integram"
+              title="Os Mini Apps abrem direto do Telegram, ao lado dos apps do dia a dia"
               loading="lazy"
               width={1600}
               height={912}
