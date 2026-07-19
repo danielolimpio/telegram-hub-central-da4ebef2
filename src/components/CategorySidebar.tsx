@@ -219,6 +219,58 @@ const CategorySidebar = () => {
           </div>
         </div>
       </a>
+
+      {/* Termos populares — links internos contextuais (substitui as nuvens densas) */}
+      <nav
+        aria-label="Termos populares do Telegram"
+        className="bg-card rounded-xl shadow-card p-4 sm:p-5 border border-border/60"
+      >
+        <h3 className="text-sm font-semibold text-foreground mb-3">
+          Termos populares
+        </h3>
+        <ul className="flex flex-wrap gap-1.5 text-xs">
+          {[
+            { l: "Grupos 2026", to: "/todos-grupos" },
+            { l: "Grupos grátis", to: "/todos-grupos" },
+            { l: "Links ativos", to: "/todos-grupos" },
+            { l: "Grupos privados", to: "/glossario#grupo-privado-telegram" },
+            { l: "Canais", to: "/glossario#canal-telegram" },
+            { l: "Bots", to: "/blog/bots-telegram-2026-como-criar-usar-escalar" },
+            { l: "Stars", to: "/glossario#telegram-stars" },
+            { l: "TON", to: "/glossario#ton-telegram" },
+            { l: "Mini Apps", to: "/blog/telegram-mini-apps-2026-guia-completo" },
+            { l: "Premium", to: "/glossario#premium-telegram" },
+            { l: "Namoro", to: "/grupos-telegram-namoros" },
+            { l: "Amizade", to: "/grupos-telegram-amizades" },
+            { l: "Promoções", to: "/grupos-telegram-promocoes" },
+            { l: "Investimentos", to: "/grupos-telegram-investimentos" },
+            { l: "Concursos", to: "/grupos-telegram-concursos" },
+            { l: "ENEM", to: "/grupos-telegram-estudos" },
+            { l: "Games", to: "/grupos-telegram-games" },
+            { l: "Free Fire", to: "/grupos-telegram-games" },
+            { l: "K-pop", to: "/grupos-telegram-fas" },
+            { l: "Funk", to: "/grupos-telegram-musicas" },
+            { l: "Sertanejo", to: "/grupos-telegram-musicas" },
+            { l: "Memes", to: "/grupos-telegram-memes" },
+            { l: "Figurinhas", to: "/grupos-telegram-figurinhas" },
+            { l: "Receitas", to: "/grupos-telegram-receitas" },
+            { l: "Viagens", to: "/grupos-telegram-viagens" },
+            { l: "Empregos", to: "/grupos-telegram-empregos" },
+            { l: "Cripto", to: "/grupos-telegram-investimentos" },
+            { l: "Segurança", to: "/seguranca" },
+            { l: "Glossário A–Z", to: "/glossario" },
+          ].map((t) => (
+            <li key={t.l + t.to}>
+              <a
+                href={t.to}
+                className="inline-block px-2 py-1 rounded-md bg-muted hover:bg-telegram-blue hover:text-white text-muted-foreground transition-colors"
+              >
+                {t.l}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </aside>
   );
 };
