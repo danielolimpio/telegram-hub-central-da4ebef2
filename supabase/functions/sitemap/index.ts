@@ -35,6 +35,7 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: "/blog/telegram-para-empresas-2026-business-atendimento-automacao/", changefreq: "monthly", priority: "0.9" },
   { path: "/blog/bots-telegram-2026-como-criar-usar-escalar/", changefreq: "monthly", priority: "0.9" },
   { path: "/sobre/", changefreq: "monthly", priority: "0.6" },
+  { path: "/glossario/", changefreq: "weekly", priority: "0.7" },
   // Group category pages
   { path: "/grupos-telegram-divulgacao/", changefreq: "daily", priority: "0.8" },
   { path: "/grupos-telegram-vendas/", changefreq: "daily", priority: "0.8" },
