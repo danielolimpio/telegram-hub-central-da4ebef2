@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import GroupCard from "@/components/GroupCard";
 import CategorySidebar from "@/components/CategorySidebar";
 import Footer from "@/components/Footer";
+import CategoryFAQ from "@/components/CategoryFAQ";
 import SEOHead from "@/components/SEOHead";
 import { CategorySchema, BreadcrumbSchema } from "@/components/JsonLd";
 import { categorySEO } from "@/config/seo";
@@ -80,6 +81,8 @@ const GruposOportunidades = () => {
                 ))}
               </div>
             </div>
+            <CategoryFAQ categoryKey="oportunidades" />
+
           </div>
 
           {/* Sidebar */}
