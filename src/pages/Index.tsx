@@ -76,6 +76,66 @@ const Index = () => {
     {
       question: "É possível usar o Telegram sem expor meu número de telefone?",
       answer: "Sim. O Telegram permite definir um nome de usuário (@username) e configurar a privacidade para que seu número não seja visível para outros membros do grupo. Acesse Configurações > Privacidade e Segurança > Número de Telefone e selecione 'Ninguém' para ocultar seu contato dos demais."
+    },
+    {
+      question: "Como entrar em grupos do Telegram grátis em 2026?",
+      answer: "Para entrar em grupos do Telegram grátis em 2026, escolha uma categoria no nosso diretório (amizade, namoro, promoções, games, estudos, investimentos), abra a página do grupo, confira a descrição e o número de membros e clique em 'Entrar no Grupo'. Você é redirecionado para o Telegram app, Telegram Web ou Telegram Desktop e confirma a entrada em segundos, sem pagar nada."
+    },
+    {
+      question: "Onde encontrar links de grupos do Telegram atualizados e ativos?",
+      answer: "Nosso diretório reúne links de grupos do Telegram atualizados e ativos todos os dias. Toda semana revisamos convites expirados, removemos grupos inativos e destacamos as comunidades brasileiras mais populares. Você encontra links testados de grupos de amizade, namoro sério, funk, sertanejo, K-pop, futebol, day trade, criptomoedas, ENEM, concursos, receitas e muito mais."
+    },
+    {
+      question: "Qual a diferença entre grupo público e grupo privado do Telegram?",
+      answer: "Grupo público do Telegram possui um nome de usuário (@) próprio, aparece nas buscas do app e qualquer pessoa entra pelo link. Grupo privado do Telegram só pode ser acessado por convite direto (t.me/+...) ou aprovação do administrador, ideal para comunidades fechadas, VIP, mentorias e famílias. Nosso diretório lista os dois formatos."
+    },
+    {
+      question: "Como divulgar meu grupo do Telegram gratuitamente?",
+      answer: "Para divulgar seu grupo do Telegram gratuitamente, crie uma conta no diretório, envie o link de convite, escreva uma descrição rica em palavras-chave (tema, público-alvo e diferencial) e escolha a categoria correta. Grupos aprovados aparecem para milhares de brasileiros que buscam comunidades novas todos os dias."
+    },
+    {
+      question: "Quais são as melhores categorias de grupos do Telegram em 2026?",
+      answer: "As categorias mais buscadas em 2026 são: grupos de amizade, namoro e relacionamento, promoções e cupons (Shopee, Amazon, Mercado Livre), investimentos e criptomoedas, day trade, concursos públicos, ENEM e vestibular, K-pop e fandoms, funk, sertanejo, futebol e apostas responsáveis, games (Free Fire, Fortnite, Valorant), tecnologia e programação, receitas, viagens, humor e memes."
+    },
+    {
+      question: "Existem grupos do Telegram por cidade e estado?",
+      answer: "Sim. Temos grupos regionais organizados por cidade e estado do Brasil — São Paulo, Rio de Janeiro, Belo Horizonte, Curitiba, Porto Alegre, Salvador, Recife, Fortaleza, Brasília, Manaus, Goiânia — onde brasileiros trocam informações locais sobre eventos, empregos, comércio, serviços e amizades da região."
+    },
+    {
+      question: "Qual o melhor aplicativo para achar grupos do Telegram?",
+      answer: "O Grupos do Telegram é considerado o melhor site brasileiro para achar grupos e canais do Telegram por reunir dezenas de milhares de comunidades verificadas, organizadas por categoria, com sistema de busca, favoritos, ranking dos mais acessados e denúncia de conteúdo impróprio. Funciona no navegador do celular Android, iPhone (iOS), tablet e computador."
+    },
+    {
+      question: "Como funciona o Telegram Premium em 2026?",
+      answer: "O Telegram Premium é a assinatura oficial paga do Telegram e libera limites maiores de upload (até 4 GB por arquivo), reações exclusivas, stickers premium, tradução de mensagens, ícones animados, badge de verificado, sem anúncios em canais públicos e acesso antecipado a novidades. É opcional — o Telegram continua 100% gratuito nas funções principais."
+    },
+    {
+      question: "O que são Stars e TON no Telegram?",
+      answer: "Stars é a moeda interna oficial do Telegram usada para pagar bots, mini apps, presentes digitais e conteúdo premium de criadores. TON (The Open Network) é a blockchain oficialmente integrada ao Telegram, usada em NFTs, usernames tokenizados e pagamentos on-chain. Ambos abrem novas formas de monetização para donos de canais e desenvolvedores em 2026."
+    },
+    {
+      question: "Como criar um canal do Telegram do zero em 2026?",
+      answer: "Abra o Telegram, toque no ícone de nova mensagem, escolha 'Novo Canal', defina nome, foto e descrição, selecione público ou privado, configure um @username caso queira que apareça nas buscas e comece a publicar. Nosso blog tem um guia completo passo a passo com dicas de crescimento e monetização de canais em 2026."
+    },
+    {
+      question: "Grupos do Telegram são anônimos?",
+      answer: "Nos grupos do Telegram, seu nome de exibição e sua foto ficam visíveis para os outros membros, mas você pode ocultar o número de telefone nas configurações de privacidade e usar apenas @username. Chats secretos entre dois usuários oferecem criptografia ponta a ponta e opção de autodestruição de mensagens."
+    },
+    {
+      question: "Como bloquear spam e golpes em grupos do Telegram?",
+      answer: "Nunca clique em links suspeitos, jamais envie códigos SMS recebidos por 'suporte oficial' (é golpe), ative a verificação em duas etapas, denuncie mensagens fraudulentas no próprio grupo, saia de grupos que empurram investimentos com ganhos garantidos e prefira comunidades moderadas. Veja nossa página de Dicas de Segurança para mais orientações."
+    },
+    {
+      question: "Vale a pena entrar em grupos de investimentos e criptomoedas no Telegram?",
+      answer: "Grupos de investimentos, day trade, Bitcoin e criptomoedas no Telegram podem ser úteis para acompanhar notícias, análises e aprender com traders experientes — desde que você desconfie de promessas de lucro garantido, esquemas de sinais pagos milagrosos e nunca compartilhe dados bancários. Priorize comunidades educativas e moderadas por profissionais certificados."
+    },
+    {
+      question: "Existem grupos do Telegram para adultos (+18)?",
+      answer: "Sim, existe uma categoria específica de grupos liberais/+18 no diretório, com acesso restrito a maiores de idade. O conteúdo é moderado para garantir consentimento, respeito e conformidade com as políticas do Telegram e da legislação brasileira. Nunca compartilhe imagens sem autorização das pessoas envolvidas."
+    },
+    {
+      question: "Como recuperar acesso à minha conta do Telegram?",
+      answer: "Se você perdeu o acesso ao Telegram, abra o app e insira seu número — o Telegram envia um código por SMS ou pelo próprio app em outro dispositivo conectado. Caso tenha ativado a verificação em duas etapas, digite a senha adicional. Se não lembrar, use a recuperação por e-mail cadastrado. Nunca forneça esses códigos a terceiros."
     }
   ];
 
