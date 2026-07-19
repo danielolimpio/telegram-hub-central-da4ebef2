@@ -44,6 +44,7 @@ const Footer = () => {
               <li><a href="/como-funciona" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><HelpCircle className="w-3 h-3 mr-1" />Como funciona</a></li>
               <li><a href="/regras" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Shield className="w-3 h-3 mr-1" />Regras da comunidade</a></li>
               <li><a href="/seguranca" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><Lock className="w-3 h-3 mr-1" />Dicas de segurança</a></li>
+              <li><a href="/glossario" className="text-muted-foreground hover:text-telegram-blue transition-colors flex items-center"><BookOpen className="w-3 h-3 mr-1" />Glossário do Telegram</a></li>
               
             </ul>
           </div>

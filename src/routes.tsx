@@ -27,6 +27,7 @@ const TelegramMiniApps2026 = lazy(() => import('./pages/blog/TelegramMiniApps202
 const TelegramBusiness2026 = lazy(() => import('./pages/blog/TelegramBusiness2026'));
 const TelegramBots2026 = lazy(() => import('./pages/blog/TelegramBots2026'));
 const Sobre = lazy(() => import('./pages/Sobre'));
+const Glossario = lazy(() => import('./pages/Glossario'));
 
 // Category pages
 const GruposDivulgacao = lazy(() => import('./pages/categories/GruposDivulgacao'));
@@ -106,6 +107,7 @@ export const routes: RouteRecord[] = [
       { path: 'blog/telegram-para-empresas-2026-business-atendimento-automacao', element: <TelegramBusiness2026 /> },
       { path: 'blog/bots-telegram-2026-como-criar-usar-escalar', element: <TelegramBots2026 /> },
       { path: 'sobre', element: <Sobre /> },
+      { path: 'glossario', element: <Glossario /> },
       { path: 'privacidade', element: <PoliticaPrivacidade /> },
       { path: 'termos', element: <TermosUso /> },
       { path: 'cookies', element: <PoliticaCookies /> },
