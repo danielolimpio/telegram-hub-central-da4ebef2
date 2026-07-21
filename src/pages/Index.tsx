@@ -26,7 +26,7 @@ declare global {
 
 const Index = () => {
   const navigate = useNavigate();
-  const recentArticles = getRecentArticles(3);
+  const recentArticles = getRecentArticles(6);
 
   const faqItems = [
     {
@@ -303,6 +303,45 @@ const Index = () => {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
+
+              {/* Últimas do Blog */}
+              {recentArticles.length > 0 && (
+                <div className="mt-12">
+                  <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 bg-telegram-blue/10 rounded-xl">
+                        <BookOpen className="w-6 h-6 text-telegram-blue" />
+                      </div>
+                      <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+                        Últimas do Blog do Telegram
+                      </h2>
+                    </div>
+                    <Button variant="ghost" size="sm" asChild className="text-telegram-blue">
+                      <Link to="/blog">
+                        Ver todos
+                        <ArrowRight className="w-4 h-4 ml-1" />
+                      </Link>
+                    </Button>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    {recentArticles.map((article) => (
+                      <Link key={article.slug} to={article.path} className="group">
+                        <div className="overflow-hidden rounded-xl bg-muted ring-1 ring-border aspect-video mb-2">
+                          <img
+                            src={article.cover}
+                            alt={article.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <h3 className="text-sm font-medium text-foreground leading-snug line-clamp-2 group-hover:text-telegram-blue transition-colors">
+                          {article.title}
+                        </h3>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Premium Content Section */}
@@ -602,50 +641,6 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              {/* Últimas do Blog */}
-              {recentArticles.length > 0 && (
-                <Card className="bg-gradient-to-br from-background to-telegram-blue/[0.04] border-telegram-blue/15">
-                  <CardHeader>
-                    <div className="flex items-center justify-between gap-3 flex-wrap">
-                      <div className="flex items-center gap-3">
-                        <div className="p-3 bg-telegram-blue/10 rounded-xl">
-                          <BookOpen className="w-7 h-7 text-telegram-blue" />
-                        </div>
-                        <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
-                          Últimas do Blog do Telegram
-                        </CardTitle>
-                      </div>
-                      <Button variant="ghost" size="sm" asChild className="text-telegram-blue">
-                        <Link to="/blog">
-                          Ver todos
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-3 gap-5">
-                      {recentArticles.map((article) => (
-                        <Link key={article.slug} to={article.path} className="group">
-                          <div className="overflow-hidden rounded-xl bg-muted ring-1 ring-border mb-3 aspect-video">
-                            <img
-                              src={article.cover}
-                              alt={article.title}
-                              loading="lazy"
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                          </div>
-                          <Badge variant="secondary" className="mb-2 text-xs">{article.category}</Badge>
-                          <h3 className="text-base font-semibold text-foreground leading-snug line-clamp-3 group-hover:text-telegram-blue transition-colors">
-                            {article.title}
-                          </h3>
-                          <p className="text-xs text-muted-foreground mt-2">{article.publishedLabel} · {article.readingTime}</p>
-                        </Link>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
 
               {/* Termos mais buscados — long-tail SEO content for Google */}
               <Card className="bg-gradient-to-br from-background to-purple-500/5 border-purple-500/10">
